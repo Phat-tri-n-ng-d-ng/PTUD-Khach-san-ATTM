@@ -1,9 +1,10 @@
 package entity;
 
+
+import enums.HangKhachHang;
+
 import java.time.LocalDate;
 import java.util.Objects;
-
-import com.quanlykhachsan.app.enums.HangKhachHang;
 
 public class KhachHang {
 	private String maKH;

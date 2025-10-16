@@ -1,8 +1,9 @@
 package entity;
 
+import enums.TrangThaiPhong;
+
 import java.util.Objects;
 
-import com.quanlykhachsan.app.enums.TrangThaiPhong;
 
 public class Phong {
 	private String maPhong;

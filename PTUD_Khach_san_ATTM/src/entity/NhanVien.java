@@ -1,9 +1,9 @@
 package entity;
 
+import enums.ChucVuNhanVien;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
-
-import com.quanlykhachsan.app.enums.ChucVuNhanVien;
 
 public class NhanVien {
 	private String maNV;

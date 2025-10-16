@@ -1,9 +1,10 @@
 package entity;
 
+
+import enums.TrangThaiKhuyenMai;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
-
-import com.quanlykhachsan.app.enums.TrangThaiKhuyenMai;
 
 public class KhuyenMai {
 	private String maKM;

@@ -1,11 +1,12 @@
 package entity;
 
+import enums.PhuongThucThanhToan;
+import enums.TrangThaiHoaDon;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.quanlykhachsan.app.enums.PhuongThucThanhToan;
-import com.quanlykhachsan.app.enums.TrangThaiHoaDon;
 
 public class HoaDon {
 	private String maHD;

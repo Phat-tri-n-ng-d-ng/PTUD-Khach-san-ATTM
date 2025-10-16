@@ -1,9 +1,9 @@
 package entity;
 
-import java.util.Objects;
+import enums.TrangThaiTaiKhoan;
+import enums.VaiTro;
 
-import com.quanlykhachsan.app.enums.TrangThaiTaiKhoan;
-import com.quanlykhachsan.app.enums.VaiTro;
+import java.util.Objects;
 
 public class TaiKhoan {
 	private String tenDangNhap;
