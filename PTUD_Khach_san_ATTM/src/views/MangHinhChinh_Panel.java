@@ -11,6 +11,7 @@ public class MangHinhChinh_Panel extends JPanel {
         JPanel pnlTieuDe = new JPanel();
         pnlTieuDe.add(new JLabel("Màng hình chính"));
         add(pnlTieuDe,BorderLayout.NORTH);
+
         JPanel pnlCenter = new JPanel();
         btnChuyen = new JButton("Nhân Viên");
         add(btnChuyen, BorderLayout.CENTER);

@@ -17,10 +17,6 @@ public class NhanVienPanel extends JPanel{
         lplTieuDe.setFont(new Font("Times New Roman", 1, 24));
         lplTieuDe.setForeground(new java.awt.Color(10, 110, 189));
 
-//        Box b,b1,b2,b3;
-//
-//        b = Box.createVerticalBox();
-//        //
 
         add(pnlTieuDe,BorderLayout.NORTH);
     }

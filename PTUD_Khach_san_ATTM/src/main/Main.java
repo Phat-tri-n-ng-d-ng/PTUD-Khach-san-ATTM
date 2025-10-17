@@ -9,5 +9,6 @@ public class Main {
         MainFrame frame = new MainFrame();
         new MainController(frame);
         frame.setVisible(true);
+        
     }
 }
