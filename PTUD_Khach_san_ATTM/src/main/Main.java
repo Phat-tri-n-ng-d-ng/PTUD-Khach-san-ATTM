@@ -1,9 +1,13 @@
 package main;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+import controller.MainController;
+import views.MainFrame;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        MainFrame frame = new MainFrame();
+        new MainController(frame);
+        frame.setVisible(true);
     }
 }
