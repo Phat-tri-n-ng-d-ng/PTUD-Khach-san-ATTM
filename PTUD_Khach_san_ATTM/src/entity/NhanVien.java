@@ -2,13 +2,13 @@ package entity;
 
 import enums.ChucVuNhanVien;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class NhanVien {
 	private String maNV;
     private String tenNV;
-    private LocalDateTime ngaySinh;
+    private LocalDate ngaySinh;
     private String sdt;
     private boolean gioiTinh;
     private String email;
@@ -23,10 +23,10 @@ public class NhanVien {
 	public void setTenNV(String tenNV) {
 		this.tenNV = tenNV;
 	}
-	public LocalDateTime getNgaySinh() {
+	public LocalDate getNgaySinh() {
 		return ngaySinh;
 	}
-	public void setNgaySinh(LocalDateTime ngaySinh) {
+	public void setNgaySinh(LocalDate ngaySinh) {
 		this.ngaySinh = ngaySinh;
 	}
 	public String getSdt() {
@@ -59,8 +59,8 @@ public class NhanVien {
 	public void setTaiKhoan(TaiKhoan taiKhoan) {
 		this.taiKhoan = taiKhoan;
 	}
-	public NhanVien(String maNV, String tenNV, LocalDateTime ngaySinh, String sdt, boolean gioiTinh, String email,
-			ChucVuNhanVien chucVu, TaiKhoan taiKhoan) {
+	public NhanVien(String maNV, String tenNV, LocalDate ngaySinh, String sdt, boolean gioiTinh, String email,
+			ChucVuNhanVien chucVu) {
 		this.maNV = maNV;
 		this.tenNV = tenNV;
 		this.ngaySinh = ngaySinh;

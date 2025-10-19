@@ -14,7 +14,6 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-
         add(mainPanel);
     }
 
