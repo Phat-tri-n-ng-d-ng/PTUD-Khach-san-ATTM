@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -13,8 +12,8 @@ public class HoaDonDao {
 		Connection con = connectDB.getConnection();
 		ArrayList<HoaDon> danhSachHoaDon = new ArrayList<>();
 		try {
-			PreparedStatement st = con.prepareStatement();
-			ResultSet rs = st.executeQuery("Select maHD  from HoaDon");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("Select * from HoaDon");
 			while (rs.next()) {
 				
 			}
