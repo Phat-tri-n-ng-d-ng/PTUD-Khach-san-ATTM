@@ -1,9 +1,7 @@
 package controller;
 
 
-import views.KhachHangPanel;
-import views.MainFrame;
-import views.NhanVienPanel;
+import views.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +13,9 @@ public class MainController {
     // Chổ để khai báo các JPanel khác của app
     private JPanel nhanVienPanel;
     private JPanel khachHangPanel;
+    private JPanel hoaDonPanel;
+    private JPanel loaiPhongPanel;
+    private JPanel phongPanel;
 
 
     public MainController(MainFrame mainFrame) {
@@ -27,8 +28,10 @@ public class MainController {
         // Khởi tạo các JPanel khác của app
         nhanVienPanel = new NhanVienPanel();
         khachHangPanel = new KhachHangPanel();
+        hoaDonPanel = new HoaDonPanel();
+        loaiPhongPanel = new LoaiPhongPanel();
+        phongPanel = new PhongPanel();
     }
-
 
 //    private void showTrang_Chu() {
 //
@@ -39,7 +42,15 @@ public class MainController {
     }
     public void showNhan_Vien_Panel() {
         doi_Panel(nhanVienPanel);
-
+    }
+    public void showHoa_Don_Panel() {
+        doi_Panel(hoaDonPanel);
+    }
+    public void showLoai_Phong_Panel() {
+        doi_Panel(loaiPhongPanel);
+    }
+    public void showPhong_Panel() {
+        doi_Panel(phongPanel);
     }
 
     private void doi_Panel(JPanel panel_Moi) {

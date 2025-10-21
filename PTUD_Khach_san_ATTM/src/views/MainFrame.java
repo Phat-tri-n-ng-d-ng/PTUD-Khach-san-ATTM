@@ -76,50 +76,86 @@ public class MainFrame extends JFrame {
         lblTenKhachSanMenu.setBounds(24, 13, 131, 33);
         pnlMenu.add(lblTenKhachSanMenu);
 
-        // Các nút trong menu
+        // THÊM: Panel hiển thị thông tin tài khoản
+        JPanel pnlTaiKhoan = new JPanel();
+        pnlTaiKhoan.setBackground(new Color(240, 240, 240));
+        pnlTaiKhoan.setBounds(10, 50, 190, 80);
+        pnlTaiKhoan.setLayout(null);
+        pnlTaiKhoan.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        pnlMenu.add(pnlTaiKhoan);
+
+        // THÊM: Ảnh đại diện (placeholder)
+        JLabel lblAnhDaiDien = new JLabel();
+        lblAnhDaiDien.setBounds(10, 10, 40, 40);
+        lblAnhDaiDien.setBackground(new Color(200, 200, 200));
+        lblAnhDaiDien.setOpaque(true);
+        lblAnhDaiDien.setBorder(BorderFactory.createLineBorder(new Color(150, 150, 150)));
+        pnlTaiKhoan.add(lblAnhDaiDien);
+
+        // THÊM: Tên người dùng
+        JLabel lblTenNguoiDung = new JLabel("Admin");
+        lblTenNguoiDung.setBounds(60, 10, 120, 20);
+        lblTenNguoiDung.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        pnlTaiKhoan.add(lblTenNguoiDung);
+
+        // THÊM: Chức vụ
+        JLabel lblChucVu = new JLabel("Quản lý");
+        lblChucVu.setBounds(60, 30, 120, 20);
+        lblChucVu.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        lblChucVu.setForeground(new Color(100, 100, 100));
+        pnlTaiKhoan.add(lblChucVu);
+
+        int startY = 140;
+
+        // Các nút trong menu - ĐÃ ĐIỀU CHỈNH VỊ TRÍ
         NutBoGoc btnTrangChu = new NutBoGoc("Màn hình chính");
-        btnTrangChu.setBounds(10, 74, 190, 35);
+        btnTrangChu.setBounds(10, startY, 190, 35);
         pnlMenu.add(btnTrangChu);
 
         NutBoGoc btnDatThuePhong = new NutBoGoc("Đặt/Thuê phòng");
-        btnDatThuePhong.setBounds(10, 131, 190, 35);
+        btnDatThuePhong.setBounds(10, startY + 45, 190, 35);
         pnlMenu.add(btnDatThuePhong);
 
         NutBoGoc btnPhong = new NutBoGoc("Phòng");
-        btnPhong.setBounds(10, 191, 190, 35);
+        btnPhong.setBounds(10, startY + 90, 190, 35);
         pnlMenu.add(btnPhong);
 
+        // THÊM: Nút Loại phòng
+        NutBoGoc btnLoaiPhong = new NutBoGoc("Loại phòng");
+        btnLoaiPhong.setBounds(10, startY + 135, 190, 35);
+        pnlMenu.add(btnLoaiPhong);
+
         NutBoGoc btnKhuyenMai = new NutBoGoc("Khuyến mãi");
-        btnKhuyenMai.setBounds(10, 247, 190, 35);
+        btnKhuyenMai.setBounds(10, startY + 180, 190, 35);
         pnlMenu.add(btnKhuyenMai);
 
         NutBoGoc btnHoaDon = new NutBoGoc("Hóa đơn");
-        btnHoaDon.setBounds(10, 308, 190, 35);
+        btnHoaDon.setBounds(10, startY + 225, 190, 35);
         pnlMenu.add(btnHoaDon);
 
         NutBoGoc btnKhachHang = new NutBoGoc("Khách hàng");
-        btnKhachHang.setBounds(10, 368, 190, 35);
+        btnKhachHang.setBounds(10, startY + 270, 190, 35);
         pnlMenu.add(btnKhachHang);
 
         NutBoGoc btnNhanVien = new NutBoGoc("Nhân viên");
-        btnNhanVien.setBounds(10, 428, 190, 35);
+        btnNhanVien.setBounds(10, startY + 315, 190, 35);
         pnlMenu.add(btnNhanVien);
 
         NutBoGoc btnThongKe = new NutBoGoc("Thống kê");
-        btnThongKe.setBounds(10, 487, 190, 35);
+        btnThongKe.setBounds(10, startY + 360, 190, 35);
         pnlMenu.add(btnThongKe);
 
         JSeparator duongKe = new JSeparator();
         duongKe.setBackground(Color.BLACK);
-        duongKe.setBounds(0, 554, 210, 2);
+        duongKe.setBounds(0, startY + 425, 210, 2);
         pnlMenu.add(duongKe);
 
         NutBoGoc btnTroGiup = new NutBoGoc("Trợ giúp");
-        btnTroGiup.setBounds(10, 631, 190, 35);
+        btnTroGiup.setBounds(10, startY + 435, 190, 35);
         pnlMenu.add(btnTroGiup);
 
         NutBoGoc btnDangXuat = new NutBoGoc("Đăng xuất");
-        btnDangXuat.setBounds(10, 696, 190, 35);
+        btnDangXuat.setBounds(10, startY + 480, 190, 35);
         pnlMenu.add(btnDangXuat);
 
         // Giữ nguyên vị trí nút mở menu (10,10)
@@ -181,6 +217,7 @@ public class MainFrame extends JFrame {
         themSuKienChoNut(btnTrangChu, "TrangChu");
         themSuKienChoNut(btnDatThuePhong, "DatThuePhong");
         themSuKienChoNut(btnPhong, "Phong");
+        themSuKienChoNut(btnLoaiPhong, "LoaiPhong"); // THÊM SỰ KIỆN CHO NÚT LOẠI PHÒNG
         themSuKienChoNut(btnKhuyenMai , "KhuyenMai");
         themSuKienChoNut(btnHoaDon, "HoaDon");
         themSuKienChoNut(btnKhachHang, "KhachHang");
@@ -218,15 +255,18 @@ public class MainFrame extends JFrame {
 //            case "datThuePhong":
 //                mainController.showDatThuePhong();
 //                break;
-//            case "phong":
-//                mainController.showPhong();
-//                break;
+            case "Phong":
+                mainController.showPhong_Panel();
+                break;
+            case "LoaiPhong": // THÊM CASE CHO LOẠI PHÒNG
+                mainController.showLoai_Phong_Panel();
+                break;
 //            case "khuyenMai":
 //                mainController.showKhuyenMai();
 //                break;
-//            case "hoaDon":
-//                mainController.showHoaDon();
-//                break;
+            case "HoaDon":
+                mainController.showHoa_Don_Panel();
+                break;
             case "KhachHang":
                 mainController.showKhach_Hang_Panel();
                 break;

@@ -6,7 +6,6 @@ import enums.ChucVuNhanVien;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class NhanVienDao {
         CallableStatement stmt = null;
         ResultSet rs = null;
         try {
-            connection = connectDB.getConnection();
+            connection = ConnectDB.getConnection();
             String sql = "select * from NhanVien";
             stmt = connection.prepareCall(sql);
             rs = stmt.executeQuery();
@@ -37,7 +36,7 @@ public class NhanVienDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            connectDB.closeConnection(connection);
+            ConnectDB.closeConnection(connection);
         }
         return dsNhanVien;
     }

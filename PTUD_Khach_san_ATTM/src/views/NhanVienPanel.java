@@ -1,7 +1,5 @@
 package views;
 
-import controller.NhanVienController;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -10,7 +8,6 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class NhanVienPanel extends JPanel{
-    private final NhanVienController nhanVienController;
     public JButton btn_Tim;
     public JButton btn_CapTaiKhoan;
     public JButton btn_ThemNhanVien;
@@ -200,7 +197,5 @@ public class NhanVienPanel extends JPanel{
         table.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         pnlDanhSachNhanVien.add(scrollPane);
 
-        nhanVienController = new NhanVienController(this);
-        nhanVienController.getTatCaNhanVien();;
     }
 }

@@ -1,12 +1,12 @@
 package main;
 
-import database.connectDB;
+import database.ConnectDB;
 
 import java.sql.Connection;
 
 public class TestConnection {
     public static void main(String[] args) {
-        try (Connection conn = connectDB.getConnection()) {
+        try (Connection conn = ConnectDB.getConnection()) {
             if (conn != null)
                 System.out.println("✅ Kết nối thành công!");
             else

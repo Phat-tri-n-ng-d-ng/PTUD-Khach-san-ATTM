@@ -38,7 +38,7 @@ public class KhachHangPanel extends JPanel {
         setSize(screenSize.width, screenSize.height);
         int doDaiThongTinNhanVien = screenSize.width - 40;
         int viChiDauThongTinNhanVien = (screenSize.width - doDaiThongTinNhanVien) / 2;
-        pnlThongTinNhanVien.setBounds(20, 96,1496 , 175);
+        pnlThongTinNhanVien.setBounds(20, 64,1496 , 175);
         add(pnlThongTinNhanVien);
         pnlThongTinNhanVien.setLayout(null);
 
@@ -110,7 +110,7 @@ public class KhachHangPanel extends JPanel {
         JPanel pnlBoLoc = new JPanel();
         pnlBoLoc.setBorder(new LineBorder(new Color(0, 0, 0)));
         pnlBoLoc.setBackground(new Color(255, 255, 255));
-        pnlBoLoc.setBounds(20, 311, 1496, 73);
+        pnlBoLoc.setBounds(20, 279, 1496, 73);
         add(pnlBoLoc);
         pnlBoLoc.setLayout(null);
 
@@ -153,23 +153,23 @@ public class KhachHangPanel extends JPanel {
 
         JLabel lbl_ThongTinKhachHang = new JLabel("Thông tin khách hàng");
         lbl_ThongTinKhachHang.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbl_ThongTinKhachHang.setBounds(20, 66, 180, 20);
+        lbl_ThongTinKhachHang.setBounds(20, 34, 180, 20);
         add(lbl_ThongTinKhachHang);
 
         JLabel lbl_BoLoc = new JLabel("Bộ lọc");
         lbl_BoLoc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbl_BoLoc.setBounds(20, 281, 58, 20);
+        lbl_BoLoc.setBounds(20, 249, 58, 20);
         add(lbl_BoLoc);
 
         JLabel lbl_DanhSachNhanVien = new JLabel("Danh Sách Nhân Viên");
         lbl_DanhSachNhanVien.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbl_DanhSachNhanVien.setBounds(20, 394, 180, 20);
+        lbl_DanhSachNhanVien.setBounds(20, 362, 180, 20);
         add(lbl_DanhSachNhanVien);
 
         JPanel pnlDanhSachNhanVien = new JPanel();
         pnlDanhSachNhanVien.setBackground(new Color(255, 255, 255));
         pnlDanhSachNhanVien.setBorder(new LineBorder(new Color(0, 0, 0)));
-        pnlDanhSachNhanVien.setBounds(20, 424, 1496, 369);
+        pnlDanhSachNhanVien.setBounds(20, 395, 1496, 422);
         add(pnlDanhSachNhanVien);
 
         model = new DefaultTableModel(new String[] {"Mã khách hàng","Tên khách hàng","Giới tính","Ngày sinh","Số điện thoại","Email","Hạng khách hàng","Điểm tích lũy"}, 0);
