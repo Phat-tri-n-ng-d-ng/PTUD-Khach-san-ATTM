@@ -16,7 +16,8 @@ public class MainController {
     private JPanel hoaDonPanel;
     private JPanel loaiPhongPanel;
     private JPanel phongPanel;
-
+    private JPanel khuyenMaiPanel;
+    private JPanel thueDatPhongPanel;
 
     public MainController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -31,6 +32,8 @@ public class MainController {
         hoaDonPanel = new HoaDonPanel();
         loaiPhongPanel = new LoaiPhongPanel();
         phongPanel = new PhongPanel();
+        khuyenMaiPanel = new KhuyenMaiPanel();
+        thueDatPhongPanel = new ThueDatPhong();
     }
 
 //    private void showTrang_Chu() {
@@ -51,6 +54,12 @@ public class MainController {
     }
     public void showPhong_Panel() {
         doi_Panel(phongPanel);
+    }
+    public void showKhuyen_Mai_Panel() {
+        doi_Panel(khuyenMaiPanel);
+    }
+    public void showThue_Dat_Phong_Panel() {
+        doi_Panel(thueDatPhongPanel);
     }
 
     private void doi_Panel(JPanel panel_Moi) {

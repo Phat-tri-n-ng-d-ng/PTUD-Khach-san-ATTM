@@ -10,17 +10,18 @@
 //
 //public class HoaDonDao {
 //	public ArrayList<HoaDon> getDanhSachHoaDon() {
-//		Connection con = ConnectDB.getConnection();
-//		ArrayList<HoaDon> danhSachHoaDon = new ArrayList<>();
-//		try {
-//			PreparedStatement st = con.prepareStatement();
-//			ResultSet rs = st.executeQuery("Select maHD  from HoaDon");
-//			while (rs.next()) {
+//        Connection con = ConnectDB.getConnection();
+//        ArrayList<HoaDon> danhSachHoaDon = new ArrayList<>();
+//        try {
+//            PreparedStatement st = con.prepareStatement();
+//            ResultSet rs = st.executeQuery("Select maHD  from HoaDon");
+//            while (rs.next()) {
 //
-//			}
+//            }
 //
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		};
-//
+//        } catch (Exception e) {
+//            // TODO: handle exception
+//        }
+//        return danhSachHoaDon;
+//    }
 //}

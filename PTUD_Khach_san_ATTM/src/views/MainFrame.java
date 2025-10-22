@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import org.kordamp.ikonli.swing.FontIcon;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 
 public class MainFrame extends JFrame {
     private JPanel pnlChuaNoiDung;
@@ -106,56 +108,70 @@ public class MainFrame extends JFrame {
         pnlTaiKhoan.add(lblChucVu);
 
         int startY = 140;
+        int buttonHeight = 35;
+        int buttonSpacing = 8; // TĂNG: Khoảng cách giữa các nút lên 8px
 
-        // Các nút trong menu - ĐÃ ĐIỀU CHỈNH VỊ TRÍ
+        // Các nút trong menu với Ikonli icons và khoảng cách tốt hơn
         NutBoGoc btnTrangChu = new NutBoGoc("Màn hình chính");
-        btnTrangChu.setBounds(10, startY, 190, 35);
+        btnTrangChu.setIkonliIcon(FontAwesomeSolid.HOME);
+        btnTrangChu.setBounds(10, startY, 190, buttonHeight);
         pnlMenu.add(btnTrangChu);
 
         NutBoGoc btnDatThuePhong = new NutBoGoc("Đặt/Thuê phòng");
-        btnDatThuePhong.setBounds(10, startY + 45, 190, 35);
+        btnDatThuePhong.setIkonliIcon(FontAwesomeSolid.CALENDAR_CHECK);
+        btnDatThuePhong.setBounds(10, startY + buttonHeight + buttonSpacing, 190, buttonHeight);
         pnlMenu.add(btnDatThuePhong);
 
         NutBoGoc btnPhong = new NutBoGoc("Phòng");
-        btnPhong.setBounds(10, startY + 90, 190, 35);
+        btnPhong.setIkonliIcon(FontAwesomeSolid.BED);
+        btnPhong.setBounds(10, startY + (buttonHeight + buttonSpacing) * 2, 190, buttonHeight);
         pnlMenu.add(btnPhong);
 
-        // THÊM: Nút Loại phòng
         NutBoGoc btnLoaiPhong = new NutBoGoc("Loại phòng");
-        btnLoaiPhong.setBounds(10, startY + 135, 190, 35);
+        btnLoaiPhong.setIkonliIcon(FontAwesomeSolid.BUILDING);
+        btnLoaiPhong.setBounds(10, startY + (buttonHeight + buttonSpacing) * 3, 190, buttonHeight);
         pnlMenu.add(btnLoaiPhong);
 
         NutBoGoc btnKhuyenMai = new NutBoGoc("Khuyến mãi");
-        btnKhuyenMai.setBounds(10, startY + 180, 190, 35);
+        btnKhuyenMai.setIkonliIcon(FontAwesomeSolid.TAG);
+        btnKhuyenMai.setBounds(10, startY + (buttonHeight + buttonSpacing) * 4, 190, buttonHeight);
         pnlMenu.add(btnKhuyenMai);
 
         NutBoGoc btnHoaDon = new NutBoGoc("Hóa đơn");
-        btnHoaDon.setBounds(10, startY + 225, 190, 35);
+        btnHoaDon.setIkonliIcon(FontAwesomeSolid.RECEIPT);
+        btnHoaDon.setBounds(10, startY + (buttonHeight + buttonSpacing) * 5, 190, buttonHeight);
         pnlMenu.add(btnHoaDon);
 
         NutBoGoc btnKhachHang = new NutBoGoc("Khách hàng");
-        btnKhachHang.setBounds(10, startY + 270, 190, 35);
+        btnKhachHang.setIkonliIcon(FontAwesomeSolid.USERS);
+        btnKhachHang.setBounds(10, startY + (buttonHeight + buttonSpacing) * 6, 190, buttonHeight);
         pnlMenu.add(btnKhachHang);
 
         NutBoGoc btnNhanVien = new NutBoGoc("Nhân viên");
-        btnNhanVien.setBounds(10, startY + 315, 190, 35);
+        btnNhanVien.setIkonliIcon(FontAwesomeSolid.USER_TIE);
+        btnNhanVien.setBounds(10, startY + (buttonHeight + buttonSpacing) * 7, 190, buttonHeight);
         pnlMenu.add(btnNhanVien);
 
         NutBoGoc btnThongKe = new NutBoGoc("Thống kê");
-        btnThongKe.setBounds(10, startY + 360, 190, 35);
+        btnThongKe.setIkonliIcon(FontAwesomeSolid.CHART_BAR);
+        btnThongKe.setBounds(10, startY + (buttonHeight + buttonSpacing) * 8, 190, buttonHeight);
         pnlMenu.add(btnThongKe);
 
+        // Điều chỉnh vị trí đường kẻ và các nút cuối
+        int separatorY = startY + (buttonHeight + buttonSpacing) * 9 + 5;
         JSeparator duongKe = new JSeparator();
         duongKe.setBackground(Color.BLACK);
-        duongKe.setBounds(0, startY + 425, 210, 2);
+        duongKe.setBounds(0, separatorY, 210, 2);
         pnlMenu.add(duongKe);
 
         NutBoGoc btnTroGiup = new NutBoGoc("Trợ giúp");
-        btnTroGiup.setBounds(10, startY + 435, 190, 35);
+        btnTroGiup.setIkonliIcon(FontAwesomeSolid.QUESTION_CIRCLE);
+        btnTroGiup.setBounds(10, separatorY + 10, 190, buttonHeight);
         pnlMenu.add(btnTroGiup);
 
         NutBoGoc btnDangXuat = new NutBoGoc("Đăng xuất");
-        btnDangXuat.setBounds(10, startY + 480, 190, 35);
+        btnDangXuat.setIkonliIcon(FontAwesomeSolid.SIGN_OUT_ALT);
+        btnDangXuat.setBounds(10, separatorY + 10 + buttonHeight + buttonSpacing, 190, buttonHeight);
         pnlMenu.add(btnDangXuat);
 
         // Giữ nguyên vị trí nút mở menu (10,10)
@@ -215,7 +231,7 @@ public class MainFrame extends JFrame {
 
         // Thêm sự kiện cho các nút menu
         themSuKienChoNut(btnTrangChu, "TrangChu");
-        themSuKienChoNut(btnDatThuePhong, "DatThuePhong");
+        themSuKienChoNut(btnDatThuePhong, "ThueDatPhong");
         themSuKienChoNut(btnPhong, "Phong");
         themSuKienChoNut(btnLoaiPhong, "LoaiPhong"); // THÊM SỰ KIỆN CHO NÚT LOẠI PHÒNG
         themSuKienChoNut(btnKhuyenMai , "KhuyenMai");
@@ -252,18 +268,18 @@ public class MainFrame extends JFrame {
 //            case "trangChu":
 //                mainController.showTrangChu();
 //                break;
-//            case "datThuePhong":
-//                mainController.showDatThuePhong();
-//                break;
+            case "ThueDatPhong":
+                mainController.showThue_Dat_Phong_Panel();
+                break;
             case "Phong":
                 mainController.showPhong_Panel();
                 break;
             case "LoaiPhong": // THÊM CASE CHO LOẠI PHÒNG
                 mainController.showLoai_Phong_Panel();
                 break;
-//            case "khuyenMai":
-//                mainController.showKhuyenMai();
-//                break;
+            case "KhuyenMai":
+                mainController.showKhuyen_Mai_Panel();
+                break;
             case "HoaDon":
                 mainController.showHoa_Don_Panel();
                 break;
@@ -332,10 +348,12 @@ public class MainFrame extends JFrame {
         private Color mauNenThuong = Color.WHITE;
         private Color mauChuThuong = Color.BLACK;
         private Color mauChuHover = new Color(0, 51, 102);
-        private Color mauNenDuocChon = new Color(100, 180, 255); // Màu đậm hơn khi được chọn
-        private Color mauChuDuocChon = Color.WHITE; // Chữ trắng khi được chọn
+        private Color mauNenDuocChon = new Color(100, 180, 255);
+        private Color mauChuDuocChon = Color.WHITE;
 
         private boolean duocChon = false;
+
+        private FontIcon icon;
 
         public NutBoGoc(String text) {
             super(text);
@@ -347,28 +365,49 @@ public class MainFrame extends JFrame {
             setForeground(mauChuThuong);
             setFont(new Font("Segoe UI", Font.BOLD, 14));
             setHorizontalAlignment(SwingConstants.LEFT);
-            setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
+
+            // SỬA: Tăng khoảng cách giữa icon và text lên 25px
+            setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10)); // Trái tăng lên 50px
+            setIconTextGap(25); // TĂNG: Khoảng cách giữa icon và text lên 25px
 
             // Sự kiện di chuột
             addMouseListener(new MouseAdapter() {
-                // Khi di chuột vào nút
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    capNhatMauIcon();
                 }
 
-                // Khi di chuột ra khỏi nút
                 @Override
                 public void mouseExited(MouseEvent e) {
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    capNhatMauIcon();
                 }
             });
+        }
+
+        // THÊM: Phương thức thiết lập icon từ FontAwesomeSolid
+        public void setIkonliIcon(FontAwesomeSolid iconType) {
+            this.icon = FontIcon.of(iconType, 18, getForeground());
+            setIcon(this.icon);
+            capNhatMauIcon();
+        }
+
+        // THÊM: Phương thức cập nhật màu icon theo trạng thái
+        private void capNhatMauIcon() {
+            if (icon != null) {
+                Color mauIcon = duocChon ? mauChuDuocChon :
+                        (getModel().isRollover() ? mauChuHover : mauChuThuong);
+                icon.setIconColor(mauIcon);
+                repaint();
+            }
         }
 
         public void setTrangThaiDuocChon() {
             duocChon = true;
             setBackground(mauNenDuocChon);
             setForeground(mauChuDuocChon);
+            capNhatMauIcon();
             repaint();
         }
 
@@ -376,6 +415,7 @@ public class MainFrame extends JFrame {
             duocChon = false;
             setBackground(mauNenThuong);
             setForeground(mauChuThuong);
+            capNhatMauIcon();
             repaint();
         }
 
@@ -396,6 +436,8 @@ public class MainFrame extends JFrame {
 
             g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
             g2.dispose();
+
+            capNhatMauIcon();
             super.paintComponent(g);
         }
 
@@ -404,12 +446,4 @@ public class MainFrame extends JFrame {
             // Không làm gì cả
         }
     }
-
-//    public void addPanel(JPanel panel, String name) {
-//        mainPanel.add(panel, name);
-//    }
-//
-//    public void showPanel(String name) {
-//        cardLayout.show(mainPanel, name);
-//    }
 }

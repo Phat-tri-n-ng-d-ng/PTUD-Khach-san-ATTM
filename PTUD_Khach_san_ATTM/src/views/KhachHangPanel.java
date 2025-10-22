@@ -20,6 +20,9 @@ public class KhachHangPanel extends JPanel {
     public DefaultTableModel model;
 
     public KhachHangPanel() {
+        jbInit();
+    }
+    private void jbInit() {
         setBounds(100, 100, 1336, 768);
         setBackground(new Color(236, 247, 255));
         setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -35,10 +38,10 @@ public class KhachHangPanel extends JPanel {
         pnlThongTinNhanVien.setBackground(new Color(255, 255, 255));
         pnlThongTinNhanVien.setBorder(new LineBorder(new Color(0, 0, 0)));
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width, screenSize.height);
+        setSize(1536, 818);
         int doDaiThongTinNhanVien = screenSize.width - 40;
         int viChiDauThongTinNhanVien = (screenSize.width - doDaiThongTinNhanVien) / 2;
-        pnlThongTinNhanVien.setBounds(20, 64,1496 , 175);
+        pnlThongTinNhanVien.setBounds(20, 82,1496 , 175);
         add(pnlThongTinNhanVien);
         pnlThongTinNhanVien.setLayout(null);
 
@@ -85,7 +88,7 @@ public class KhachHangPanel extends JPanel {
 
         JLabel lbl_NgaySinh = new JLabel("Ngày sinh:");
         lbl_NgaySinh.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-        lbl_NgaySinh.setBounds(124, 73, 104, 13);
+        lbl_NgaySinh.setBounds(223, 69, 104, 20);
         pnlThongTinNhanVien.add(lbl_NgaySinh);
 
         JLabel lbl_Email = new JLabel("Email:");
@@ -110,7 +113,7 @@ public class KhachHangPanel extends JPanel {
         JPanel pnlBoLoc = new JPanel();
         pnlBoLoc.setBorder(new LineBorder(new Color(0, 0, 0)));
         pnlBoLoc.setBackground(new Color(255, 255, 255));
-        pnlBoLoc.setBounds(20, 279, 1496, 73);
+        pnlBoLoc.setBounds(20, 297, 1496, 73);
         add(pnlBoLoc);
         pnlBoLoc.setLayout(null);
 
@@ -153,30 +156,30 @@ public class KhachHangPanel extends JPanel {
 
         JLabel lbl_ThongTinKhachHang = new JLabel("Thông tin khách hàng");
         lbl_ThongTinKhachHang.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbl_ThongTinKhachHang.setBounds(20, 34, 180, 20);
+        lbl_ThongTinKhachHang.setBounds(20, 52, 180, 20);
         add(lbl_ThongTinKhachHang);
 
         JLabel lbl_BoLoc = new JLabel("Bộ lọc");
         lbl_BoLoc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbl_BoLoc.setBounds(20, 249, 58, 20);
+        lbl_BoLoc.setBounds(20, 267, 58, 20);
         add(lbl_BoLoc);
 
         JLabel lbl_DanhSachNhanVien = new JLabel("Danh Sách Nhân Viên");
         lbl_DanhSachNhanVien.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbl_DanhSachNhanVien.setBounds(20, 362, 180, 20);
+        lbl_DanhSachNhanVien.setBounds(20, 380, 180, 20);
         add(lbl_DanhSachNhanVien);
 
         JPanel pnlDanhSachNhanVien = new JPanel();
         pnlDanhSachNhanVien.setBackground(new Color(255, 255, 255));
         pnlDanhSachNhanVien.setBorder(new LineBorder(new Color(0, 0, 0)));
-        pnlDanhSachNhanVien.setBounds(20, 395, 1496, 422);
+        pnlDanhSachNhanVien.setBounds(20, 410, 1496, 375);
         add(pnlDanhSachNhanVien);
 
         model = new DefaultTableModel(new String[] {"Mã khách hàng","Tên khách hàng","Giới tính","Ngày sinh","Số điện thoại","Email","Hạng khách hàng","Điểm tích lũy"}, 0);
         pnlDanhSachNhanVien.setLayout(null);
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(10, 10, 1476, 402);
+        scrollPane.setBounds(10, 10, 1476, 355);
         JTableHeader header = table.getTableHeader();
         header.setFont(new Font("Times New Roman", Font.BOLD, 18));
         header.setBackground(new Color(10, 100, 189));
@@ -184,5 +187,9 @@ public class KhachHangPanel extends JPanel {
         header.setPreferredSize(new Dimension(header.getWidth(), 35));
         table.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         pnlDanhSachNhanVien.add(scrollPane);
+
+        JPanel panel = new JPanel();
+        panel.setBounds(10, 10, 32, 32);
+        add(panel);
     }
 }
