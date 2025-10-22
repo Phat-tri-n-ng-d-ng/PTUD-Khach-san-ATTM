@@ -66,7 +66,7 @@ public class NhanVienPanel extends JPanel{
 
         JLabel lbl_SoDienThoai = new JLabel("Số điện thoại:");
         lbl_SoDienThoai.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-        lbl_SoDienThoai.setBounds(758, 11, 104, 13);
+        lbl_SoDienThoai.setBounds(758, 11, 104, 20);
         pnlThongTinNhanVien.add(lbl_SoDienThoai);
 
         JLabel lpl_GioiTinh = new JLabel("Giới tính:");

@@ -27,7 +27,7 @@ public class MangHinhChinhController {
 
     private void addEventHandlers() {
         homePanel.btnKhachHang.addActionListener(e -> mainFrame.showPanel("KhachHang"));
-        homePanel.btnNhanVien.addActionListener(e -> mainFrame.showPanel("NhanVien"));
+        mainFrame.btn_MH_Nhan_Vien.addActionListener(e -> mainFrame.showPanel("NhanVien"));
 //        xuLyPanel.btnBack.addActionListener(e -> mainFrame.showPanel("home"));
     }
 }
