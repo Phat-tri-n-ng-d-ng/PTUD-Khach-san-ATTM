@@ -7,12 +7,32 @@ import java.util.Objects;
 
 public class Phong {
 	private String maPhong;
-    private TrangThaiPhong trangThai;
-    private double giaPhong;
-    private double tienCoc;
     private LoaiPhong loaiPhong;
     private int soLuongToiDa;
-	public String getMaPhong() {
+    private double giaPhong;
+    private double tienCoc;
+    private TrangThaiPhong trangThai;
+
+
+    public Phong(String maPhong, TrangThaiPhong trangThai, LoaiPhong loaiPhong, int soLuongToiDa) {
+        this.maPhong = maPhong;
+        this.trangThai = trangThai;
+        this.giaPhong = loaiPhong.getGiaNiemYet()+((soLuongToiDa/2-1)*500000);
+        this.tienCoc = loaiPhong.getTyLeCoc()*giaPhong/100;;
+        this.loaiPhong = loaiPhong;
+        this.soLuongToiDa = soLuongToiDa;
+    }
+
+    public Phong(String maPhong, TrangThaiPhong trangThai, double giaPhong, double tienCoc, LoaiPhong loaiPhong, int soLuongToiDa) {
+        this.maPhong = maPhong;
+        this.trangThai = trangThai;
+        this.giaPhong = giaPhong;
+        this.tienCoc = tienCoc;
+        this.loaiPhong = loaiPhong;
+        this.soLuongToiDa = soLuongToiDa;
+    }
+
+    public String getMaPhong() {
 		return maPhong;
 	}
 	public void setMaPhong(String maPhong) {
@@ -49,15 +69,7 @@ public class Phong {
 	public void setTienCoc() {
 		
 	}
-	public Phong(String maPhong, TrangThaiPhong trangThai, LoaiPhong loaiPhong,
-			int soLuongToiDa) {
-		this.maPhong = maPhong;
-		this.trangThai = trangThai;
-		setGiaPhong();
-		setTienCoc();
-		this.loaiPhong = loaiPhong;
-		this.soLuongToiDa = soLuongToiDa;
-	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(maPhong);

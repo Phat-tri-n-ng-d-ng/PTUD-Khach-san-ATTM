@@ -7,7 +7,15 @@ public class LoaiPhong {
     private String tenLoaiPhong;
     private double giaNiemYet;
     private double tyLeCoc;
-	public String getMaLoaiPhong() {
+
+
+
+    public LoaiPhong(String maLoaiPhong, String tenLoaiPhong) {
+        this(maLoaiPhong,tenLoaiPhong,0,0);
+    }
+
+
+    public String getMaLoaiPhong() {
 		return maLoaiPhong;
 	}
 	public String getTenLoaiPhong() {

@@ -1,5 +1,7 @@
 package views;
 
+import controller.PhongController;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -28,13 +30,14 @@ import javax.swing.SwingConstants;
 public class PhongPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField txt_Tang;
-	private JTextField txt_SoLuongToiDa;
-	private JTextField txt_SoPhong;
-	private JTextField txt_TimMaPhong;
-	private JTable table;
-	private JComboBox cbb_LoaiPhong;
-	private DefaultTableModel model;
+    public JTextField txt_Tang;
+    public JTextField txt_SoLuongToiDa;
+    public JTextField txt_SoPhong;
+    public JTextField txt_TimMaPhong;
+    public JTable table;
+    public JComboBox cbb_LoaiPhong;
+	public DefaultTableModel model;
+    public JButton btn_ThemPhong,btn_CapNhat,btn_Tim;
 
 	public PhongPanel() {
 		setBounds(100, 100, 1336, 768);
@@ -82,7 +85,9 @@ public class PhongPanel extends JPanel {
 		txt_SoPhong.setBounds(10, 33, 450, 30);
 		pnlThongTinPhong.add(txt_SoPhong);
 
-		JButton btn_ThemPhong = new JButton("Thêm");
+
+
+		btn_ThemPhong = new JButton("Thêm");
 		btn_ThemPhong.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -90,7 +95,7 @@ public class PhongPanel extends JPanel {
 		btn_ThemPhong.setBounds(1321, 93, 120, 30);
 		pnlThongTinPhong.add(btn_ThemPhong);
 
-		JButton btn_CapNhat = new JButton("Cập nhật");
+		btn_CapNhat = new JButton("Cập nhật");
 		btn_CapNhat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -110,7 +115,7 @@ public class PhongPanel extends JPanel {
 		txt_Tang.setColumns(10);
 
 		cbb_LoaiPhong = new JComboBox();
-		cbb_LoaiPhong.setModel(new DefaultComboBoxModel(new String[] {"Standard", "Superior", "Deluxe", "Suite", "Family Room"}));
+
 		cbb_LoaiPhong.setBounds(605, 93, 450, 30);
 		pnlThongTinPhong.add(cbb_LoaiPhong);
 		cbb_LoaiPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
@@ -138,7 +143,7 @@ public class PhongPanel extends JPanel {
 		txt_TimMaPhong.setBounds(774, 35, 450, 30);
 		pnlBoLoc.add(txt_TimMaPhong);
 
-		JButton btn_Tim = new JButton("Tìm");
+		btn_Tim = new JButton("Tìm");
 		btn_Tim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -197,7 +202,7 @@ public class PhongPanel extends JPanel {
 		pnlDanhSachNhanVien.setBounds(20, 410, 1496, 367);
 		add(pnlDanhSachNhanVien);
 
-		model = new DefaultTableModel(new String[] {"Mã phòng","Loại phòng","Số lượng tối đa","Giá phòng","Tiền cọc","Số lượng tối đa"}, 0);
+		model = new DefaultTableModel(new String[] {"Mã phòng","Loại phòng","Số lượng tối đa","Giá phòng","Tiền cọc","Trạng thái"}, 0);
 		pnlDanhSachNhanVien.setLayout(null);
 		table = new JTable(model);
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -209,5 +214,9 @@ public class PhongPanel extends JPanel {
 		header.setPreferredSize(new Dimension(header.getWidth(), 35));
 		table.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		pnlDanhSachNhanVien.add(scrollPane);
+
+        PhongController pc = new PhongController(this);
+        pc.hienThiDanhSachPhong();
+        pc.hienThiLoaiPhong();
 	}
 }
