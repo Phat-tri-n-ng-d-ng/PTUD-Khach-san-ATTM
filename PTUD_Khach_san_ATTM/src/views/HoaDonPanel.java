@@ -144,7 +144,6 @@ public class HoaDonPanel extends JPanel {
 
 		JDateChooser NgayBD = new JDateChooser();
 		NgayBD.setDateFormatString("dd/MM/yyyy");
-
 		NgayBD.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		NgayBD.setBounds(508, 66, 102, 30);
 		pnlBoLocHoaDon.add(NgayBD);

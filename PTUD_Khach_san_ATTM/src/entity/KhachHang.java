@@ -81,6 +81,19 @@ public class KhachHang {
 		setHangKH();
 		setDiemTichLuy();
 	}
+    public KhachHang(String maKH, String tenKH, boolean gioiTinh, LocalDate ngaySinh, String email, String sdt,
+                     String soCCCD,HangKhachHang hangKhachHang, int diemTichLuy) {
+        super();
+        this.maKH = maKH;
+        this.tenKH = tenKH;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.email = email;
+        this.sdt = sdt;
+        this.soCCCD = soCCCD;
+        this.hangKH = hangKhachHang;
+        this.diemTichLuy = diemTichLuy;
+    }
 	@Override
 	public int hashCode() {
 		return Objects.hash(maKH);
