@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="jgoodies-looks-2.4.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jcalendar-1.4/lib/jgoodies-looks-2.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jcalendar-1.4/lib/junit-4.6.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$PROJECT_DIR$/lib/jcalendar-1.4/doc/api" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/jcalendar-1.4/src" />
+    </SOURCES>
+  </library>
+</component>
