@@ -18,15 +18,21 @@ public class KhachHangService {
         return khachHangDao.getTatCaKhachHang();
     }
 
-//    public boolean themKhachHang(KhachHang khachHang){
-//        return KhachHangDao.themKhachHang(khachHang);
-//    }
-//
-//    public int getSoLuongKhachHang() {
-//        return KhachHangDao.getSoLuongKhachHang();
-//    }
-//
-//    public boolean CapNhatKhachHang(KhachHang khachHang) {
-//        return KhachHangDao.CapNhatKhachHang(khachHang);
-//    }
+    public int getSoLuongKhachHang() {
+        return khachHangDao.getSoLuongKhachHang();
+    }
+
+    public boolean themKhachHang(KhachHang khachHang) {
+        return khachHangDao.themKhachHang(khachHang);
+    }
+
+    public ArrayList<KhachHang> getKhachHangTheoHang(String hangKhachHang){
+        return khachHangDao.getKhachHangTheoHang(hangKhachHang);
+    }
+    public boolean CapNhatKhachHang(KhachHang khachHang) {
+        return khachHangDao.CapNhatKhachHang(khachHang);
+    }
+    public KhachHang TimKhachHang(String keyword, String type){
+        return khachHangDao.TimKhachHang(keyword,type);
+    }
 }

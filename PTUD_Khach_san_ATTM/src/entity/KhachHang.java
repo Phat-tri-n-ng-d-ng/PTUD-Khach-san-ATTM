@@ -59,30 +59,33 @@ public class KhachHang {
 	public HangKhachHang getHangKH() {
 		return hangKH;
 	}
-	public void setHangKH() {
-		this.hangKH = HangKhachHang.Dong;
+	public void setHangKH(int diemTichLuy) {
+		if(diemTichLuy>=0 && diemTichLuy<=10) this.hangKH = HangKhachHang.Dong;
+        else if(diemTichLuy>10 && diemTichLuy<=20) this.hangKH = HangKhachHang.Bac;
+        else if(diemTichLuy>20 && diemTichLuy<=40) this.hangKH = HangKhachHang.Vang;
+        else this.hangKH = HangKhachHang.KimCuong;
 	}
 	public int getDiemTichLuy() {
 		return diemTichLuy;
 	}
-	public void setDiemTichLuy() {
-		this.diemTichLuy = 0;
+	public void setDiemTichLuy(int diemTichLuy) {
+		this.diemTichLuy = diemTichLuy;
 	}
-	public KhachHang(String maKH, String tenKH, boolean gioiTinh, LocalDate ngaySinh, String email, String sdt,
-			String soCCCD) {
-		super();
-		this.maKH = maKH;
-		this.tenKH = tenKH;
-		this.gioiTinh = gioiTinh;
-		this.ngaySinh = ngaySinh;
-		this.email = email;
-		this.sdt = sdt;
-		this.soCCCD = soCCCD;
-		setHangKH();
-		setDiemTichLuy();
-	}
+//	public KhachHang(String maKH, String tenKH, boolean gioiTinh, LocalDate ngaySinh, String email, String sdt,
+//			String soCCCD) {
+//		super();
+//		this.maKH = maKH;
+//		this.tenKH = tenKH;
+//		this.gioiTinh = gioiTinh;
+//		this.ngaySinh = ngaySinh;
+//		this.email = email;
+//		this.sdt = sdt;
+//		this.soCCCD = soCCCD;
+//		setHangKH();
+//		setDiemTichLuy();
+//	}
     public KhachHang(String maKH, String tenKH, boolean gioiTinh, LocalDate ngaySinh, String email, String sdt,
-                     String soCCCD,HangKhachHang hangKhachHang, int diemTichLuy) {
+                     String soCCCD, int diemTichLuy) {
         super();
         this.maKH = maKH;
         this.tenKH = tenKH;
@@ -91,7 +94,7 @@ public class KhachHang {
         this.email = email;
         this.sdt = sdt;
         this.soCCCD = soCCCD;
-        this.hangKH = hangKhachHang;
+        setHangKH(diemTichLuy);
         this.diemTichLuy = diemTichLuy;
     }
 	@Override

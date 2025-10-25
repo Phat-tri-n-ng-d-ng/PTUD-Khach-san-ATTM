@@ -1,7 +1,10 @@
 package database;
 
+import entity.KhachHang;
 import entity.NhanVien;
+import entity.TaiKhoan;
 import enums.ChucVuNhanVien;
+import enums.TrangThaiTaiKhoan;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -13,7 +16,7 @@ public class NhanVienDao {
         Connection connection = null;
         try {
             connection = ConnectDB.getConnection();
-            String sql = "select * from NhanVien";
+            String sql = "{call GetTatCaNhanVien}";
             CallableStatement stmt = connection.prepareCall(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
@@ -25,7 +28,14 @@ public class NhanVienDao {
                 String email = rs.getString("email");
                 String string_chucVu = rs.getString("chucVu");
                 ChucVuNhanVien chucVu = ChucVuNhanVien.valueOf(string_chucVu);
-                NhanVien nv = new NhanVien(maNV, tenNV, ngaySinh, sdt, gioiTinh, email, chucVu);
+                String tenDangNhap = rs.getString("tenDangNhap");
+                String trangThaiTaiKhoan = rs.getString("trangThai");
+                TaiKhoan tk = null;
+                if (tenDangNhap != null && trangThaiTaiKhoan != null) {
+                    TrangThaiTaiKhoan trangThai = TrangThaiTaiKhoan.valueOf(trangThaiTaiKhoan);
+                    tk = new TaiKhoan(tenDangNhap, trangThai);
+                }
+                NhanVien nv = new NhanVien(maNV, tenNV, ngaySinh, sdt, gioiTinh, email, chucVu,tk);
                 dsNhanVien.add(nv);
             }
         } catch (Exception e) {
@@ -134,6 +144,43 @@ public class NhanVienDao {
             e.printStackTrace();
         }
         return dsNhanVien;
+    }
+
+    public NhanVien TimNhanVien(String keyword, String type) {
+        NhanVien nv = null;
+        Connection connection = null;
+        try {
+            connection = ConnectDB.getConnection();
+            String sql;
+            if (type.equalsIgnoreCase("MA")) {
+                sql = "{call TimNhanVienTheoMa(?)}";
+            } else if (type.equalsIgnoreCase("SDT")) {
+                sql = "{call TimNhanVienTheoSoDT(?)}";
+            } else {
+                throw new IllegalArgumentException("Loại tìm kiếm không hợp lệ: " + type);
+            }
+
+            CallableStatement stmt = connection.prepareCall(sql);
+            stmt.setString(1, keyword);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String maNV = rs.getString("maNV");
+                String tenNV = rs.getString("tenNV");
+                LocalDate ngaySinh = rs.getDate("ngaySinh").toLocalDate();
+                Boolean gioiTinh = rs.getBoolean("gioiTinh");
+                String sdt = rs.getString("sdt");
+                String email = rs.getString("email");
+                String string_chucVu = rs.getString("chucVu");
+                ChucVuNhanVien chucVu = ChucVuNhanVien.valueOf(string_chucVu);
+                nv = new NhanVien(maNV, tenNV, ngaySinh, sdt, gioiTinh, email, chucVu);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(connection);
+        }
+        return nv;
     }
 }
 

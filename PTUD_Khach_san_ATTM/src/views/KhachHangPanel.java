@@ -22,10 +22,14 @@ public class KhachHangPanel extends JPanel {
     public JTextField txt_TenKhachHang;
     public JTextField txt_SoDienThoai;
     public JTextField txt_Email;
-    public JTextField txt_TimTenNhanVien;
+    public JTextField txt_TimSoCanCuocCongDan;
     public JTextField txt_TimSoDienThoai;
     public JTable table;
     public DefaultTableModel model;
+    public JRadioButton rdbtn_TimSoCanCuocCongDan;
+    public JRadioButton  rdbtn_TimSoDienThoai;
+    public JComboBox cbb_LocHangKhachHang;
+    public JButton btn_LamMoi;
 
     public KhachHangPanel() {
         jbInit();
@@ -122,12 +126,16 @@ public class KhachHangPanel extends JPanel {
         pnlThongTinKhachHang.add(txt_Email);
 
         btn_ThemKhachHang = new JButton("Thêm KH");
-        btn_ThemKhachHang.setBounds(1012, 149, 120, 30);
+        btn_ThemKhachHang.setBounds(961, 149, 120, 30);
         pnlThongTinKhachHang.add(btn_ThemKhachHang);
 
         btn_CapNhat = new JButton("Cập nhật");
-        btn_CapNhat.setBounds(1142, 149, 120, 30);
+        btn_CapNhat.setBounds(1091, 149, 120, 30);
         pnlThongTinKhachHang.add(btn_CapNhat);
+
+        btn_LamMoi = new JButton("Làm mới");
+        btn_LamMoi.setBounds(1221, 149, 120, 30);
+        pnlThongTinKhachHang.add(btn_LamMoi);
 
         JLabel lbl_soCCCD = new JLabel("Số căn cước công dân:");
         lbl_soCCCD.setFont(new Font("Times New Roman", Font.PLAIN, 16));
@@ -147,33 +155,34 @@ public class KhachHangPanel extends JPanel {
         add(pnlBoLoc);
         pnlBoLoc.setLayout(null);
 
-        JRadioButton rdbtn_TimTenKhachHang = new JRadioButton("Tìm tên khách hàng:");
-        rdbtn_TimTenKhachHang.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-        rdbtn_TimTenKhachHang.setBackground(Color.WHITE);
-        rdbtn_TimTenKhachHang.setBounds(10, 9, 159, 16);
-        rdbtn_TimTenKhachHang.setSelected(true);
-        pnlBoLoc.add(rdbtn_TimTenKhachHang);
+        rdbtn_TimSoCanCuocCongDan = new JRadioButton("Tìm số căn cước công dân:");
+        rdbtn_TimSoCanCuocCongDan.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        rdbtn_TimSoCanCuocCongDan.setBackground(Color.WHITE);
+        rdbtn_TimSoCanCuocCongDan.setBounds(10, 9, 220, 16);
+        rdbtn_TimSoCanCuocCongDan.setSelected(true);
+        pnlBoLoc.add(rdbtn_TimSoCanCuocCongDan);
 
-        JRadioButton rdbtn_TimSoDienThoai = new JRadioButton("Tìm số điện thoại:");
+        rdbtn_TimSoDienThoai = new JRadioButton("Tìm số điện thoại:");
         rdbtn_TimSoDienThoai.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         rdbtn_TimSoDienThoai.setBackground(Color.WHITE);
         rdbtn_TimSoDienThoai.setBounds(646, 11, 159, 16);
         pnlBoLoc.add(rdbtn_TimSoDienThoai);
 
         ButtonGroup groupTimKiem = new ButtonGroup();
-        groupTimKiem.add(rdbtn_TimTenKhachHang);
+        groupTimKiem.add(rdbtn_TimSoCanCuocCongDan);
         groupTimKiem.add(rdbtn_TimSoDienThoai);
 
-        txt_TimTenNhanVien = new JTextField();
-        txt_TimTenNhanVien.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-        txt_TimTenNhanVien.setColumns(10);
-        txt_TimTenNhanVien.setBounds(10, 33, 616, 30);
-        pnlBoLoc.add(txt_TimTenNhanVien);
+        txt_TimSoCanCuocCongDan = new JTextField();
+        txt_TimSoCanCuocCongDan.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        txt_TimSoCanCuocCongDan.setColumns(10);
+        txt_TimSoCanCuocCongDan.setBounds(10, 33, 616, 30);
+        pnlBoLoc.add(txt_TimSoCanCuocCongDan);
 
         txt_TimSoDienThoai = new JTextField();
         txt_TimSoDienThoai.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         txt_TimSoDienThoai.setColumns(10);
         txt_TimSoDienThoai.setBounds(646, 33, 616, 30);
+        txt_TimSoDienThoai.setEditable(false);
         pnlBoLoc.add(txt_TimSoDienThoai);
 
         btn_Tim = new JButton("Tìm");
@@ -185,7 +194,7 @@ public class KhachHangPanel extends JPanel {
         lbl_HangKhachHang.setBounds(1382, 10, 114, 20);
         pnlBoLoc.add(lbl_HangKhachHang);
 
-        JComboBox cbb_LocHangKhachHang = new JComboBox();
+        cbb_LocHangKhachHang = new JComboBox();
         cbb_LocHangKhachHang.setModel(new DefaultComboBoxModel(new String[] {"Tất cả", "Đồng", "Bạc", "Vàng", "Kim cương"}));
         cbb_LocHangKhachHang.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         cbb_LocHangKhachHang.setBounds(1382, 33, 104, 30);

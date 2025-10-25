@@ -1,7 +1,10 @@
 package services;
 
 import database.NhanVienDao;
+import database.TaiKhoanDao;
+import entity.KhachHang;
 import entity.NhanVien;
+import entity.TaiKhoan;
 
 import java.util.ArrayList;
 
@@ -30,5 +33,9 @@ public class NhanVienService {
 
     public ArrayList<NhanVien>  getNhanVienTheoChucVu(String chucVu){
         return nhanVienDao.getNhanVienTheoChucVu(chucVu);
+    }
+
+    public NhanVien TimNhanVien(String keyword, String type) {
+        return nhanVienDao.TimNhanVien(keyword,type);
     }
 }

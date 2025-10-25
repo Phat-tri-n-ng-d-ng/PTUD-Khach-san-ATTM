@@ -60,7 +60,7 @@ public class NhanVien {
 		this.taiKhoan = taiKhoan;
 	}
 	public NhanVien(String maNV, String tenNV, LocalDate ngaySinh, String sdt, boolean gioiTinh, String email,
-			ChucVuNhanVien chucVu) {
+			ChucVuNhanVien chucVu, TaiKhoan taiKhoan) {
 		this.maNV = maNV;
 		this.tenNV = tenNV;
 		this.ngaySinh = ngaySinh;
@@ -70,6 +70,17 @@ public class NhanVien {
 		this.chucVu = chucVu;
 		this.taiKhoan = taiKhoan;
 	}
+    public NhanVien(String maNV, String tenNV, LocalDate ngaySinh, String sdt, boolean gioiTinh, String email,
+                    ChucVuNhanVien chucVu) {
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.ngaySinh = ngaySinh;
+        this.sdt = sdt;
+        this.gioiTinh = gioiTinh;
+        this.email = email;
+        this.chucVu = chucVu;
+        this.taiKhoan = taiKhoan;
+    }
 	@Override
 	public int hashCode() {
 		return Objects.hash(maNV);

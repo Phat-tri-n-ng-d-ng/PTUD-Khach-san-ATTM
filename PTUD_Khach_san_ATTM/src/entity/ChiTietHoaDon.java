@@ -4,6 +4,7 @@ public class ChiTietHoaDon {
 	private double thanhTien;
     private Phong phong;
     private HoaDon HoaDon;
+    private int soNgayO;
 	public Phong getPhong() {
 		return phong;
 	}
@@ -20,11 +21,11 @@ public class ChiTietHoaDon {
 	public double getThanhTien() {
 		return thanhTien;
 	}
-	public void setThanhTien() {
-		
+	public double setThanhTien(Phong phong,int soNgayO) {
+		return phong.getGiaPhong() * soNgayO;
 	}
-	public ChiTietHoaDon(Phong phong, HoaDon hoaDon) {
-		setThanhTien();
+	public ChiTietHoaDon(Phong phong, HoaDon hoaDon,int soNgayO) {
+		setThanhTien(phong,soNgayO);
 		this.phong = phong;
 		HoaDon = hoaDon;
 	}
