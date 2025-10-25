@@ -30,6 +30,7 @@ import javax.swing.SwingConstants;
 public class PhongPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+    public final JCheckBox chckbx_Standard,chckbx_Superior,chckbx_FamilyRoom,chckbx_Deluxe,chckbx_Suite;
     public JTextField txt_Tang;
     public JTextField txt_SoLuongToiDa;
     public JTextField txt_SoPhong;
@@ -156,30 +157,30 @@ public class PhongPanel extends JPanel {
 		lpl_LoaiPhongTim.setBounds(10, 11, 104, 20);
 		pnlBoLoc.add(lpl_LoaiPhongTim);
 
-		JCheckBox chckbx_Standard = new JCheckBox("Standard");
+		chckbx_Standard = new JCheckBox("Standard");
 		chckbx_Standard.setBounds(10, 40, 100, 22);
 		chckbx_Standard.setBackground(Color.white);
 		pnlBoLoc.add(chckbx_Standard);
 
-		JCheckBox chckbx_Superior = new JCheckBox("Superior");
+        chckbx_Superior = new JCheckBox("Superior");
 		chckbx_Superior.setBounds(145, 40, 100, 22);
 		chckbx_Superior.setBackground(Color.white);
 		pnlBoLoc.add(chckbx_Superior);
 
-		JCheckBox chckbx_FamilyRoom = new JCheckBox("Family Room");
+		chckbx_FamilyRoom = new JCheckBox("Family Room");
 		chckbx_FamilyRoom.setBounds(550, 40, 117, 22);
 		chckbx_FamilyRoom.setBackground(Color.white);
 		pnlBoLoc.add(chckbx_FamilyRoom);
 
-		JCheckBox chckbx_Deluxe_1 = new JCheckBox("Deluxe");
-		chckbx_Deluxe_1.setBounds(280, 40, 100, 22);
-		chckbx_Deluxe_1.setBackground(Color.white);
-		pnlBoLoc.add(chckbx_Deluxe_1);
+		chckbx_Deluxe = new JCheckBox("Deluxe");
+        chckbx_Deluxe.setBounds(280, 40, 100, 22);
+        chckbx_Deluxe.setBackground(Color.white);
+		pnlBoLoc.add(chckbx_Deluxe);
 
-		JCheckBox chckbx_Suite_1 = new JCheckBox("Suite");
-		chckbx_Suite_1.setBounds(415, 40, 100, 22);
-		chckbx_Suite_1.setBackground(Color.white);
-		pnlBoLoc.add(chckbx_Suite_1);
+		chckbx_Suite = new JCheckBox("Suite");
+		chckbx_Suite.setBounds(415, 40, 100, 22);
+		chckbx_Suite.setBackground(Color.white);
+		pnlBoLoc.add(chckbx_Suite);
 
 		JLabel lbl_ThongTinPhong = new JLabel("Thông tin phòng");
 		lbl_ThongTinPhong.setFont(new Font("Times New Roman", Font.PLAIN, 20));

@@ -34,4 +34,7 @@ public class PhongServices {
     public boolean capNhatPhong(Phong p){
         return pd.capNhatPhong(p);
     }
+    public  ArrayList<Phong> locPhongTheoLoai(String s){
+        return pd.locPhongTheoLoai(s);
+    }
 }

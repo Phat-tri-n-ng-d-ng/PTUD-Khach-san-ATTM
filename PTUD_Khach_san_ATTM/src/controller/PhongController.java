@@ -52,6 +52,29 @@ public class PhongController {
         pp.table.getSelectionModel().addListSelectionListener(e -> {
             docLenManHinh();
         });
+        pp.chckbx_Suite.addActionListener(e->{locPhongTheoLoai();});
+        pp.chckbx_Superior.addActionListener(e->{locPhongTheoLoai();});
+        pp.chckbx_Standard.addActionListener(e->{locPhongTheoLoai();});
+        pp.chckbx_FamilyRoom.addActionListener(e->{locPhongTheoLoai();});
+        pp.chckbx_Deluxe.addActionListener(e->{locPhongTheoLoai();});
+    }
+
+    private void locPhongTheoLoai() {
+        String ds="";
+        if(pp.chckbx_Deluxe.isSelected()) ds+=pp.chckbx_Deluxe.getText()+",";
+        if(pp.chckbx_Suite.isSelected()) ds+=pp.chckbx_Suite.getText()+",";
+        if(pp.chckbx_Standard.isSelected()) ds+=pp.chckbx_Standard.getText()+",";
+        if(pp.chckbx_FamilyRoom.isSelected()) ds+=pp.chckbx_FamilyRoom.getText()+",";
+        if(pp.chckbx_Superior.isSelected()) ds+=pp.chckbx_Superior.getText()+",";
+            // xóa dấu , cuối cùng
+        if(!ds.isEmpty()){
+            ds=ds.substring(0,ds.length()-1);
+        }
+        ArrayList<Phong> dsp = ps.locPhongTheoLoai(ds);
+        pp.model.setRowCount(0);
+        for (Phong p : dsp) {
+            pp.model.addRow(new Object[]{p.getMaPhong(),p.getLoaiPhong().getTenLoaiPhong(),p.getSoLuongToiDa(),p.getGiaPhong(),p.getTienCoc(),p.getTrangThai().getMoTa()});
+        }
     }
 
     public boolean kiemTraDuLieuNhap(){
@@ -77,6 +100,7 @@ public class PhongController {
     }
     private void docLenManHinh() {
         int r = pp.table.getSelectedRow();
+        if(r<0) return;
         String ma= pp.table.getValueAt(r,0)+"";
         String tang= ma.substring(1,3);
         String stt= ma.substring(3);
@@ -158,7 +182,7 @@ public class PhongController {
         if(ps.themPhong(p)){
             pp.model.addRow(new Object[]{p.getMaPhong(),p.getLoaiPhong().getTenLoaiPhong(),p.getSoLuongToiDa(),p.getGiaPhong(),p.getTienCoc(),p.getTrangThai().getMoTa()});
         }else{
-            baoLoi("Thêm phòng thất bại (Mã phòng có thể đã tồn tại)");
+            baoLoi("Thêm phòng thất bại (Số phòng "+stt+" ở tầng "+tang+" đã tồn tại)");
         }
 
     }
