@@ -95,7 +95,20 @@ public class KhachHang {
         this.diemTichLuy = diemTichLuy;
     }
     
-	public KhachHang() {
+	
+	public KhachHang(String tenKH, boolean gioiTinh, LocalDate ngaySinh, String sdt, String soCCCD) {
+		this.tenKH = tenKH;
+		this.gioiTinh = gioiTinh;
+		this.ngaySinh = ngaySinh;
+		this.sdt = sdt;
+		this.soCCCD = soCCCD;
+	}
+	
+	
+	public KhachHang(String tenKH, String sdt) {
+		super();
+		this.tenKH = tenKH;
+		this.sdt = sdt;
 	}
 	@Override
 	public int hashCode() {

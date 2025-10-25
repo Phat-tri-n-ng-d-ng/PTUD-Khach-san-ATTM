@@ -24,7 +24,7 @@ public class HoaDon {
     private double phiDoiPhong;
     private KhuyenMai khuyenMai;
     private KhachHang khachHang;
-    private ArrayList<ChiTietHoaDon> cTHD;
+    private ArrayList<ChiTietHoaDon> dsCTHD;
     private NhanVien nhanVien;
 	public String getMaHD() {
 		return maHD;
@@ -81,10 +81,10 @@ public class HoaDon {
 		this.khachHang = khachHang;
 	}
 	public ArrayList<ChiTietHoaDon> getcTHD() {
-		return cTHD;
+		return dsCTHD;
 	}
-	public void setcTHD(ArrayList<ChiTietHoaDon> cTHD) {
-		this.cTHD = cTHD;
+	public void setcTHD(ArrayList<ChiTietHoaDon> dsCTHD) {
+		this.dsCTHD = dsCTHD;
 	}
 	public NhanVien getNhanVien() {
 		return nhanVien;
@@ -97,30 +97,39 @@ public class HoaDon {
 		return tongTienThanhToan;
 	}
 	public void setTongTienThanhToan() {
-		
+		this.tongTienThanhToan = tongTien + tienThue -tienGiam+ phiDoiPhong;
 	}
 	public double getTongTien() {
 		return tongTien;
 	}
+	//doi lai tong tien
 	public void setTongTien() {
+		double tong = 0;
+		for(ChiTietHoaDon cthd : dsCTHD) {
+			tong += cthd.getThanhTien();
+		}
+		this.tongTien = tong;
 		
 	}
+	
 	public double getTienGiam() {
 		return tienGiam;
 	}
 	public void setTienGiam() {
-		
+		this.tienGiam = tongTien * khuyenMai.getTyLeGiam();
 	}
 	public double getTienTra() {
 		return tienTra;
 	}
 	public void setTienTra() {
+		this.tienTra = tienNhan - tongTienThanhToan;
 		
 	}
 	public double getTienThue() {
 		return tienThue;
 	}
 	public void setTienThue() {
+		this.tienThue = tongTien * 0.1;
 		
 	}
 	public double getPhiDoiPhong() {
@@ -128,49 +137,63 @@ public class HoaDon {
 	}
 	public void setPhiDoiPhong() {
 		
+		
 	}
 	public HoaDon(String maHD, LocalDateTime ngayLap, LocalDateTime ngayNhanPhong, LocalDateTime ngayTraPhong,
 			PhuongThucThanhToan pTTT, TrangThaiHoaDon trangThai, double tienNhan,  KhuyenMai khuyenMai,
-			KhachHang khachHang, ArrayList<ChiTietHoaDon> cTHD, NhanVien nhanVien) {
-		super();
+			KhachHang khachHang, ArrayList<ChiTietHoaDon> dsCTHD, NhanVien nhanVien) {
 		this.maHD = maHD;
 		this.ngayLap = ngayLap;
 		this.ngayNhanPhong = ngayNhanPhong;
 		this.ngayTraPhong = ngayTraPhong;
 		this.pTTT = pTTT;
 		this.trangThai = trangThai;
-		setTongTienThanhToan();
 		setTongTien();
-		setTienGiam();
-		this.tienNhan = tienNhan;
-		setTienTra();
 		setTienThue();
+		setTienGiam();
 		setPhiDoiPhong();
+		setTongTienThanhToan();
+		setTienTra();
+		this.tienNhan = tienNhan;
 		this.khuyenMai = khuyenMai;
 		this.khachHang = khachHang;
-		this.cTHD = cTHD;
+		this.dsCTHD = dsCTHD;
 		this.nhanVien = nhanVien;
 	}
 	
-	public HoaDon(String maHD, LocalDateTime ngayLap, TrangThaiHoaDon trangThai, double tongTien, KhachHang khachHang,
-			ArrayList<ChiTietHoaDon> cTHD) {
+	
+	
+	
+	
+	public HoaDon(String maHD, LocalDateTime ngayLap, PhuongThucThanhToan pTTT, TrangThaiHoaDon trangThai,
+			KhachHang khachHang, ArrayList<ChiTietHoaDon> dsCTHD, NhanVien nhanVien) {
+		super();
 		this.maHD = maHD;
 		this.ngayLap = ngayLap;
+		this.pTTT = pTTT;
 		this.trangThai = trangThai;
-		setTongTien();
 		this.khachHang = khachHang;
-		this.cTHD = cTHD;
+		this.dsCTHD = dsCTHD;
+		this.nhanVien = nhanVien;
+	}
+	public HoaDon(String maHD, LocalDateTime ngayLap, PhuongThucThanhToan pTTT, TrangThaiHoaDon trangThai,
+			KhachHang khachHang, ArrayList<ChiTietHoaDon> dsCTHD, NhanVien nhanVien , KhuyenMai khuyenMai, double tienNhan, double tienTra ) {
+		this.maHD = maHD;
+		this.ngayLap = ngayLap;
+		this.pTTT = pTTT;
+		this.trangThai = trangThai;
+		this.khachHang = khachHang;
+		this.dsCTHD = dsCTHD;
+		this.nhanVien = nhanVien;
+		this.khuyenMai = khuyenMai;
+		this.tienNhan = tienNhan;
+		this.tienTra = tienTra;
 	}
 	
-	public HoaDon(String maHD, LocalDateTime ngayLap, KhachHang khachHang,double tongTien) {
-		this.maHD = maHD;
-		this.ngayLap = ngayLap;
-		this.khachHang = khachHang;
-		setTongTien();
-	}
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(cTHD);
+		return Objects.hash(dsCTHD);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -181,7 +204,7 @@ public class HoaDon {
 		if (getClass() != obj.getClass())
 			return false;
 		HoaDon other = (HoaDon) obj;
-		return Objects.equals(cTHD, other.cTHD);
+		return Objects.equals(dsCTHD, other.dsCTHD);
 	}
     
 }

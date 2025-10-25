@@ -72,6 +72,11 @@ public class KhuyenMai {
 		this.ngayketThuc = ngayketThuc;
 		this.trangThai = trangThai;
 	}
+	
+	public KhuyenMai(double tyLeGiam) {
+		super();
+		this.tyLeGiam = tyLeGiam;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(maKM);

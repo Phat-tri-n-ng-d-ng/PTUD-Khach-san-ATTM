@@ -26,6 +26,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import java.awt.Component;
+import java.awt.Container;
+
 import javax.swing.table.TableModel;
 
 import com.toedter.calendar.JDateChooser;
@@ -40,15 +42,15 @@ public class HoaDonPanel extends JPanel {
 	public static final long serialVersionUID = 1L;
 	public JTextField txt_MaHoaDon;
 	public JTextField txt_SoDienThoaiKhachHang;
-	public JTable table;
+	public JTable table_DanhSachHoaDon;
 	public JComboBox cbb_TrangThaiHoaDon;
-	public DefaultTableModel model;
+	public DefaultTableModel model_DSHD;
 	public JTextField txtChonNgay;
 	public JTextField txt_NgayBD;
 	public JTextField txt_NgayKT;
 	public JTable table_1;
-	public JTable table1;
-	public DefaultTableModel model1;
+	public JTable table_DanhSachKhachHang;
+	public DefaultTableModel model_DSKH;
 	public JTable table_2;
 	public DefaultTableModel model2;
 	public JTextField txt_TongTien;
@@ -60,6 +62,17 @@ public class HoaDonPanel extends JPanel {
 	public JTextField txt_TienTra;
 	public JTextField txt_NhanVienThucHien;
 	public HoaDonController hoaDonController;
+	public JRadioButton  rdbtn_TienMat;
+	public JRadioButton rdbtn_ChuyenKhoan;
+	public JButton btn_TimHoaDon_1;
+	public JDateChooser ChonNgay;
+	public JRadioButton rdbtn_ChonNgay;
+	public Container rdbtn_ChonKhoangTG;
+	public JDateChooser NgayBD;
+	public JDateChooser ngayKT;
+	public JRadioButton rdbtn_TimMaHoaDon;
+	public JRadioButton rdbtn_SoDTKH;
+	public JPanel pnlBoLocHoaDon;
 
 
 	public HoaDonPanel() {
@@ -74,20 +87,18 @@ public class HoaDonPanel extends JPanel {
 		lbl_TieuDe.setBounds(725, 10, 114, 24);
 		add(lbl_TieuDe);
 
-		JPanel pnlBoLocHoaDon = new JPanel();
+		pnlBoLocHoaDon = new JPanel();
 		pnlBoLocHoaDon.setBackground(new Color(255, 255, 255));
 		pnlBoLocHoaDon.setBorder(new LineBorder(new Color(0, 0, 0)));
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screenSize.width, screenSize.height);
 		int doDaiThongTinNhanVien = screenSize.width - 40;
-		int viChiDauThongTinNhanVien = (screenSize.width - doDaiThongTinNhanVien) / 2;
 		pnlBoLocHoaDon.setBounds(20, 79,1496 , 110);
 		add(pnlBoLocHoaDon);
 		pnlBoLocHoaDon.setLayout(null);
 
 		txt_MaHoaDon = new JTextField();
 		txt_MaHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		int doDaiTxt = doDaiThongTinNhanVien/2 - 20;
 		txt_MaHoaDon.setBounds(36, 26, 702, 30);
 		pnlBoLocHoaDon.add(txt_MaHoaDon);
 		txt_MaHoaDon.setColumns(10);
@@ -109,47 +120,47 @@ public class HoaDonPanel extends JPanel {
 		cbb_TrangThaiHoaDon.setBounds(862, 66, 498, 30);
 		pnlBoLocHoaDon.add(cbb_TrangThaiHoaDon);
 
-		JRadioButton rdbtn_TimMaHoaDon = new JRadioButton("");
+		rdbtn_TimMaHoaDon = new JRadioButton("");
 		rdbtn_TimMaHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		rdbtn_TimMaHoaDon.setBackground(Color.WHITE);
 		rdbtn_TimMaHoaDon.setBounds(9, 26, 21, 21);
 		pnlBoLocHoaDon.add(rdbtn_TimMaHoaDon);
 
-		JRadioButton rdbtn_SoDTKH = new JRadioButton("");
+		rdbtn_SoDTKH = new JRadioButton("");
 		rdbtn_SoDTKH.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		rdbtn_SoDTKH.setBackground(Color.WHITE);
 		rdbtn_SoDTKH.setBounds(758, 26, 21, 21);
 		pnlBoLocHoaDon.add(rdbtn_SoDTKH);
 
-		JButton btn_TimHoaDon_1 = new JButton("Tìm");
+		btn_TimHoaDon_1 = new JButton("Tìm");
 		btn_TimHoaDon_1.setBounds(1370, 26, 120, 30);
 		pnlBoLocHoaDon.add(btn_TimHoaDon_1);
 
-		JDateChooser ChonNgay = new JDateChooser();
+		ChonNgay = new JDateChooser();
 		ChonNgay.setDateFormatString("dd/MM/yyyy");
 		ChonNgay.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		ChonNgay.setBounds(114, 66, 172, 30);
 		pnlBoLocHoaDon.add(ChonNgay);
 
-		JRadioButton rdbtn_ChonNgay = new JRadioButton("  Chọn ngày: ");
+		rdbtn_ChonNgay = new JRadioButton("  Chọn ngày: ");
 		rdbtn_ChonNgay.setBounds(9, 70, 120, 21);
 		pnlBoLocHoaDon.add(rdbtn_ChonNgay);
 		rdbtn_ChonNgay.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		rdbtn_ChonNgay.setBackground(Color.WHITE);
 
-		JRadioButton rdbtn_ChonKhoangTG = new JRadioButton("  Hóa đơn trong khoảng: ");
+		rdbtn_ChonKhoangTG = new JRadioButton("  Hóa đơn trong khoảng: ");
 		rdbtn_ChonKhoangTG.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		rdbtn_ChonKhoangTG.setBackground(Color.WHITE);
 		rdbtn_ChonKhoangTG.setBounds(321, 70, 181, 21);
 		pnlBoLocHoaDon.add(rdbtn_ChonKhoangTG);
 
-		JDateChooser NgayBD = new JDateChooser();
+		NgayBD = new JDateChooser();
 		NgayBD.setDateFormatString("dd/MM/yyyy");
 		NgayBD.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		NgayBD.setBounds(508, 66, 102, 30);
 		pnlBoLocHoaDon.add(NgayBD);
 
-		JDateChooser ngayKT = new JDateChooser();
+		ngayKT = new JDateChooser();
 		ngayKT.setDateFormatString("dd/MM/yyyy");
 		ngayKT.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		ngayKT.setBounds(636, 66, 102, 30);
@@ -181,17 +192,17 @@ public class HoaDonPanel extends JPanel {
 		pnlDanhSachHoaDon.setBounds(20, 229, 780, 552);
 		add(pnlDanhSachHoaDon);
 
-		model = new DefaultTableModel(new String[] {"Mã hóa đơn","Ngày lập","Tên khách hàng","Số điện thoại KH", "Tổng tiền"}, 0);
+		model_DSHD = new DefaultTableModel(new String[] {"Mã hóa đơn","Ngày lập","Tên khách hàng","Số điện thoại KH", "Tổng tiền"}, 0);
 		pnlDanhSachHoaDon.setLayout(null);
-		table = new JTable(model);
-		JScrollPane scrollPane = new JScrollPane(table);
+		table_DanhSachHoaDon = new JTable(model_DSHD);
+		JScrollPane scrollPane = new JScrollPane(table_DanhSachHoaDon);
 		scrollPane.setBounds(10, 10, 760, 526);
-		JTableHeader header = table.getTableHeader();
+		JTableHeader header = table_DanhSachHoaDon.getTableHeader();
 		header.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		header.setBackground(new Color(10, 100, 189));
 		header.setForeground(Color.WHITE);
 		header.setPreferredSize(new Dimension(header.getWidth(), 35));
-		table.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		table_DanhSachHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		pnlDanhSachHoaDon.add(scrollPane);
 		
 
@@ -207,18 +218,18 @@ public class HoaDonPanel extends JPanel {
 		pnlThongTinHoaDon.setBounds(838, 229, 678, 347);
 		add(pnlThongTinHoaDon);
 
-		model1= new DefaultTableModel(new String[] {"Tên KH","Giới tính","Ngày sinh","Số điện thoại", "Số CCCD"}, 0);
+		model_DSKH= new DefaultTableModel(new String[] {"Tên KH","Giới tính","Ngày sinh","Số điện thoại", "Số CCCD"}, 0);
 		pnlDanhSachHoaDon.setLayout(null);
-		table1 = new JTable(model1);
-		JScrollPane scrollPane_1 = new JScrollPane(table1);
+		table_DanhSachKhachHang = new JTable(model_DSKH);
+		JScrollPane scrollPane_1 = new JScrollPane(table_DanhSachKhachHang);
 		scrollPane_1.setBounds(10, 28, 658, 114);
 
-		header = table1.getTableHeader();
+		header = table_DanhSachKhachHang.getTableHeader();
 		header.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		header.setBackground(new Color(10, 100, 189));
 		header.setForeground(Color.WHITE);
 		header.setPreferredSize(new Dimension(header.getWidth(), 35));
-		table1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		table_DanhSachKhachHang.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		pnlThongTinHoaDon.add(scrollPane_1);
 
 
@@ -232,13 +243,13 @@ public class HoaDonPanel extends JPanel {
 		lbl_PhuongThuc.setBounds(286, 144, 85, 22);
 		pnlThongTinHoaDon.add(lbl_PhuongThuc);
 
-		JRadioButton rdbtn_TienMat = new JRadioButton("Tiền mặt ");
+		rdbtn_TienMat = new JRadioButton("Tiền mặt ");
 		rdbtn_TienMat.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		rdbtn_TienMat.setBackground(Color.WHITE);
 		rdbtn_TienMat.setBounds(377, 146, 93, 21);
 		pnlThongTinHoaDon.add(rdbtn_TienMat);
 
-		JRadioButton rdbtn_ChuyenKhoan = new JRadioButton("Chuyển khoản");
+		rdbtn_ChuyenKhoan = new JRadioButton("Chuyển khoản");
 		rdbtn_ChuyenKhoan.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		rdbtn_ChuyenKhoan.setBackground(Color.WHITE);
 		rdbtn_ChuyenKhoan.setBounds(472, 145, 122, 21);
@@ -363,15 +374,15 @@ public class HoaDonPanel extends JPanel {
 
 
 
-		JScrollPane scrollPane_1_1 = new JScrollPane((Component) null);
+		JScrollPane table_DanhSachCTHD = new JScrollPane((Component) null);
 		model2= new DefaultTableModel(new String[] {"Mã phòng","Số ngày ở","Đơn giá","Thành Tiền"}, 0);
 		pnlChiTietHoaDon.setLayout(null);
 		table_2 = new JTable(model2);
-		scrollPane_1_1.setBounds(10, 10, 658, 159);
+		table_DanhSachCTHD.setBounds(10, 10, 658, 159);
 
 
 		table_2.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		scrollPane_1_1.setViewportView(table_2);
+		table_DanhSachCTHD.setViewportView(table_2);
 
 		JLabel lbl_ChiTietHoaDon = new JLabel("Chi tiết hóa đơn");
 		lbl_ChiTietHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -383,7 +394,7 @@ public class HoaDonPanel extends JPanel {
 		header.setForeground(Color.WHITE);
 		header.setPreferredSize(new Dimension(header.getWidth(), 35));
 		table_2.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		pnlChiTietHoaDon.add(scrollPane_1_1);
+		pnlChiTietHoaDon.add(table_DanhSachCTHD);
 		add(lbl_ChiTietHoaDon);
 
 		JPanel panel = new JPanel();

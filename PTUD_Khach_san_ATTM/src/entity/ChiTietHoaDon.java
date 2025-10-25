@@ -27,14 +27,17 @@ public class ChiTietHoaDon {
 	public double getThanhTien() {
 		return thanhTien;
 	}
-	public double setThanhTien(Phong phong,int soNgayO) {
-		return phong.getGiaPhong() * soNgayO;
+	public void setThanhTien(Phong phong,int soNgayO) {
+		this.thanhTien =  phong.getGiaPhong() * soNgayO;
+//	    System.out.println("=maPhong=" + phong.getMaPhong() + ", soNgayO=" + soNgayO + ", thanhTien=" + thanhTien);
+
 	}
 	public ChiTietHoaDon(Phong phong,  int soNgayO) {
-		setThanhTien(phong, soNgayO);
 		this.phong = phong;
-//		HoaDon = hoaDon;
 		this.soNgayO = soNgayO;
+		setThanhTien(phong, soNgayO);
+//	    System.out.println("=maPhong=" + phong.getMaPhong() + ", soNgayO=" + soNgayO + ", thanhTien=" + thanhTien);
+
 	}
 	
 

@@ -70,6 +70,10 @@ public class NhanVien {
 		this.chucVu = chucVu;
 		this.taiKhoan = taiKhoan;
 	}
+	
+	public NhanVien() {
+	
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(maNV);
