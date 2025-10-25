@@ -17,10 +17,11 @@ public class Phong {
     public Phong(String maPhong, TrangThaiPhong trangThai, LoaiPhong loaiPhong, int soLuongToiDa) {
         this.maPhong = maPhong;
         this.trangThai = trangThai;
-        this.giaPhong = loaiPhong.getGiaNiemYet()+((soLuongToiDa/2-1)*500000);
-        this.tienCoc = loaiPhong.getTyLeCoc()*giaPhong/100;;
+
         this.loaiPhong = loaiPhong;
         this.soLuongToiDa = soLuongToiDa;
+        setGiaPhong();
+        setTienCoc();
     }
 
     public Phong(String maPhong, TrangThaiPhong trangThai, double giaPhong, double tienCoc, LoaiPhong loaiPhong, int soLuongToiDa) {
@@ -61,13 +62,13 @@ public class Phong {
 		return giaPhong;
 	}
 	public void setGiaPhong() {
-		
+		giaPhong=loaiPhong.getGiaNiemYet()+((soLuongToiDa/2-1)*500000);
 	}
 	public double getTienCoc() {
 		return tienCoc;
 	}
 	public void setTienCoc() {
-		
+        tienCoc=loaiPhong.getTyLeCoc()*giaPhong/100;
 	}
 
 	@Override

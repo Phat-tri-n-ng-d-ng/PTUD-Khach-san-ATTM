@@ -85,5 +85,8 @@ public class PhongDao {
         return p;
 
     }
+    public ArrayList<Phong> timPhongTheoCheck(String [] luaChon){
+
+    }
 
 }
