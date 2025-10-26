@@ -67,12 +67,14 @@ public class HoaDonPanel extends JPanel {
 	public JButton btn_TimHoaDon_1;
 	public JDateChooser ChonNgay;
 	public JRadioButton rdbtn_ChonNgay;
-	public Container rdbtn_ChonKhoangTG;
+	public JRadioButton rdbtn_ChonKhoangTG;
 	public JDateChooser NgayBD;
 	public JDateChooser ngayKT;
 	public JRadioButton rdbtn_TimMaHoaDon;
 	public JRadioButton rdbtn_SoDTKH;
 	public JPanel pnlBoLocHoaDon;
+	public JRadioButton rdbtn_TrangThai;
+	public JButton btn_LamMoi;
 
 
 	public HoaDonPanel() {
@@ -109,14 +111,9 @@ public class HoaDonPanel extends JPanel {
 		txt_SoDienThoaiKhachHang.setBounds(784, 26, 576, 30);
 		pnlBoLocHoaDon.add(txt_SoDienThoaiKhachHang);
 
-		JLabel lbl_TrangThai = new JLabel("Trạng Thái:");
-		lbl_TrangThai.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lbl_TrangThai.setBounds(784, 70, 85, 22);
-		pnlBoLocHoaDon.add(lbl_TrangThai);
-
 		cbb_TrangThaiHoaDon = new JComboBox();
 		cbb_TrangThaiHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		cbb_TrangThaiHoaDon.setModel(new DefaultComboBoxModel(new String[] {"Hóa đơn đặt phòng", "Hóa đơn thuê phòng", "Hóa đơn hoàn thành", "Hóa đơn tạm"}));
+		cbb_TrangThaiHoaDon.setModel(new DefaultComboBoxModel(new String[] {"Hóa đơn đặt phòng", "Hóa đơn thuê phòng", "Hóa đơn hoàn thành", "Hóa đơn tạm", "Tất cả"}));
 		cbb_TrangThaiHoaDon.setBounds(862, 66, 498, 30);
 		pnlBoLocHoaDon.add(cbb_TrangThaiHoaDon);
 
@@ -175,6 +172,16 @@ public class HoaDonPanel extends JPanel {
 		lbl_TimSDT.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lbl_TimSDT.setBounds(784, 10, 188, 16);
 		pnlBoLocHoaDon.add(lbl_TimSDT);
+		
+		rdbtn_TrangThai = new JRadioButton(" Trạng thái:");
+		rdbtn_TrangThai.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		rdbtn_TrangThai.setBackground(Color.WHITE);
+		rdbtn_TrangThai.setBounds(758, 70, 99, 21);
+		pnlBoLocHoaDon.add(rdbtn_TrangThai);
+		
+		btn_LamMoi = new JButton("Làm mới");
+		btn_LamMoi.setBounds(1370, 66, 120, 30);
+		pnlBoLocHoaDon.add(btn_LamMoi);
 
 		JLabel lbl_Boloc = new JLabel("Bộ lọc");
 		lbl_Boloc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -401,7 +408,8 @@ public class HoaDonPanel extends JPanel {
 		panel.setBounds(10, 10, 32, 32);
 		add(panel);
 		hoaDonController = new HoaDonController(this);
-		hoaDonController.getTatCaHoaDOn();
+		hoaDonController.getTatCaHoaDon();
+//		
 	}
 }
 

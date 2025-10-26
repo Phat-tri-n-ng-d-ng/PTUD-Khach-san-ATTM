@@ -6,9 +6,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
@@ -16,6 +18,7 @@ import entity.KhachHang;
 import entity.KhuyenMai;
 import entity.NhanVien;
 import entity.Phong;
+import enums.ChucVuNhanVien;
 import enums.PhuongThucThanhToan;
 import enums.TrangThaiHoaDon;
 
@@ -39,12 +42,17 @@ public class HoaDonDao {
                 KhachHang kh = new KhachHang(tenKH,sdt);
                 String pTTTString = rs.getString("pTTT");
                 String tenNV = rs.getString("tenNV");
+                String trangThai = rs.getString("trangThai");
+                TrangThaiHoaDon trangThaiHD = TrangThaiHoaDon.valueOf(trangThai);
+	        
+
                 NhanVien nv = new NhanVien();
+                
                 nv.setTenNV(tenNV);
                 PhuongThucThanhToan pttt = PhuongThucThanhToan.fromString(pTTTString);
                 //Lay du lieu tu chi tiet hoa don
                 ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
-                hd = new HoaDon(maHD, ngayLap, pttt, TrangThaiHoaDon.HoaDonDatPhong, kh, dsCTDH , nv);
+                hd = new HoaDon(maHD, ngayLap, pttt,trangThaiHD , kh, dsCTDH , nv);
                 hd.setTongTien();
                 dsHoaDon.add(hd);
               
@@ -74,6 +82,8 @@ public class HoaDonDao {
 	             KhachHang kh = new KhachHang(tenKH,sdt);
 	             String pTTTString = rs.getString("pTTT");
 	             String tenNV = rs.getString("tenNV");
+	             String trangThai = rs.getString("trangThai");
+	             TrangThaiHoaDon trangThaiHD = TrangThaiHoaDon.valueOf(trangThai);
 	             double tienNhan =  rs.getDouble("tienNhan");
 	             double tienTra =  rs.getDouble("tienTra");
 	             double khuyenMai = rs.getDouble("tyLeGiam");
@@ -84,7 +94,7 @@ public class HoaDonDao {
 	             //Lay du lieu tu chi tiet hoa don
 	             ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
 	             
-	             hd = new HoaDon(maHD, ngayLap, pttt, TrangThaiHoaDon.HoaDonDatPhong, kh, dsCTDH , nv, km, tienNhan,tienTra);
+	             hd = new HoaDon(maHD, ngayLap, pttt, trangThaiHD, kh, dsCTDH , nv, km, tienNhan,tienTra);
 	             hd.setTongTien();
 	             hd.setTienThue();
 	             hd.setPhiDoiPhong();
@@ -114,6 +124,8 @@ public class HoaDonDao {
 	             KhachHang kh = new KhachHang(tenKH,sdt);
 	             String pTTTString = rs.getString("pTTT");
 	             String tenNV = rs.getString("tenNV");
+	             String trangThai = rs.getString("trangThai");
+	             TrangThaiHoaDon trangThaiHD = TrangThaiHoaDon.valueOf(trangThai);
 	             double tienNhan =  rs.getDouble("tienNhan");
 	             double tienTra =  rs.getDouble("tienTra");
 	             double khuyenMai = rs.getDouble("tyLeGiam");
@@ -124,7 +136,7 @@ public class HoaDonDao {
 	             //Lay du lieu tu chi tiet hoa don
 	             ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
 	             
-	             hd = new HoaDon(maHD, ngayLap, pttt, TrangThaiHoaDon.HoaDonDatPhong, kh, dsCTDH , nv, km, tienNhan,tienTra);
+	             hd = new HoaDon(maHD, ngayLap, pttt, trangThaiHD, kh, dsCTDH , nv, km, tienNhan,tienTra);
 	             hd.setTongTien();
 	             hd.setTienThue();
 	             hd.setPhiDoiPhong();
@@ -138,14 +150,14 @@ public class HoaDonDao {
         }
 		return hd;
 	};
-	public ArrayList<HoaDon> timHoaDonTheoNgay(Date ngay) {
+	public ArrayList<HoaDon> timHoaDonTheoNgay(LocalDateTime ngay) {
 		Connection connection = ConnectDB.getConnection();
 		HoaDon hd = null;
 		ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
 		String sql = "{CALL timNgayLap(?)}";
 		try {
 			PreparedStatement st = connection.prepareStatement(sql);
-			st.setDate(1, ngay);
+			st.setTimestamp(1, Timestamp.valueOf(ngay));
 			ResultSet rs= st.executeQuery();
 			while(rs.next()) {
 				String maHD = rs.getString("maHD");
@@ -154,13 +166,15 @@ public class HoaDonDao {
                 String sdt = rs.getString("sdt");
                 KhachHang kh = new KhachHang(tenKH,sdt);
                 String pTTTString = rs.getString("pTTT");
+                String trangThai = rs.getString("trangThai");
+                TrangThaiHoaDon trangThaiHoaDon = TrangThaiHoaDon.valueOf(trangThai);
                 String tenNV = rs.getString("tenNV");
                 NhanVien nv = new NhanVien();
                 nv.setTenNV(tenNV);
                 PhuongThucThanhToan pttt = PhuongThucThanhToan.fromString(pTTTString);
                 //Lay du lieu tu chi tiet hoa don
                 ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
-                hd = new HoaDon(maHD, ngayLap, pttt, TrangThaiHoaDon.HoaDonDatPhong, kh, dsCTDH , nv);
+                hd = new HoaDon(maHD, ngayLap, pttt, trangThaiHoaDon, kh, dsCTDH , nv);
                 hd.setTongTien();
                 dsHoaDon.add(hd);
 				
@@ -173,7 +187,7 @@ public class HoaDonDao {
         }
 		return dsHoaDon;
 	};
-	public ArrayList<HoaDon> timHoaDonTheoKhoang(Date ngayBD, Date ngayKT) {
+	public ArrayList<HoaDon> timHoaDonTheoKhoang(LocalDateTime ngayBD, LocalDateTime ngayKT) {
 		Connection connection = ConnectDB.getConnection();
 		ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
 		
@@ -181,8 +195,8 @@ public class HoaDonDao {
 		String sql = "{CALL timTrongKhoang(?,?)}";
 		try {
 			PreparedStatement st = connection.prepareStatement(sql);
-			st.setDate(1, ngayBD);
-			st.setDate(2, ngayKT);
+			st.setTimestamp(1, Timestamp.valueOf(ngayBD));
+			st.setTimestamp(2, Timestamp.valueOf(ngayKT));
 			ResultSet rs= st.executeQuery();
 			while(rs.next()) {
 				String maHD = rs.getString("maHD");
@@ -190,6 +204,8 @@ public class HoaDonDao {
                 String tenKH = rs.getString("tenKH");
                 String sdt = rs.getString("sdt");
                 KhachHang kh = new KhachHang(tenKH,sdt);
+                String trangThai = rs.getString("trangThai");
+                TrangThaiHoaDon trangThaiHoaDon = TrangThaiHoaDon.valueOf(trangThai);
                 String pTTTString = rs.getString("pTTT");
                 String tenNV = rs.getString("tenNV");
                 NhanVien nv = new NhanVien();
@@ -197,7 +213,7 @@ public class HoaDonDao {
                 PhuongThucThanhToan pttt = PhuongThucThanhToan.fromString(pTTTString);
                 //Lay du lieu tu chi tiet hoa don
                 ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
-                hd = new HoaDon(maHD, ngayLap, pttt, TrangThaiHoaDon.HoaDonDatPhong, kh, dsCTDH , nv);
+                hd = new HoaDon(maHD, ngayLap, pttt, trangThaiHoaDon, kh, dsCTDH , nv);
                 hd.setTongTien();
                 dsHoaDon.add(hd);
 			}
@@ -233,7 +249,47 @@ public class HoaDonDao {
 		}
 		return dsKh;
 	}
-	
+	//Loc hoa don theo trang tthai
+	public ArrayList<HoaDon> getHoaDonTheoTrangThai(String trangThaiHD){
+		Connection connection = ConnectDB.getConnection();
+		ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
+		String sql = "{CALL locHoaDonTheoTrangThai(?)}";
+		HoaDon hd = null;
+		try {
+			CallableStatement st = connection.prepareCall(sql);
+			st.setString(1, trangThaiHD);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				String maHD = rs.getString("maHD");
+                LocalDateTime ngayLap = rs.getTimestamp("ngayLap").toLocalDateTime();
+                String tenKH = rs.getString("tenKH");
+                String sdt = rs.getString("sdt");
+                KhachHang kh = new KhachHang(tenKH,sdt);
+                String pTTTString = rs.getString("pTTT");
+                String tenNV = rs.getString("tenNV");
+                String trangThai = rs.getString("trangThai");
+                TrangThaiHoaDon trangThaiHoaDon = TrangThaiHoaDon.valueOf(trangThai);
+                NhanVien nv = new NhanVien();
+                nv.setTenNV(tenNV);
+                PhuongThucThanhToan pttt = PhuongThucThanhToan.fromString(pTTTString);
+                //Lay du lieu tu chi tiet hoa don
+                ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
+                hd = new HoaDon(maHD, ngayLap, pttt,trangThaiHoaDon , kh, dsCTDH , nv);
+                hd.setTongTien();
+                dsHoaDon.add(hd);
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			ConnectDB.closeConnection(connection);
+		}
+		return dsHoaDon;
+		
+		
+	}
 	//CHI TIET HOA DOn
 	public ArrayList<ChiTietHoaDon> getChiTietHoaDon(String maHD){
 		ArrayList<ChiTietHoaDon> dsChiTietHoaDon = new ArrayList<ChiTietHoaDon>();

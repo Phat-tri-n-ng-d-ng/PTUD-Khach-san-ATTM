@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -23,7 +24,9 @@ import entity.HoaDon;
 import entity.KhachHang;
 import entity.KhuyenMai;
 import entity.NhanVien;
+import enums.ChucVuNhanVien;
 import enums.PhuongThucThanhToan;
+import enums.TrangThaiHoaDon;
 import services.HoaDonService;
 import services.NhanVienService;
 import views.HoaDonPanel;
@@ -38,8 +41,13 @@ public class HoaDonController implements MouseListener,ActionListener {
 		
 		hoaDonPanel.table_DanhSachHoaDon.addMouseListener(this);
 		hoaDonPanel.btn_TimHoaDon_1.addActionListener(this);
+		
+		
 	}
-	public void getTatCaHoaDOn(){
+	public String doiDonVi(double tien) {
+		return String.format("%,.0f VND",tien);
+	}
+	public void getTatCaHoaDon(){
         try {
             ArrayList<HoaDon> dsHoaDon = hoaDonService.getDanhSachHoaDon();
             hoaDonPanel.model_DSHD.setRowCount(0); // Xóa dữ liệu cũ trong bảng trước khi load mới
@@ -61,35 +69,34 @@ public class HoaDonController implements MouseListener,ActionListener {
     }
 	
 	//TIM HOA DOn trong khoan
-//	public void timHoaDonTheoKhoang(Date ngayBD, Date ngayKT) {
-//	    try {
-//	        ArrayList<HoaDon> dsHoaDon = hoaDonService.timHoaDonTheoKhoang(ngayBD, ngayKT);
-//	        DefaultTableModel model = hoaDonPanel.model;
-//	        model.setRowCount(0);
-//
-//	        if (dsHoaDon.isEmpty()) {
-//	            JOptionPane.showMessageDialog(hoaDonPanel, "Khong tim thay hoa don trong khoang ngay nay!");
-//	            return;
-//	        }
-//
-//	        for (HoaDon hd : dsHoaDon) {
-//	            model.addRow(new Object[]{
-//	                hd.getMaHD(),
-//	                hd.getNgayLap(),
-//	                hd.getKhachHang().getTenKH(),
-//	                hd.getKhachHang().getSdt(),
-//	                hd.getTongTien()
-//	            });
-//	        }
-//
-//	    } catch (Exception e) {
-//	        JOptionPane.showMessageDialog(hoaDonPanel, "Loi khi tim hoa don: " + e.getMessage());
-//	        e.printStackTrace();
-//	    }
-//	}
+	public void timHoaDonTheoKhoang(LocalDateTime ngayBD, LocalDateTime ngayKT) {
+	    try {
+	        ArrayList<HoaDon> dsHoaDon = hoaDonService.timHoaDonTheoKhoang(ngayBD, ngayKT);
+	        hoaDonPanel.model_DSHD.setRowCount(0);
+
+	        if (dsHoaDon.isEmpty()) {
+	            JOptionPane.showMessageDialog(hoaDonPanel, "Khong tim thay hoa don trong khoang ngay nay!");
+	            return;
+	        }
+
+	        for (HoaDon hd : dsHoaDon) {
+	        	 hoaDonPanel.model_DSHD.addRow(new Object[]{
+	                hd.getMaHD(),
+	                hd.getNgayLap(),
+	                hd.getKhachHang().getTenKH(),
+	                hd.getKhachHang().getSdt(),
+	                doiDonVi(hd.getTongTien())
+	            });
+	        }
+
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(hoaDonPanel, "Loi khi tim hoa don: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	}
 	
 	//TIM HOA DOn trong ngay
-	public void timHoaDonTheoKhoang(Date ngay) {
+	public void timHoaDonTheoNgay(LocalDateTime ngay) {
 	    try {
 	        ArrayList<HoaDon> dsHoaDon = hoaDonService.timHoaDonTheoNgay(ngay);
 	        DefaultTableModel model = hoaDonPanel.model_DSHD;
@@ -106,7 +113,7 @@ public class HoaDonController implements MouseListener,ActionListener {
 	                hd.getNgayLap(),
 	                hd.getKhachHang().getTenKH(),
 	                hd.getKhachHang().getSdt(),
-	                hd.getTongTien()
+	                doiDonVi(hd.getTongTien())
 	            });
 	        }
 
@@ -120,20 +127,19 @@ public class HoaDonController implements MouseListener,ActionListener {
 	public void timHoaDonTheoMa(String maHD) {
 	    try {
 	        HoaDon hd = hoaDonService.timHoaDonTheoMa(maHD);
-	        DefaultTableModel model = hoaDonPanel.model_DSHD;
-	        model.setRowCount(0);
+	        hoaDonPanel.model_DSHD.setRowCount(0);
 
 	        if (hd == null) {
 	            JOptionPane.showMessageDialog(hoaDonPanel, "Khong tim thay hoa don co ma: " + maHD);
 	            return;
 	        }
-	        String tongTien = String.format("%,.0f VND", hd.getTongTien());
-	        model.addRow(new Object[]{
+	       
+	        hoaDonPanel.model_DSHD.addRow(new Object[]{
 	            hd.getMaHD(),
 	            hd.getNgayLap(),
 	            hd.getKhachHang().getTenKH(),
 	            hd.getKhachHang().getSdt(),
-	            tongTien
+	            doiDonVi(hd.getTongTien())
 	        });
 
 	    } catch (Exception e) {
@@ -145,20 +151,20 @@ public class HoaDonController implements MouseListener,ActionListener {
 	public void timHoaDonTheoSDT(String SDT) {
 	    try {
 	        HoaDon hd = hoaDonService.timHoaDonTheoSDT(SDT);
-	        DefaultTableModel model = hoaDonPanel.model_DSHD;
-	        model.setRowCount(0);
+	   
+	        hoaDonPanel.model_DSHD.setRowCount(0);
 
 	        if (hd == null) {
 	            JOptionPane.showMessageDialog(hoaDonPanel, "Khong tim thay hoa don co so dien thoai: " + SDT);
 	            return;
 	        }
 
-	        model.addRow(new Object[]{
+	        hoaDonPanel.model_DSHD.addRow(new Object[]{
 	            hd.getMaHD(),
 	            hd.getNgayLap(),
 	            hd.getKhachHang().getTenKH(),
 	            hd.getKhachHang().getSdt(),
-	            hd.getTongTien()
+	            doiDonVi(hd.getTongTien())
 	        });
 
 	    } catch (Exception e) {
@@ -170,14 +176,60 @@ public class HoaDonController implements MouseListener,ActionListener {
 //	
 	
 //	private  void LamMoi(){
-//        hoaDonPanel.table1.setText("");
-//        hoaDonPanel.rdbtn_Nam.setSelected(true);
-//        hoaDonPanel.rdbtn_Nu.setSelected(false);
-//        hoaDonPanel.txt_SoDienThoai.setText("");
-//        hoaDonPanel.txt_Email.setText("");
-//        hoaDonPanel.cbb_ChuVu.setSelectedIndex(0);
-//        hoaDonPanel.txt_TenNhanVien.requestFocus();
+//        ArrayList<HoaDon> dsHoaDon =  new ArrayList<>();
+//        hienThiDanhSachHoaDon(dsHoaDon);
+//        
+//        
+//        
+//       
 //    }
+	public void locHoaDonTheoTrangThai() {
+	    String trangThai = hoaDonPanel.cbb_TrangThaiHoaDon.getSelectedItem().toString();
+	    ArrayList<HoaDon> dsHoaDon;
+	    if (trangThai.equals("Tất cả")) {
+	    	dsHoaDon = hoaDonService.getDanhSachHoaDon();
+		}else {
+			TrangThaiHoaDon trangThaiHD = getTrangThai(trangThai);
+			dsHoaDon = hoaDonService.getHoaDonTheoTrangThai(trangThaiHD.toString());
+		}
+	    hoaDonPanel.model_DSHD.setRowCount(0);
+	    for(HoaDon hd : dsHoaDon) {
+	    	hoaDonPanel.model_DSHD.addRow(new Object[] {
+	    			hd.getMaHD(),
+		            hd.getNgayLap(),
+		            hd.getKhachHang().getTenKH(),
+		            hd.getKhachHang().getSdt(),
+		            doiDonVi(hd.getTongTien())
+	    	});
+	    	
+	    }
+	     
+	}
+	private TrangThaiHoaDon getTrangThai(String trangThai) {
+        switch (trangThai) {
+            case "Hóa đơn đặt phòng" -> { return TrangThaiHoaDon.HoaDonDatPhong ; }
+            case "Hóa đơn hoàn thành" -> { return TrangThaiHoaDon.HoaDonHoanThanh; }
+            case "Hóa đơn tạm" -> { return TrangThaiHoaDon.HoaDonTam; }
+            case "Hóa đơn thuê phòng" -> { return TrangThaiHoaDon.HoaDonThuePhong; }
+            case "Tất cả" -> { return TrangThaiHoaDon.TatCa;}
+            default -> {return TrangThaiHoaDon.HoaDonDatPhong;}
+        }
+    }
+
+	public void hienThiDanhSachHoaDon(ArrayList<HoaDon> dsHoaDons) {
+		hoaDonPanel.model_DSHD.setRowCount(0);
+		for(HoaDon hd : dsHoaDons) {
+			hoaDonPanel.model_DSHD.addRow(new Object[] {
+					   hd.getMaHD(),
+		               hd.getNgayLap(),
+		               hd.getKhachHang().getTenKH(),
+		               hd.getKhachHang().getSdt(),
+		               doiDonVi(hd.getTongTien())
+		               
+			});
+			
+		}
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -267,6 +319,8 @@ public class HoaDonController implements MouseListener,ActionListener {
 //	        }catch (Exception e) {
 //	            e.printStackTrace();
 //	        }	
+		 
+	
 		
 		
 	}
@@ -297,6 +351,10 @@ public class HoaDonController implements MouseListener,ActionListener {
 		if(o == hoaDonPanel.btn_TimHoaDon_1) {
 			String maHD = hoaDonPanel.txt_MaHoaDon.getText().trim();
 			String soDT = hoaDonPanel.txt_SoDienThoaiKhachHang.getText().trim();
+			LocalDateTime ngayChon = layNgayTuDateChooser(hoaDonPanel.ChonNgay);
+			LocalDateTime ngayBD = layNgayTuDateChooser(hoaDonPanel.NgayBD);
+			LocalDateTime ngayKT = layNgayTuDateChooser(hoaDonPanel.ngayKT);
+			String trangThai = hoaDonPanel.cbb_TrangThaiHoaDon.getSelectedItem().toString();
 			
 			//DOi kieu date
 //			java.util.Date ngayChonTEst = hoaDonPanel.ChonNgay.getDate();
@@ -314,14 +372,30 @@ public class HoaDonController implements MouseListener,ActionListener {
 			        return;
 				}
 				timHoaDonTheoSDT(soDT);
+			}else if (hoaDonPanel.rdbtn_ChonNgay.isSelected()) {
+				timHoaDonTheoNgay(ngayChon);
+				
+			}else if (hoaDonPanel.rdbtn_ChonKhoangTG.isSelected()) {
+				timHoaDonTheoKhoang(ngayBD, ngayKT);
+			}else if (hoaDonPanel.rdbtn_TrangThai.isSelected()) {
+				locHoaDonTheoTrangThai();
+				
 			}
-		    
-		    
+			
+
 		    
 		    
 		}
 		
+	
 	}
+	private LocalDateTime layNgayTuDateChooser(JDateChooser ngayChon) {
+        if (ngayChon!= null && ngayChon.getDate() != null) {
+            java.util.Date ngay = ngayChon.getDate();
+            return ngay.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }
+        return null;
+    }
 
 
 }
