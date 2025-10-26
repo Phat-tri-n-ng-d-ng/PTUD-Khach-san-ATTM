@@ -356,9 +356,7 @@ public class HoaDonController implements MouseListener,ActionListener {
 			LocalDateTime ngayKT = layNgayTuDateChooser(hoaDonPanel.ngayKT);
 			String trangThai = hoaDonPanel.cbb_TrangThaiHoaDon.getSelectedItem().toString();
 			
-			//DOi kieu date
-//			java.util.Date ngayChonTEst = hoaDonPanel.ChonNgay.getDate();
-//			Date ngayChon = new Date(ngayChonTEst.getTime());
+
 			
 			if(hoaDonPanel.rdbtn_TimMaHoaDon.isSelected()) {
 				if (maHD.isEmpty()) {
