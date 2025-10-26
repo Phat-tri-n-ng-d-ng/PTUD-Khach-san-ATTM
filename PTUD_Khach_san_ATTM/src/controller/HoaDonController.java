@@ -355,9 +355,6 @@ public class HoaDonController implements MouseListener,ActionListener {
 			LocalDateTime ngayBD = layNgayTuDateChooser(hoaDonPanel.NgayBD);
 			LocalDateTime ngayKT = layNgayTuDateChooser(hoaDonPanel.ngayKT);
 			String trangThai = hoaDonPanel.cbb_TrangThaiHoaDon.getSelectedItem().toString();
-			
-
-			
 			if(hoaDonPanel.rdbtn_TimMaHoaDon.isSelected()) {
 				if (maHD.isEmpty()) {
 			        JOptionPane.showMessageDialog(hoaDonPanel, "Vui long nhap ma hoa don!");
@@ -378,6 +375,9 @@ public class HoaDonController implements MouseListener,ActionListener {
 			}else if (hoaDonPanel.rdbtn_TrangThai.isSelected()) {
 				locHoaDonTheoTrangThai();
 				
+			}else {
+				JOptionPane.showMessageDialog(hoaDonPanel, "Vui long chon dieu kien tim kiem!");
+				return;
 			}
 			
 
