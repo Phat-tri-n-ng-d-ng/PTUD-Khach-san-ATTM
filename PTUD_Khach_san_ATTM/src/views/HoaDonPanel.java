@@ -179,9 +179,7 @@ public class HoaDonPanel extends JPanel {
 		rdbtn_TrangThai.setBounds(758, 70, 99, 21);
 		pnlBoLocHoaDon.add(rdbtn_TrangThai);
 		
-		btn_LamMoi = new JButton("Làm mới");
-		btn_LamMoi.setBounds(1370, 66, 120, 30);
-		pnlBoLocHoaDon.add(btn_LamMoi);
+		
 
 		JLabel lbl_Boloc = new JLabel("Bộ lọc");
 		lbl_Boloc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
