@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class NhanVienController implements MouseListener {
-    private final TaiKhoanService taiKhoanService;
+    private TaiKhoanService taiKhoanService;
     private NhanVienService nhanVienService;
     private NhanVienPanel nhanVienPanel;
 
