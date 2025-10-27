@@ -26,15 +26,15 @@ public class PhongController {
     LoaiPhongService loaiPhongService;
     PhongPanel phongPanel;
     PhongServices phongServices;
+//    LoaiPhongController loaiPhongController;
 
 
     public PhongController(PhongPanel pp) {
         this.phongPanel = pp;
         phongServices=new PhongServices();
         loaiPhongService= new LoaiPhongService();
+//        loaiPhongController= new LoaiPhongController();
         suKien();
-
-
     }
 
     private void suKien() {
@@ -48,6 +48,9 @@ public class PhongController {
         phongPanel.btn_CapNhat.addActionListener(e -> {
             capNhatPhong();
         });
+        phongPanel.btn_LamMoi.addActionListener(e -> {
+            lamMoi();
+        });
         // Chuot click
         phongPanel.table.getSelectionModel().addListSelectionListener(e -> {
             docLenTextField();
@@ -57,6 +60,22 @@ public class PhongController {
         phongPanel.chckbx_Standard.addActionListener(e->{locPhongTheoLoai();});
         phongPanel.chckbx_FamilyRoom.addActionListener(e->{locPhongTheoLoai();});
         phongPanel.chckbx_Deluxe.addActionListener(e->{locPhongTheoLoai();});
+    }
+
+    public void lamMoi() {
+        phongPanel.txt_Tang.setText("");
+        phongPanel.txt_SoPhong.setText("");
+        phongPanel.txt_SoLuongToiDa.setText("");
+        phongPanel.txt_TimMaPhong.setText("");
+        phongPanel.table.clearSelection();
+        phongPanel.cbb_LoaiPhong.setSelectedIndex(0);
+        hienThiDanhSachPhong();
+        phongPanel.chckbx_Deluxe.setSelected(false);
+        phongPanel.chckbx_FamilyRoom.setSelected(false);
+        phongPanel.chckbx_Standard.setSelected(false);
+        phongPanel.chckbx_Suite.setSelected(false);
+        phongPanel.chckbx_Superior.setSelected(false);
+
     }
 
     private void locPhongTheoLoai() {
@@ -150,8 +169,9 @@ public class PhongController {
             String tenlp= phongPanel.cbb_LoaiPhong.getSelectedItem()+"";
             LoaiPhong lp =loaiPhongService.getThongTinLoaiPhong(tenlp);
             int sltd= Integer.parseInt(phongPanel.txt_SoLuongToiDa.getText());
+            TrangThaiPhong trangThaiPhong= phongServices.timPhongBangMa(ma).getTrangThai();
             // tự tính lại giá và tiền cọc trong thuộc tính dẫn xuất của Phong
-            Phong p = new Phong(ma,TrangThaiPhong.Trong,lp,sltd);
+            Phong p = new Phong(ma,trangThaiPhong,lp,sltd);
 
             if(phongServices.capNhatPhong(p)){
                 phongPanel.table.setValueAt(p.getLoaiPhong().getTenLoaiPhong(),r,1);

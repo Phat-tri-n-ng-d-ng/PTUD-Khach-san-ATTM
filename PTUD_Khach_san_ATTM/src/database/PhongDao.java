@@ -25,6 +25,8 @@ public class PhongDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            ConnectDB.closeConnection(con);
         }
         return dsp;
     }
@@ -46,6 +48,8 @@ public class PhongDao {
             System.err.println("Lỗi SQL khi thêm phòng: " + e.getMessage());
             return false;
 //            throw new RuntimeException(e);
+        }finally {
+            ConnectDB.closeConnection(con);
         }
         return n>0;
 
@@ -66,6 +70,8 @@ public class PhongDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            ConnectDB.closeConnection(con);
         }
         return n>0;
     }
@@ -84,6 +90,8 @@ public class PhongDao {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }finally {
+            ConnectDB.closeConnection(con);
         }
         return p;
 
@@ -104,6 +112,8 @@ public class PhongDao {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            ConnectDB.closeConnection(con);
         }
             return dsp;
 

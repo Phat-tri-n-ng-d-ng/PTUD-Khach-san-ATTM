@@ -26,7 +26,7 @@ public class LoaiPhongService {
     }
 
     public LoaiPhongService(LoaiPhong lp){
-        lp=lp;
+        this.lp=lp;
     }
 
     public ArrayList<LoaiPhong> getDanhSachLoaiPhong(){

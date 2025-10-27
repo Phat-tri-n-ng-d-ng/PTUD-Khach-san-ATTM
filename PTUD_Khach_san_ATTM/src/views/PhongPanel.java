@@ -122,12 +122,13 @@ public class PhongPanel extends JPanel {
 
         txt_TimMaPhong = new JTextField();
         txt_TimMaPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-        txt_TimMaPhong.setBounds(758, 35, 553, 30);
+        txt_TimMaPhong.setBounds(758, 35, 600, 30);
         pnlBoLoc.add(txt_TimMaPhong);
 
         btn_Tim = new JButton("Tìm");
-        btn_Tim.setBounds(1321, 35, 120, 30);
+        btn_Tim.setBounds(1370, 35, 115, 30);
         pnlBoLoc.add(btn_Tim);
+
 
         JLabel lbl_LoaiPhongTim = new JLabel("Loại phòng:");
         lbl_LoaiPhongTim.setFont(new Font("Times New Roman", Font.PLAIN, 16));
@@ -135,29 +136,30 @@ public class PhongPanel extends JPanel {
         pnlBoLoc.add(lbl_LoaiPhongTim);
 
         chckbx_Standard = new JCheckBox("Standard");
-        chckbx_Standard.setBounds(134, 35, 100, 22);
+        chckbx_Standard.setBounds(10, 35, 100, 22);
         chckbx_Standard.setBackground(Color.WHITE);
         pnlBoLoc.add(chckbx_Standard);
 
         chckbx_Superior = new JCheckBox("Superior");
-        chckbx_Superior.setBounds(245, 35, 100, 22);
+        chckbx_Superior.setBounds(125, 35, 100, 22);
         chckbx_Superior.setBackground(Color.WHITE);
         pnlBoLoc.add(chckbx_Superior);
 
         chckbx_Deluxe = new JCheckBox("Deluxe");
-        chckbx_Deluxe.setBounds(356, 35, 100, 22);
+        chckbx_Deluxe.setBounds(240, 35, 100, 22);
         chckbx_Deluxe.setBackground(Color.WHITE);
         pnlBoLoc.add(chckbx_Deluxe);
 
         chckbx_Suite = new JCheckBox("Suite");
-        chckbx_Suite.setBounds(467, 35, 100, 22);
+        chckbx_Suite.setBounds(355, 35, 100, 22);
         chckbx_Suite.setBackground(Color.WHITE);
         pnlBoLoc.add(chckbx_Suite);
 
         chckbx_FamilyRoom = new JCheckBox("Family Room");
-        chckbx_FamilyRoom.setBounds(578, 35, 117, 22);
+        chckbx_FamilyRoom.setBounds(470, 35, 120, 22);
         chckbx_FamilyRoom.setBackground(Color.WHITE);
         pnlBoLoc.add(chckbx_FamilyRoom);
+
 
         JLabel lbl_ThongTinPhong = new JLabel("Thông tin phòng");
         lbl_ThongTinPhong.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -174,12 +176,12 @@ public class PhongPanel extends JPanel {
         lbl_DanhSachPhong.setBounds(20, 383, 180, 20);
         add(lbl_DanhSachPhong);
 
-        JPanel pnlDanhSachNhanVien = new JPanel();
-        pnlDanhSachNhanVien.setBackground(Color.WHITE);
-        pnlDanhSachNhanVien.setBorder(new LineBorder(Color.BLACK));
-        pnlDanhSachNhanVien.setBounds(20, 410, 1496, 367);
-        add(pnlDanhSachNhanVien);
-        pnlDanhSachNhanVien.setLayout(null);
+        JPanel pnlDanhSachPhong = new JPanel();
+        pnlDanhSachPhong.setBackground(Color.WHITE);
+        pnlDanhSachPhong.setBorder(new LineBorder(Color.BLACK));
+        pnlDanhSachPhong.setBounds(20, 410, 1496, 367);
+        add(pnlDanhSachPhong);
+        pnlDanhSachPhong.setLayout(null);
 
         model = new DefaultTableModel(
                 new String[] { "Mã phòng", "Loại phòng", "Số lượng tối đa", "Giá phòng", "Tiền cọc", "Trạng thái" }, 0);
@@ -192,7 +194,7 @@ public class PhongPanel extends JPanel {
         header.setForeground(Color.WHITE);
         header.setPreferredSize(new Dimension(header.getWidth(), 35));
         table.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-        pnlDanhSachNhanVien.add(scrollPane);
+        pnlDanhSachPhong.add(scrollPane);
 
         // Controller
         PhongController pc = new PhongController(this);

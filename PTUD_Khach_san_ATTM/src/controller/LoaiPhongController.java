@@ -28,17 +28,13 @@ public class LoaiPhongController {
         LoaiPhongService loaiPhongService;
         LoaiPhongPanel loaiPhongPanel;
 
-
-
-
     public LoaiPhongController(LoaiPhongPanel lpp){
         loaiPhongService= new LoaiPhongService();
-
         this.loaiPhongPanel=lpp;
-
         SuKien();
-
     }
+
+
     public void SuKien(){
         loaiPhongPanel.btn_Them.addActionListener(e -> {
             themLoaiPhong();
@@ -51,7 +47,20 @@ public class LoaiPhongController {
         loaiPhongPanel.btn_CapNhat.addActionListener(e -> {
             capNhatLoaiPhong();
         });
+        loaiPhongPanel.btn_LamMoi.addActionListener(e -> {
+            lamMoi();
+        });
     }
+
+    public void lamMoi() {
+        loaiPhongPanel.txt_TenLoaiPhong.setText("");
+        loaiPhongPanel.txt_SoNguoiMacDinh.setText("");
+        loaiPhongPanel.txt_TyLeCoc.setText("");
+        loaiPhongPanel.txt_GiaNiemYet.setText("");
+        loaiPhongPanel.table.clearSelection();
+        getDanhDachLoaiPhong();
+    }
+
     public boolean kiemTraDuLieuNhap(){
         String tenLP= loaiPhongPanel.txt_TenLoaiPhong.getText();
         String giaNY= loaiPhongPanel.txt_GiaNiemYet.getText().trim();
@@ -121,11 +130,11 @@ public class LoaiPhongController {
         if(loaiPhongService.capNhatLoaiPhong(lp)){
             loaiPhongPanel.table.setValueAt(ten,r,1);
             loaiPhongPanel.table.setValueAt(gia,r,2);
-            loaiPhongPanel.table.setValueAt(coc,r,3);
+            loaiPhongPanel.table.setValueAt(coc+"%",r,3);
             loaiPhongPanel.table.setValueAt(soNguoi,r,4);
             baoLoi("Cập nhật loại phòng thành công!");
             // Làm mới lại danh sách phòng
-            
+
 
 
         }else{
@@ -140,7 +149,11 @@ public class LoaiPhongController {
         String ma= loaiPhongPanel.table.getValueAt(r,0)+"";
         loaiPhongPanel.txt_TenLoaiPhong.setText(loaiPhongPanel.table.getValueAt(r,1)+"");
         loaiPhongPanel.txt_GiaNiemYet.setText(loaiPhongPanel.table.getValueAt(r,2)+"");
-        loaiPhongPanel.txt_TyLeCoc.setText(loaiPhongPanel.table.getValueAt(r,3)+"");
+        String tyLe = loaiPhongPanel.table.getValueAt(r,3)+"";
+        if (tyLe.endsWith("%")) {
+            tyLe = tyLe.substring(0, tyLe.length()-1);
+        }
+        loaiPhongPanel.txt_TyLeCoc.setText(tyLe);
         loaiPhongPanel.txt_SoNguoiMacDinh.setText(loaiPhongPanel.table.getValueAt(r,4)+"");
 
     }
@@ -150,7 +163,7 @@ public class LoaiPhongController {
         DefaultTableModel model = loaiPhongPanel.model;
         model.setRowCount(0);
         for (LoaiPhong lp : dslp){
-            model.addRow(new Object[]{lp.getMaLoaiPhong(),lp.getTenLoaiPhong(),lp.getGiaNiemYet(),lp.getTyLeCoc(),lp.getSoNguoiMacDinh()});
+            model.addRow(new Object[]{lp.getMaLoaiPhong(),lp.getTenLoaiPhong(),lp.getGiaNiemYet(),lp.getTyLeCoc()+"%",lp.getSoNguoiMacDinh()});
         }
     }
     public void themLoaiPhong(){
@@ -165,7 +178,7 @@ public class LoaiPhongController {
             DefaultTableModel model = loaiPhongPanel.model;
             LoaiPhong lp = new LoaiPhong(ma,ten,gia,coc,soNguoi);
             if(loaiPhongService.themLoaiPhong(lp)){
-                model.addRow(new Object[]{ma,ten,gia,coc,soNguoi});
+                model.addRow(new Object[]{ma,ten,gia,coc+"%",soNguoi});
                 baoLoi("Thêm loại phòng thành công!");
             }else{
                 baoLoi("Lỗi thêm");

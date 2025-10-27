@@ -32,6 +32,8 @@ public class LoaiPhongDao {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            ConnectDB.closeConnection(con);
         }
             return dslp;
 //        ConnectDB.closeConnection(con);
@@ -69,6 +71,8 @@ public class LoaiPhongDao {
             n=st.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            ConnectDB.closeConnection(con);
         }
         //        ConnectDB.closeConnection(con);
         return n>0;
@@ -90,6 +94,8 @@ public class LoaiPhongDao {
             n = st.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            ConnectDB.closeConnection(con);
         }
         return n > 0;
     }
@@ -105,6 +111,8 @@ public class LoaiPhongDao {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            ConnectDB.closeConnection(con);
         }
         return lp;
 
