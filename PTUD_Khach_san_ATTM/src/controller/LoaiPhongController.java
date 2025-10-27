@@ -9,8 +9,10 @@ package controller;
 import database.LoaiPhongDao;
 import entity.LoaiPhong;
 import services.LoaiPhongService;
+import services.PhongServices;
 import views.LoaiPhongPanel;
 import views.NhanVienPanel;
+import views.PhongPanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -27,8 +29,11 @@ public class LoaiPhongController {
         LoaiPhongPanel loaiPhongPanel;
 
 
+
+
     public LoaiPhongController(LoaiPhongPanel lpp){
         loaiPhongService= new LoaiPhongService();
+
         this.loaiPhongPanel=lpp;
 
         SuKien();
@@ -51,6 +56,7 @@ public class LoaiPhongController {
         String tenLP= loaiPhongPanel.txt_TenLoaiPhong.getText();
         String giaNY= loaiPhongPanel.txt_GiaNiemYet.getText().trim();
         String tyLC= loaiPhongPanel.txt_TyLeCoc.getText().trim();
+        String soNguoi= loaiPhongPanel.txt_SoNguoiMacDinh.getText().trim();
 
         if (tenLP.isEmpty() || !tenLP.matches("^[\\p{L}0-9 ]{1,50}$")) {
             baoLoi("Tên loại phòng không được rỗng, tối đa 50 ký tự và không chứa ký tự đặc biệt.");
@@ -82,11 +88,24 @@ public class LoaiPhongController {
             loaiPhongPanel.txt_TyLeCoc.requestFocus();
             return false;
         }
+        int soNguoiInt;
+        try {
+            soNguoiInt = Integer.parseInt(soNguoi);
+            if (soNguoiInt <=1) {
+                baoLoi("Số người mặc định phải lớn hơn hoặc bằng 1.");
+                loaiPhongPanel.txt_SoNguoiMacDinh.requestFocus();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            baoLoi("Số người mặc định phải là số hợp lệ.");
+            loaiPhongPanel.txt_SoNguoiMacDinh.requestFocus();
+            return false;
+        }
 
         return true;
     }
 
-    private void capNhatLoaiPhong() {
+    public void capNhatLoaiPhong() {
         int r=loaiPhongPanel.table.getSelectedRow();
         if(r<0){
             baoLoi("Hãy chọn dòng để cập nhật");
@@ -97,22 +116,32 @@ public class LoaiPhongController {
         String ten = loaiPhongPanel.txt_TenLoaiPhong.getText();
         Double gia = Double.parseDouble(loaiPhongPanel.txt_GiaNiemYet.getText());
         Double coc= Double.parseDouble(loaiPhongPanel.txt_TyLeCoc.getText());
-        LoaiPhong lp = new LoaiPhong(ma,ten,gia,coc);
+        Integer soNguoi = Integer.parseInt(loaiPhongPanel.txt_SoNguoiMacDinh.getText());
+        LoaiPhong lp = new LoaiPhong(ma,ten,gia,coc,soNguoi);
         if(loaiPhongService.capNhatLoaiPhong(lp)){
             loaiPhongPanel.table.setValueAt(ten,r,1);
             loaiPhongPanel.table.setValueAt(gia,r,2);
             loaiPhongPanel.table.setValueAt(coc,r,3);
+            loaiPhongPanel.table.setValueAt(soNguoi,r,4);
+            baoLoi("Cập nhật loại phòng thành công!");
+            // Làm mới lại danh sách phòng
+            
+
+
+        }else{
+            baoLoi("Lỗi cập nhật");
         }
 
     }
 
-    private void docLenTxtField() {
+    public void docLenTxtField() {
         int r=loaiPhongPanel.table.getSelectedRow();
 
         String ma= loaiPhongPanel.table.getValueAt(r,0)+"";
         loaiPhongPanel.txt_TenLoaiPhong.setText(loaiPhongPanel.table.getValueAt(r,1)+"");
         loaiPhongPanel.txt_GiaNiemYet.setText(loaiPhongPanel.table.getValueAt(r,2)+"");
         loaiPhongPanel.txt_TyLeCoc.setText(loaiPhongPanel.table.getValueAt(r,3)+"");
+        loaiPhongPanel.txt_SoNguoiMacDinh.setText(loaiPhongPanel.table.getValueAt(r,4)+"");
 
     }
 
@@ -121,7 +150,7 @@ public class LoaiPhongController {
         DefaultTableModel model = loaiPhongPanel.model;
         model.setRowCount(0);
         for (LoaiPhong lp : dslp){
-            model.addRow(new Object[]{lp.getMaLoaiPhong(),lp.getTenLoaiPhong(),lp.getGiaNiemYet(),lp.getTyLeCoc()});
+            model.addRow(new Object[]{lp.getMaLoaiPhong(),lp.getTenLoaiPhong(),lp.getGiaNiemYet(),lp.getTyLeCoc(),lp.getSoNguoiMacDinh()});
         }
     }
     public void themLoaiPhong(){
@@ -132,10 +161,12 @@ public class LoaiPhongController {
             String ten = loaiPhongPanel.txt_TenLoaiPhong.getText();
             Double gia = Double.parseDouble(loaiPhongPanel.txt_GiaNiemYet.getText());
             Double coc= Double.parseDouble(loaiPhongPanel.txt_TyLeCoc.getText());
+            Integer soNguoi = Integer.parseInt(loaiPhongPanel.txt_SoNguoiMacDinh.getText());
             DefaultTableModel model = loaiPhongPanel.model;
-            LoaiPhong lp = new LoaiPhong(ma,ten,gia,coc);
+            LoaiPhong lp = new LoaiPhong(ma,ten,gia,coc,soNguoi);
             if(loaiPhongService.themLoaiPhong(lp)){
-                model.addRow(new Object[]{ma,ten,gia,coc});
+                model.addRow(new Object[]{ma,ten,gia,coc,soNguoi});
+                baoLoi("Thêm loại phòng thành công!");
             }else{
                 baoLoi("Lỗi thêm");
             }

@@ -27,7 +27,7 @@ public class LoaiPhongDao {
             CallableStatement st = con.prepareCall("{call getDanhSachLoaiPhong}");
             ResultSet rs = st.executeQuery();
             while(rs.next()){
-                LoaiPhong lp = new LoaiPhong(rs.getString(1),rs.getString(2),rs.getDouble(3),rs.getDouble(4));
+                LoaiPhong lp = new LoaiPhong(rs.getString(1),rs.getString(2),rs.getDouble(3),rs.getDouble(4),rs.getInt(5));
                 dslp.add(lp);
             }
         } catch (SQLException e) {
@@ -59,12 +59,13 @@ public class LoaiPhongDao {
         int n=0;
         Connection con = ConnectDB.getConnection();
         try {
-            CallableStatement st = con.prepareCall("{call themLoaiPhong(?,?,?,?)}");
+            CallableStatement st = con.prepareCall("{call themLoaiPhong(?,?,?,?,?)}");
 //            PreparedStatement st = con.prepareStatement("insert into LoaiPhong values(?,?,?,?)");
             st.setString(1,lp.getMaLoaiPhong());
             st.setString(2,lp.getTenLoaiPhong());
             st.setDouble(3,lp.getGiaNiemYet());
             st.setDouble(4,lp.getTyLeCoc());
+            st.setInt(5,lp.getSoNguoiMacDinh());
             n=st.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -77,7 +78,7 @@ public class LoaiPhongDao {
         int n = 0;
         Connection con = ConnectDB.getConnection();
         try {
-            CallableStatement st = con.prepareCall("{call capNhatLoaiPhong(?,?,?,?)}");
+            CallableStatement st = con.prepareCall("{call capNhatLoaiPhong(?,?,?,?,?)}");
 //            PreparedStatement st = con.prepareStatement(
 //                    "update LoaiPhong set tenLoaiPhong = ?, giaNiemYet = ?, tyLeCoc = ? WHERE maLoaiPhong = ?"
 //            );
@@ -85,7 +86,7 @@ public class LoaiPhongDao {
             st.setString(2, lp.getTenLoaiPhong());
             st.setDouble(3, lp.getGiaNiemYet());
             st.setDouble(4, lp.getTyLeCoc());
-
+            st.setInt(5,lp.getSoNguoiMacDinh());
             n = st.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -100,7 +101,7 @@ public class LoaiPhongDao {
             st.setString(1,ten);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
-                lp = new LoaiPhong(rs.getString(1),rs.getString(2),rs.getDouble(3),rs.getDouble(4));
+                lp = new LoaiPhong(rs.getString(1),rs.getString(2),rs.getDouble(3),rs.getDouble(4),rs.getInt(5));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

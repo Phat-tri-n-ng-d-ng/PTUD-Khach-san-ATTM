@@ -88,7 +88,7 @@ public class PhongDao {
         return p;
 
     }
-<<<<<<< HEAD
+
     public ArrayList<Phong> locPhongTheoLoai(String s){
         Connection con = ConnectDB.getConnection();
         ArrayList<Phong> dsp= new ArrayList<>();
@@ -106,10 +106,7 @@ public class PhongDao {
             throw new RuntimeException(e);
         }
             return dsp;
-=======
-    public ArrayList<Phong> timPhongTheoCheck(String [] luaChon){
-        return null;
->>>>>>> main
+
     }
 
 }

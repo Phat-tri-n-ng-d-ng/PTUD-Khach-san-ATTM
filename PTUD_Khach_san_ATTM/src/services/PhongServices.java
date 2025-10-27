@@ -19,22 +19,22 @@ import java.util.ArrayList;
  */
 public class PhongServices {
 
-    PhongDao pd = new PhongDao();
+    PhongDao phongDao = new PhongDao();
 
     public ArrayList<Phong> getDSP(){
-        return pd.getDSPhong();
+        return phongDao.getDSPhong();
 
     }
     public Phong timPhongBangMa(String ma){
-        return pd.timPhongBangMa(ma);
+        return phongDao.timPhongBangMa(ma);
     }
     public boolean themPhong(Phong p){
-        return pd.themPhong(p);
+        return phongDao.themPhong(p);
     }
     public boolean capNhatPhong(Phong p){
-        return pd.capNhatPhong(p);
+        return phongDao.capNhatPhong(p);
     }
     public  ArrayList<Phong> locPhongTheoLoai(String s){
-        return pd.locPhongTheoLoai(s);
+        return phongDao.locPhongTheoLoai(s);
     }
 }

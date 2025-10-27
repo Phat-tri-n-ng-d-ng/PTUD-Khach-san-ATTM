@@ -62,7 +62,15 @@ public class Phong {
 		return giaPhong;
 	}
 	public void setGiaPhong() {
-		giaPhong=loaiPhong.getGiaNiemYet()+((soLuongToiDa/2-1)*500000);
+        int soNguoiMacDinh = loaiPhong.getSoNguoiMacDinh();
+        double giaNiemYet = loaiPhong.getGiaNiemYet();
+
+        if (soLuongToiDa <= soNguoiMacDinh) {
+            giaPhong = giaNiemYet;
+        } else {
+            int soNguoiChenhlech = soLuongToiDa - soNguoiMacDinh;
+            giaPhong = giaNiemYet + (soNguoiChenhlech / 2) * 500000;
+        }
 	}
 	public double getTienCoc() {
 		return tienCoc;
