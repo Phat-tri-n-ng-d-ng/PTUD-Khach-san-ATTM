@@ -3,6 +3,7 @@ package controller;
 import entity.KhachHang;
 import entity.NhanVien;
 import enums.ChucVuNhanVien;
+import enums.HangKhachHang;
 import services.KhachHangService;
 import views.KhachHangPanel;
 
@@ -22,10 +23,52 @@ public class KhachHangController implements MouseListener {
         khachHangService = new KhachHangService();
         this.khachHangPanel = khachHangPanel;
 
-//        nhanVienPanel.btn_ThemNhanVien.addActionListener(e -> ThemNhanVien());
-//        nhanVienPanel.btn_CapNhat.addActionListener(e -> CapNhatNhanVien());
-//        nhanVienPanel.cbb_LocChucVu.addActionListener(e -> locNhanVienTheoChucVu());
+        khachHangPanel.btn_ThemKhachHang.addActionListener(e -> ThemKhachHang());
+        khachHangPanel.btn_LamMoi.addActionListener(e -> LamMoi());
+        khachHangPanel.btn_CapNhat.addActionListener(e -> CapNhatKhachHang());
+        khachHangPanel.cbb_LocHangKhachHang.addActionListener(e -> LocHangKhachHang());
+        khachHangPanel.btn_Tim.addActionListener(e -> TimKhachHang());
+        khachHangPanel.rdbtn_TimSoDienThoai.addActionListener(e -> {
+            khachHangPanel.txt_TimSoDienThoai.setEditable(true);
+            khachHangPanel.txt_TimSoCanCuocCongDan.setEditable(false);
+        });
+        khachHangPanel.rdbtn_TimSoCanCuocCongDan.addActionListener(e -> {
+            khachHangPanel.txt_TimSoDienThoai.setEditable(false);
+            khachHangPanel.txt_TimSoCanCuocCongDan.setEditable(true);
+        });
         khachHangPanel.table.addMouseListener(this);
+    }
+
+    private void TimKhachHang() {
+        try {
+            KhachHang kh;
+            if(khachHangPanel.rdbtn_TimSoCanCuocCongDan.isSelected()){
+                String soCCCD = khachHangPanel.txt_TimSoCanCuocCongDan.getText().strip();
+                kh = khachHangService.TimKhachHang(soCCCD,"CCCD");
+            }else{
+                String soDT = khachHangPanel.txt_TimSoDienThoai.getText().strip();
+                kh = khachHangService.TimKhachHang(soDT,"SDT");
+            }
+            if(kh != null){
+                DefaultTableModel model = khachHangPanel.model;
+                model.setRowCount(0);
+                String gioiTinh = kh.isGioiTinh() ? "Nam" : "Nữ"; // Nếu có kiểu boolean
+                model.addRow(new Object[]{
+                        kh.getMaKH(),
+                        kh.getTenKH(),
+                        gioiTinh,
+                        kh.getNgaySinh(),
+                        kh.getSdt(),
+                        kh.getEmail(),
+                        kh.getSoCCCD(),
+                        getHangKhachHienThi(kh.getHangKH()),
+                        kh.getDiemTichLuy()
+                });
+            }else JOptionPane.showMessageDialog(khachHangPanel,"Không tìm thấy khách hàng");
+        }catch (Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(khachHangPanel, "Lỗi khi tìm khách hàng: " + e.getMessage());
+        }
     }
 
     public void getTatCaKhachHang(){
@@ -43,7 +86,7 @@ public class KhachHangController implements MouseListener {
                         kh.getSdt(),
                         kh.getEmail(),
                         kh.getSoCCCD(),
-                        kh.getHangKH(),
+                        getHangKhachHienThi(kh.getHangKH()),
                         kh.getDiemTichLuy()
                 });
             }
@@ -51,81 +94,82 @@ public class KhachHangController implements MouseListener {
             e.printStackTrace();
         }
     }
-//
-//    public void ThemNhanVien(){
-//        int row = nhanVienPanel.table.getSelectedRow();
-//        if(row == -1){
-//            int namHienTai = LocalDate.now().getYear();
-//            String maNV = "NV" + (namHienTai % 100) + String.format("%03d", nhanVienService.getSoLuongNhanVien() + 1);
-//            String tenNV = nhanVienPanel.txt_TenNhanVien.getText().strip();
-//            String sdt = nhanVienPanel.txt_SoDienThoai.getText().strip();
-//            boolean gioiTinh = nhanVienPanel.rdbtn_Nam.isSelected() ? true : false;
-//            LocalDate ngaySinh = LocalDate.now();
-//            String chucVuDaChon = nhanVienPanel.cbb_ChuVu.getSelectedItem().toString();
-//            ChucVuNhanVien chucVu = getChucVu(chucVuDaChon);
-//            String email = nhanVienPanel.txt_Email.getText().strip();
-//
-//            NhanVien nhanVien = new NhanVien(maNV,tenNV,ngaySinh,sdt,gioiTinh,email,chucVu);
-//            if(nhanVienService.themNhanVien(nhanVien)){
-//                JOptionPane.showMessageDialog(nhanVienPanel, "Thêm thành công");
-//                LamMoi();
-//                getTatCaNhanVien();
-//            }else{
-//                JOptionPane.showMessageDialog(nhanVienPanel, "Thêm thất bại");
-//            }
-//        }else JOptionPane.showMessageDialog(nhanVienPanel, "Nhân viên đã tồn tại");
-//    }
-//
-//
-//    private void CapNhatNhanVien() {
-//        int row = nhanVienPanel.table.getSelectedRow();
-//        String maNV =nhanVienPanel.table.getValueAt(row,0).toString();
-//        String tenNV = nhanVienPanel.txt_TenNhanVien.getText().strip();
-//        String sdt = nhanVienPanel.txt_SoDienThoai.getText().strip();
-//        boolean gioiTinh = nhanVienPanel.rdbtn_Nam.isSelected() ? true : false;
-//        LocalDate ngaySinh = LocalDate.now();
-//        String chucVuDaChon = nhanVienPanel.cbb_ChuVu.getSelectedItem().toString();
-//        ChucVuNhanVien chucVu = getChucVu(chucVuDaChon);
-//        String email = nhanVienPanel.txt_Email.getText().strip();
-//        NhanVien nhanVien = new NhanVien(maNV,tenNV,ngaySinh,sdt,gioiTinh,email,chucVu);
-//        if(nhanVienService.CapNhatNhanVien(nhanVien)){
-//            JOptionPane.showMessageDialog(nhanVienPanel, "Cập nhật thành công");
-//            LamMoi();
-//            getTatCaNhanVien();
-//        }else{
-//            JOptionPane.showMessageDialog(nhanVienPanel, "Cập nhật thất bại");
-//        }
-//    }
-//
-//    private void locNhanVienTheoChucVu() {
-//        String chucVuChon = nhanVienPanel.cbb_LocChucVu.getSelectedItem().toString();
-//        ArrayList<NhanVien> dsNhanVien;
-//        if (chucVuChon.equals("Tất cả")) {
-//            dsNhanVien = nhanVienService.getTatCaNhanVien(); // gọi lấy toàn bộ
-//        } else {
-//            ChucVuNhanVien chucVu = getChucVu(chucVuChon);
-//            dsNhanVien = nhanVienService.getNhanVienTheoChucVu(chucVu.toString());
-//        }
-//        DefaultTableModel model = nhanVienPanel.model;
-//        model.setRowCount(0);
-//        for (NhanVien nv : dsNhanVien) {
-//            String chucVuHienThi = getChucVuHienThi(nv.getChucVu());
-//            // Nếu chọn "Tất cả" thì hiển thị hết
-//            if (chucVuChon.equals("Tất cả") || chucVuHienThi.equals(chucVuChon)) {
-//                String gioiTinh = nv.isGioiTinh() ? "Nam" : "Nữ";
-//                model.addRow(new Object[]{
-//                        nv.getMaNV(),
-//                        nv.getTenNV(),
-//                        gioiTinh,
-//                        nv.getNgaySinh(),
-//                        nv.getSdt(),
-//                        nv.getEmail(),
-//                        chucVuHienThi
-//                });
-//            }
-//        }
-//    }
-//
+
+    public void ThemKhachHang(){
+        int row = khachHangPanel.table.getSelectedRow();
+        if(row == -1){
+            int namHienTai = LocalDate.now().getYear();
+            String maKH = "KH" + (namHienTai % 100) + String.format("%03d", khachHangService.getSoLuongKhachHang() + 1);
+            String tenKH = khachHangPanel.txt_TenKhachHang.getText().strip();
+            String sdt = khachHangPanel.txt_SoDienThoai.getText().strip();
+            boolean gioiTinh = khachHangPanel.rdbtn_Nam.isSelected() ? true : false;
+            LocalDate ngaySinh = LocalDate.now();
+            String soCCCD = khachHangPanel.txt_soCCCD.getText().strip();
+            String email = khachHangPanel.txt_Email.getText().strip();
+
+            KhachHang khachHang = new KhachHang(maKH, tenKH, gioiTinh, ngaySinh, email, sdt,
+                    soCCCD,0);
+            if(khachHangService.themKhachHang(khachHang)){
+                JOptionPane.showMessageDialog(khachHangPanel, "Thêm thành công");
+                LamMoi();
+                getTatCaKhachHang();
+            }else{
+                JOptionPane.showMessageDialog(khachHangPanel, "Thêm thất bại");
+            }
+        }else JOptionPane.showMessageDialog(khachHangPanel, "Nhân viên đã tồn tại");
+    }
+
+    private void CapNhatKhachHang() {
+        int row = khachHangPanel.table.getSelectedRow();
+        String maKH =khachHangPanel.table.getValueAt(row,0).toString();
+        String tenKH = khachHangPanel.txt_TenKhachHang.getText().strip();
+        String sdt = khachHangPanel.txt_SoDienThoai.getText().strip();
+        boolean gioiTinh = khachHangPanel.rdbtn_Nam.isSelected() ? true : false;
+        LocalDate ngaySinh = LocalDate.now();
+        String email = khachHangPanel.txt_Email.getText().strip();
+        String soCCCD = khachHangPanel.txt_soCCCD.getText().strip();
+        int diemTichLuy = Integer.parseInt(khachHangPanel.table.getValueAt(row,8).toString());
+        KhachHang khachHang = new KhachHang(maKH,tenKH,gioiTinh, ngaySinh, email, sdt,soCCCD,diemTichLuy);
+        if(khachHangService.CapNhatKhachHang(khachHang)){
+            JOptionPane.showMessageDialog(khachHangPanel, "Cập nhật thành công");
+            LamMoi();
+            getTatCaKhachHang();
+        }else{
+            JOptionPane.showMessageDialog(khachHangPanel, "Cập nhật thất bại");
+        }
+    }
+
+    private void LocHangKhachHang() {
+        String hangKhachHangChon = khachHangPanel.cbb_LocHangKhachHang.getSelectedItem().toString();
+        ArrayList<KhachHang> dsKhachHang;
+        if (hangKhachHangChon.equals("Tất cả")) {
+            dsKhachHang = khachHangService.getTatCaKhachHang(); // gọi lấy toàn bộ
+        } else {
+            HangKhachHang hangKhachHang = getHangKhachHang(hangKhachHangChon);
+            dsKhachHang = khachHangService.getKhachHangTheoHang(hangKhachHang.toString());
+        }
+        DefaultTableModel model = khachHangPanel.model;
+        model.setRowCount(0);
+        for (KhachHang kh : dsKhachHang) {
+            String HangkhachHienThi = getHangKhachHienThi(kh.getHangKH());
+            // Nếu chọn "Tất cả" thì hiển thị hết
+            if (hangKhachHangChon.equals("Tất cả") || HangkhachHienThi.equals(hangKhachHangChon)) {
+                String gioiTinh = kh.isGioiTinh() ? "Nam" : "Nữ";
+                model.addRow(new Object[]{
+                        kh.getMaKH(),
+                        kh.getTenKH(),
+                        gioiTinh,
+                        kh.getNgaySinh(),
+                        kh.getSdt(),
+                        kh.getEmail(),
+                        kh.getSoCCCD(),
+                        getHangKhachHienThi(kh.getHangKH()),
+                        kh.getDiemTichLuy()
+                });
+            }
+        }
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         int row = khachHangPanel.table.getSelectedRow();
@@ -146,42 +190,41 @@ public class KhachHangController implements MouseListener {
         khachHangPanel.txt_Email.setText(khachHangPanel.table.getValueAt(row,5).toString());
         khachHangPanel.txt_soCCCD.setText(khachHangPanel.table.getValueAt(row,6).toString());
     }
-//
-//    private ChucVuNhanVien getChucVu(String tenChucVu) {
-//        switch (tenChucVu) {
-//            case "Kế toán" -> { return ChucVuNhanVien.KeToan ; }
-//            case "Kỹ thuật" -> { return ChucVuNhanVien.KyThuat; }
-//            case "Lễ tân" -> { return ChucVuNhanVien.LeTan; }
-//            case "Buồng phòng" -> { return ChucVuNhanVien.BuongPhong; }
-//            case "Bếp" -> { return ChucVuNhanVien.Bep; }
-//            case "Bảo vệ" -> { return ChucVuNhanVien.BaoVe; }
-//            case "Quản lý" -> { return ChucVuNhanVien.QuanLy; }
-//            default -> { return ChucVuNhanVien.LeTan; }
-//        }
-//    }
-//
-//    private String getChucVuHienThi(ChucVuNhanVien chucVu) {
-//        switch (chucVu) {
-//            case QuanLy -> { return "Quản lý"; }
-//            case LeTan -> { return "Lễ tân"; }
-//            case KeToan -> { return "Kế toán"; }
-//            case KyThuat -> { return "Kỹ thuật"; }
-//            case BuongPhong -> { return "Buồng phòng"; }
-//            case Bep -> { return "Bếp"; }
-//            case BaoVe -> { return "Bảo vệ"; }
-//            default -> { return ""; }
-//        }
-//    }
-//
-//    private  void LamMoi(){
-//        nhanVienPanel.txt_TenNhanVien.setText("");
-//        nhanVienPanel.rdbtn_Nam.setSelected(true);
-//        nhanVienPanel.rdbtn_Nu.setSelected(false);
-//        nhanVienPanel.txt_SoDienThoai.setText("");
-//        nhanVienPanel.txt_Email.setText("");
-//        nhanVienPanel.cbb_ChuVu.setSelectedIndex(0);
-//        nhanVienPanel.txt_TenNhanVien.requestFocus();
-//    }
+
+    private HangKhachHang getHangKhachHang(String tenHangKhachHang) {
+        switch (tenHangKhachHang) {
+            case "Đồng" -> { return HangKhachHang.Dong ; }
+            case "Bạc" -> { return HangKhachHang.Bac; }
+            case "Vàng" -> { return HangKhachHang.Vang; }
+            case "Kim cương" -> { return HangKhachHang.KimCuong; }
+            default -> { return HangKhachHang.Dong; }
+        }
+    }
+
+    private String getHangKhachHienThi(HangKhachHang hangKhachHang) {
+        switch (hangKhachHang) {
+            case Dong -> { return "Đồng"; }
+            case Bac -> { return "Bạc"; }
+            case Vang -> { return "Vàng"; }
+            case KimCuong -> { return "Kim cương"; }
+            default -> { return ""; }
+        }
+    }
+
+    private  void LamMoi(){
+        khachHangPanel.txt_TenKhachHang.setText("");
+        khachHangPanel.rdbtn_Nam.setSelected(true);
+        khachHangPanel.rdbtn_Nu.setSelected(false);
+        khachHangPanel.txt_SoDienThoai.setText("");
+        khachHangPanel.txt_Email.setText("");
+        khachHangPanel.txt_soCCCD.setText("");
+        khachHangPanel.txt_TenKhachHang.setText("");
+        khachHangPanel.txt_TimSoDienThoai.setText("");
+        khachHangPanel.txt_TimSoCanCuocCongDan.setText("");
+        khachHangPanel.cbb_LocHangKhachHang.setSelectedIndex(0);
+        khachHangPanel.ngaySinh.setDate(null);
+        getTatCaKhachHang();
+    }
     @Override
     public void mousePressed(MouseEvent e) {
 

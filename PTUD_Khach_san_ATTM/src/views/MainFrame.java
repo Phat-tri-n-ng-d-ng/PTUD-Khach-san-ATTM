@@ -10,6 +10,7 @@ import org.kordamp.ikonli.swing.FontIcon;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 
 public class MainFrame extends JFrame {
+    private JLayeredPane layeredPane;
     private JPanel pnlChuaNoiDung;
     private JPanel pnlMenu = new JPanel();
     private JLabel lblNutDongMenu = new JLabel("X");

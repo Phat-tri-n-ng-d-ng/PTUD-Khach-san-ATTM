@@ -6,13 +6,16 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import com.toedter.calendar.JDateChooser;
 import controller.NhanVienController;
 
 public class NhanVienPanel extends JPanel{
+    public JButton btn_VoHieuHoaTaiKhoan;
+    public JButton btn_LamMoi;
+    public JRadioButton rdbtn_TimMaNhanVien;
+    public JRadioButton rdbtn_TimSoDienThoai;
+    public JDateChooser ngaySinh;
     public JComboBox cbb_LocChucVu;
     public JRadioButton rdbtn_Nam;
     public JRadioButton rdbtn_Nu;
@@ -24,10 +27,10 @@ public class NhanVienPanel extends JPanel{
     public JTextField txt_TenNhanVien;
     public JTextField txt_SoDienThoai;
     public JTextField txt_Email;
-    public JTextField txt_TimTenNhanVien;
+    public JTextField txt_TimMaNhanVien;
     public JTextField txt_TimSoDienThoai;
     public JTable table;
-    public JComboBox cbb_ChuVu;
+    public JComboBox cbb_ChucVu;
     public DefaultTableModel model;
 
     public NhanVienPanel() {
@@ -107,7 +110,7 @@ public class NhanVienPanel extends JPanel{
         lbl_NgaySinh.setBounds(128, 73, 104, 16);
         pnlThongTinNhanVien.add(lbl_NgaySinh);
 
-        JDateChooser ngaySinh = new JDateChooser();
+        ngaySinh = new JDateChooser();
         ngaySinh.setDateFormatString("dd/MM/yyyy");
         ngaySinh.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         ngaySinh.setBounds(128, 99, 173, 30);
@@ -124,27 +127,36 @@ public class NhanVienPanel extends JPanel{
         pnlThongTinNhanVien.add(txt_Email);
 
         btn_CapTaiKhoan = new JButton("Cấp tài khoản");
-        btn_CapTaiKhoan.setBounds(961, 134, 120, 30);
+        btn_CapTaiKhoan.setBounds(793, 134, 120, 30);
         pnlThongTinNhanVien.add(btn_CapTaiKhoan);
 
+        btn_VoHieuHoaTaiKhoan = new JButton("Vô hiệu hóa tài khoản");
+        btn_VoHieuHoaTaiKhoan.setBounds(923, 134, 140, 30);
+        pnlThongTinNhanVien.add(btn_VoHieuHoaTaiKhoan);
+
         btn_ThemNhanVien = new JButton("Thêm nv");
-        btn_ThemNhanVien.setBounds(1091, 134, 120, 30);
+        btn_ThemNhanVien.setBounds(1073, 134, 120, 30);
         pnlThongTinNhanVien.add(btn_ThemNhanVien);
 
         btn_CapNhat = new JButton("Cập nhật");
-        btn_CapNhat.setBounds(1221, 134, 120, 30);
+        btn_CapNhat.setBounds(1203, 134, 120, 30);
         pnlThongTinNhanVien.add(btn_CapNhat);
+
+        btn_LamMoi = new JButton("Làm mới");
+        btn_LamMoi.setBounds(1333, 134, 120, 30);
+        pnlThongTinNhanVien.add(btn_LamMoi);
+
 
         JLabel lbl_ChucVu = new JLabel("Chức vụ:");
         lbl_ChucVu.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         lbl_ChucVu.setBounds(311, 73, 104, 16);
         pnlThongTinNhanVien.add(lbl_ChucVu);
 
-        cbb_ChuVu = new JComboBox();
-        cbb_ChuVu.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-        cbb_ChuVu.setModel(new DefaultComboBoxModel(new String[] {"Quản lý", "Lễ tân", "Kế toán", "Kỹ thuật", "Buồng phòng", "Bếp", "Bảo vệ"}));
-        cbb_ChuVu.setBounds(311, 99, 104, 30);
-        pnlThongTinNhanVien.add(cbb_ChuVu);
+        cbb_ChucVu = new JComboBox();
+        cbb_ChucVu.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        cbb_ChucVu.setModel(new DefaultComboBoxModel(new String[] {"Quản lý", "Lễ tân", "Kế toán", "Kỹ thuật", "Buồng phòng", "Bếp", "Bảo vệ"}));
+        cbb_ChucVu.setBounds(311, 99, 104, 30);
+        pnlThongTinNhanVien.add(cbb_ChucVu);
 
         JPanel pnlBoLoc = new JPanel();
         pnlBoLoc.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -153,14 +165,15 @@ public class NhanVienPanel extends JPanel{
         add(pnlBoLoc);
         pnlBoLoc.setLayout(null);
 
-        txt_TimTenNhanVien = new JTextField();
-        txt_TimTenNhanVien.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-        txt_TimTenNhanVien.setBounds(10, 33, 616, 30);
-        pnlBoLoc.add(txt_TimTenNhanVien);
+        txt_TimMaNhanVien = new JTextField();
+        txt_TimMaNhanVien.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        txt_TimMaNhanVien.setBounds(10, 33, 616, 30);
+        pnlBoLoc.add(txt_TimMaNhanVien);
 
         txt_TimSoDienThoai = new JTextField();
         txt_TimSoDienThoai.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         txt_TimSoDienThoai.setBounds(646, 33, 616, 30);
+        txt_TimSoDienThoai.setEditable(false);
         pnlBoLoc.add(txt_TimSoDienThoai);
 
         btn_Tim = new JButton("Tìm");
@@ -178,14 +191,14 @@ public class NhanVienPanel extends JPanel{
         cbb_LocChucVu.setBounds(1382, 33, 104, 30);
         pnlBoLoc.add(cbb_LocChucVu);
 
-        JRadioButton rdbtn_TimMaNhanVien = new JRadioButton("Tìm mã nhân viên");
+        rdbtn_TimMaNhanVien = new JRadioButton("Tìm mã nhân viên");
         rdbtn_TimMaNhanVien.setSelected(true);
         rdbtn_TimMaNhanVien.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         rdbtn_TimMaNhanVien.setBackground(Color.WHITE);
         rdbtn_TimMaNhanVien.setBounds(10, 11, 137, 21);
         pnlBoLoc.add(rdbtn_TimMaNhanVien);
 
-        JRadioButton rdbtn_TimSoDienThoai = new JRadioButton("Tìm số điện thoại");
+        rdbtn_TimSoDienThoai = new JRadioButton("Tìm số điện thoại");
         rdbtn_TimSoDienThoai.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         rdbtn_TimSoDienThoai.setBackground(Color.WHITE);
         rdbtn_TimSoDienThoai.setBounds(646, 6, 137, 21);
@@ -211,7 +224,7 @@ public class NhanVienPanel extends JPanel{
         pnlDanhSachNhanVien.setBounds(20, 407, 1496, 384);
         add(pnlDanhSachNhanVien);
 
-        model = new DefaultTableModel(new String[] {"Mã nhân viên","Tên nhân viên","Giới tính","Ngày sinh","Số điện thoại","Email","Chức vụ"}, 0);
+        model = new DefaultTableModel(new String[] {"Mã nhân viên","Tên nhân viên","Giới tính","Ngày sinh","Số điện thoại","Email","Chức vụ","Tài khoản"}, 0);
         pnlDanhSachNhanVien.setLayout(null);
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);

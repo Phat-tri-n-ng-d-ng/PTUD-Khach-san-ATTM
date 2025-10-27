@@ -1,21 +1,18 @@
 package entity;
 
-
 import enums.TrangThaiKhuyenMai;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class KhuyenMai {
 	private String maKM;
-    private String tenKM;
-    private String moTa;
-    private String dieuKienApDung;
-    private double tyLeGiam;
-    private LocalDateTime ngayBatDau;
-    private LocalDateTime ngayketThuc;
-    private TrangThaiKhuyenMai trangThai;
-    
+	private String tenKM;
+	private String dieuKienApDung;
+	private double tyLeGiam;
+	private LocalDateTime ngayBatDau;
+	private LocalDateTime ngayketThuc;
+	private TrangThaiKhuyenMai trangThai;
+
 	public String getMaKM() {
 		return maKM;
 	}
@@ -24,12 +21,6 @@ public class KhuyenMai {
 	}
 	public void setTenKM(String tenKM) {
 		this.tenKM = tenKM;
-	}
-	public String getMoTa() {
-		return moTa;
-	}
-	public void setMoTa(String moTa) {
-		this.moTa = moTa;
 	}
 	public String getDieuKienApDung() {
 		return dieuKienApDung;
@@ -61,16 +52,20 @@ public class KhuyenMai {
 	public void setTrangThai(TrangThaiKhuyenMai trangThai) {
 		this.trangThai = trangThai;
 	}
-	public KhuyenMai(String maKM, String tenKM, String moTa, String dieuKienApDung, double tyLeGiam,
-			LocalDateTime ngayBatDau, LocalDateTime ngayketThuc , TrangThaiKhuyenMai trangThai) {
+	public KhuyenMai(String maKM, String tenKM, String dieuKienApDung, double tyLeGiam,
+					 LocalDateTime ngayBatDau, LocalDateTime ngayketThuc , TrangThaiKhuyenMai trangThai) {
 		this.maKM = maKM;
 		this.tenKM = tenKM;
-		this.moTa = moTa;
 		this.dieuKienApDung = dieuKienApDung;
 		this.tyLeGiam = tyLeGiam;
 		this.ngayBatDau = ngayBatDau;
 		this.ngayketThuc = ngayketThuc;
 		this.trangThai = trangThai;
+	}
+	
+	public KhuyenMai(double tyLeGiam) {
+		super();
+		this.tyLeGiam = tyLeGiam;
 	}
 	@Override
 	public int hashCode() {

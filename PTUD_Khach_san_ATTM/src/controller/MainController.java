@@ -33,7 +33,7 @@ public class MainController {
         loaiPhongPanel = new LoaiPhongPanel();
         phongPanel = new PhongPanel();
         khuyenMaiPanel = new KhuyenMaiPanel();
-        thueDatPhongPanel = new ThueDatPhong();
+        thueDatPhongPanel = new ThueDatPhongPanel();
     }
 
 //    private void showTrang_Chu() {
