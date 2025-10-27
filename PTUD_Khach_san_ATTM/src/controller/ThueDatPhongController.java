@@ -1,7 +1,10 @@
 package controller;
 
+import database.KhuyenMaiDao;
 import entity.KhachHang;
+import entity.KhuyenMai;
 import entity.Phong;
+import enums.TrangThaiKhuyenMai;
 import enums.TrangThaiPhong;
 import services.KhachHangService;
 import services.PhongServices;
@@ -18,23 +21,42 @@ public class ThueDatPhongController {
     private ThueDatPhongPanel thueDatPhongPanel;
     private PhongServices phongServices;
     private KhachHangService khachHangServies;
+    private KhuyenMaiDao khuyenMaiDao;
     private ArrayList<Phong> danhSachPhong;
     private ArrayList<Phong> danhSachPhongHienThi;
+    private ArrayList<Phong> danhSachPhongTheoLoai;
+    private ArrayList<KhuyenMai> danhSachKhuyenMai;
 //    private String trangThai;
 
     public ThueDatPhongController(ThueDatPhongPanel thueDatPhongPanel){
         this.thueDatPhongPanel = thueDatPhongPanel;
         phongServices = new PhongServices();
         khachHangServies = new KhachHangService();
+        khuyenMaiDao = new KhuyenMaiDao();
+        danhSachKhuyenMai = khuyenMaiDao.getTatCaKhuyenMai();
         danhSachPhong = phongServices.getDSP();
         thueDatPhongPanel.btn_BoChon.addActionListener(e -> BoChonPhong());
         thueDatPhongPanel.txt_SoDienThoai.addActionListener(e -> getKhachHang());
         thueDatPhongPanel.btn_Loc.addActionListener(e-> LocTrangThaiPhong());
+        thueDatPhongPanel.btn_Standard.addActionListener(e -> LocPhongTheoLoai("Standard"));
+        thueDatPhongPanel.btn_Deluxe.addActionListener(e -> LocPhongTheoLoai("Deluxe"));
+        thueDatPhongPanel.btn_Suite.addActionListener(e -> LocPhongTheoLoai("Suite"));
+        thueDatPhongPanel.btn_Superior.addActionListener(e -> LocPhongTheoLoai("Superior"));
+        thueDatPhongPanel.btn_FamilyRoom.addActionListener(e -> LocPhongTheoLoai("Family Room"));
+        thueDatPhongPanel.btn_TatCa.addActionListener(e -> LocPhongTheoLoai(""));
+        thueDatPhongPanel.btn_LamMoi.addActionListener(e -> LamMoi());
+        thueDatPhongPanel.cbb_KhuyenMai.addActionListener(e -> LocPhongCoKhuyenMai());
     }
 
     public void getTatCaPhong(){
         danhSachPhongHienThi = danhSachPhong;
+//        danhSachPhongTheoLoai = danhSachPhongHienThi;
         // Thêm các ô giả lập
+        HienThiDanhSachPhong(danhSachPhongHienThi);
+    }
+
+    private void HienThiDanhSachPhong(ArrayList<Phong> danhSachPhongHienThi) {
+        thueDatPhongPanel.danhSachPhongPanel.removeAll();
         for (Phong phong : danhSachPhongHienThi) {
             JPanel phongPanel = new JPanel();
             phongPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -51,7 +73,8 @@ public class ThueDatPhongController {
             JLabel label = new JLabel("Phòng: P" );
             label.setBounds(6, 12, 0, 0);
             phongPanel.add(label);
-            phongPanel.setPreferredSize(new Dimension(200, 100));
+            phongPanel.setPreferredSize(new Dimension(230, 120));
+
 
             JLabel lbl_Phong = new JLabel("Phòng: "+ phong.getMaPhong());
             lbl_Phong.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -82,7 +105,11 @@ public class ThueDatPhongController {
             });
             thueDatPhongPanel.danhSachPhongPanel.add(phongPanel);
         }
+        // Làm mới lại giao diện scrollPane
+        thueDatPhongPanel.danhSachPhongPanel.revalidate();
+        thueDatPhongPanel.danhSachPhongPanel.repaint();
     }
+
     private void ThemPhongChon(Phong phong) {
         for (int i = 0; i < thueDatPhongPanel.model.getRowCount(); i++) {
             String maPhongTrongBang = thueDatPhongPanel.model.getValueAt(i, 0).toString();
@@ -136,13 +163,96 @@ public class ThueDatPhongController {
 
     private void LocTrangThaiPhong() {
         ArrayList<Phong> danhSachTam = new ArrayList<>();
-        if(thueDatPhongPanel.chckbx_phongTrong.isSelected()){
-            for(Phong phong : danhSachPhong){
-                if(phong.getTrangThai().equals(TrangThaiPhong.Trong)){
-                    danhSachTam.add(phong);
-                }
+
+        // Bắt đầu lọc từ danh sách đã lọc theo loại (hoặc toàn bộ nếu chưa lọc loại)
+        ArrayList<Phong> nguonLoc = danhSachPhongTheoLoai != null ? danhSachPhongTheoLoai : danhSachPhong;
+
+        for (Phong phong : nguonLoc) {
+            boolean match = false;
+
+            if (thueDatPhongPanel.chckbx_phongTrong.isSelected()
+                    && phong.getTrangThai().equals(TrangThaiPhong.Trong)) match = true;
+            if (thueDatPhongPanel.chckbx_phongThue.isSelected()
+                    && phong.getTrangThai().equals(TrangThaiPhong.DangSuDung)) match = true;
+            if (thueDatPhongPanel.chckbx_phongDat.isSelected()
+                    && phong.getTrangThai().equals(TrangThaiPhong.DaDat)) match = true;
+
+            // Nếu không chọn trạng thái nào thì hiển thị hết
+            if (!thueDatPhongPanel.chckbx_phongTrong.isSelected()
+                    && !thueDatPhongPanel.chckbx_phongThue.isSelected()
+                    && !thueDatPhongPanel.chckbx_phongDat.isSelected()) match = true;
+
+            if (match) danhSachTam.add(phong);
+        }
+
+        danhSachPhongHienThi = danhSachTam;
+        HienThiDanhSachPhong(danhSachPhongHienThi);
+    }
+
+    private void LocPhongTheoLoai(String loai) {
+        danhSachPhongTheoLoai = phongServices.locPhongTheoLoai(loai);
+        danhSachPhongHienThi = danhSachPhongTheoLoai;
+        LocTrangThaiPhong();
+        HienThiDanhSachPhong(danhSachPhongHienThi);
+    }
+
+    private void LamMoi(){
+        int luaChon = JOptionPane.showConfirmDialog(thueDatPhongPanel,"Bán có muốn làm mới lại trang","chú ý",JOptionPane.YES_NO_OPTION);
+        if(luaChon == JOptionPane.YES_OPTION){
+            thueDatPhongPanel.txt_TimSoDienThoai.setText("");
+            thueDatPhongPanel.txt_SoDienThoai.setText("");
+            thueDatPhongPanel.txt_Email.setText("");
+            thueDatPhongPanel.txt_TenKhachHang.setText("");
+            thueDatPhongPanel.txt_ngaySinhKhachHang.setText("");
+            thueDatPhongPanel.rdbtn_Nam.setSelected(false);
+            thueDatPhongPanel.rdbtn_Nu.setSelected(false);
+            thueDatPhongPanel.model.setRowCount(0);
+            thueDatPhongPanel.ngayBatDau.setDate(null);
+            thueDatPhongPanel.ngayKetThuc.setDate(null);
+            thueDatPhongPanel.chckbx_phongDat.setSelected(false);
+            thueDatPhongPanel.chckbx_phongThue.setSelected(false);
+            thueDatPhongPanel.chckbx_phongTrong.setSelected(false);
+            thueDatPhongPanel.cbb_KhuyenMai.setSelectedIndex(0);
+            getTatCaPhong();
+        }
+    }
+
+    public void getKhuyenMai(){
+        for(KhuyenMai khuyenMai : danhSachKhuyenMai){
+            if(khuyenMai.getTrangThai().equals(TrangThaiKhuyenMai.DangHoatDong)){
+                thueDatPhongPanel.cbb_KhuyenMai.addItem(khuyenMai.getTenKM());
             }
-            danhSachPhongHienThi = danhSachTam;
+        }
+    }
+
+    private void LocPhongCoKhuyenMai() {
+        if(thueDatPhongPanel.cbb_KhuyenMai.getSelectedIndex() == 0){
+            getTatCaPhong();
+            return;
+        }
+        String tenKhuyenMaiChon = thueDatPhongPanel.cbb_KhuyenMai.getSelectedItem().toString();
+        KhuyenMai khuyenMaiChon = null;
+
+        for (KhuyenMai khuyenMai : danhSachKhuyenMai) {
+            if (khuyenMai.getTenKM().equals(tenKhuyenMaiChon)) {
+                khuyenMaiChon = khuyenMai;
+                break;
+            }
+        }
+
+        if (khuyenMaiChon != null) {
+            String[] loaiPhongKhuyenMai = khuyenMaiChon.getDieuKienApDung().split(",");
+            ArrayList<Phong> danhSachTam = new ArrayList<>();
+
+            for (String loai : loaiPhongKhuyenMai) {
+                String tenLoai = loai.trim();
+                ArrayList<Phong> dsTheoLoai = phongServices.locPhongTheoLoai(tenLoai);
+                danhSachTam.addAll(dsTheoLoai);
+            }
+            danhSachPhongTheoLoai = danhSachTam;
+            danhSachPhongHienThi = danhSachPhongTheoLoai;
+            LocTrangThaiPhong();
+            HienThiDanhSachPhong(danhSachPhongHienThi);
         }
     }
 }

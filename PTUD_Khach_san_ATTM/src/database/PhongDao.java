@@ -97,26 +97,24 @@ public class PhongDao {
 
     }
 
-    public ArrayList<Phong> locPhongTheoLoai(String s){
+    public ArrayList<Phong> locPhongTheoLoai(String s) {
         Connection con = ConnectDB.getConnection();
-        ArrayList<Phong> dsp= new ArrayList<>();
+        ArrayList<Phong> dsp = new ArrayList<>();
         try {
             CallableStatement st = con.prepareCall("{call locTheoLoaiPhong (?)}");
-            st.setString(1,s);
-            ResultSet rs= st.executeQuery();
-            while(rs.next()){
-                Phong p = new Phong(rs.getString(1),TrangThaiPhong.valueOf(rs.getString(2)),
-                        rs.getDouble(3),rs.getDouble(4),
-                        new LoaiPhong(rs.getString(5),rs.getString(6)),rs.getInt(7));
+            st.setString(1, s);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Phong p = new Phong(rs.getString(1), TrangThaiPhong.valueOf(rs.getString(2)),
+                        rs.getDouble(3), rs.getDouble(4),
+                        new LoaiPhong(rs.getString(5), rs.getString(6)), rs.getInt(7));
                 dsp.add(p);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             ConnectDB.closeConnection(con);
         }
-            return dsp;
-
+        return dsp;
     }
-
 }

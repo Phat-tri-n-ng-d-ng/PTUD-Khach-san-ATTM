@@ -160,7 +160,6 @@ public class PhongPanel extends JPanel {
         chckbx_FamilyRoom.setBackground(Color.WHITE);
         pnlBoLoc.add(chckbx_FamilyRoom);
 
-
         JLabel lbl_ThongTinPhong = new JLabel("Thông tin phòng");
         lbl_ThongTinPhong.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbl_ThongTinPhong.setBounds(20, 50, 161, 20);

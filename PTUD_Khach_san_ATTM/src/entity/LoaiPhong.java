@@ -3,7 +3,7 @@ package entity;
 import java.util.Objects;
 
 public class LoaiPhong {
-	private String maLoaiPhong;
+    private String maLoaiPhong;
     private String tenLoaiPhong;
     private double giaNiemYet;
     private double tyLeCoc;
@@ -49,14 +49,9 @@ public class LoaiPhong {
     }
 
     public void setTyLeCoc(double tyLeCoc) {
-		this.tyLeCoc = tyLeCoc;
-	}
-//	public LoaiPhong(String maLoaiPhong, String tenLoaiPhong, double giaNiemYet, double tyLeCoc) {
-//		this.maLoaiPhong = maLoaiPhong;
-//		this.tenLoaiPhong = tenLoaiPhong;
-//		this.giaNiemYet = giaNiemYet;
-//		this.tyLeCoc = tyLeCoc;
-//	}
+        this.tyLeCoc = tyLeCoc;
+    }
+
 
     public LoaiPhong(String maLoaiPhong, String tenLoaiPhong, double giaNiemYet, double tyLeCoc, int soNguoiMacDinh) {
         this.maLoaiPhong = maLoaiPhong;

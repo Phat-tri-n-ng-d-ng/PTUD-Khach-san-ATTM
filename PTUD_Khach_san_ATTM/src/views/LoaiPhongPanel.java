@@ -153,3 +153,4 @@ public class LoaiPhongPanel extends JPanel {
         loaiPhongController.getDanhDachLoaiPhong();
     }
 }
+

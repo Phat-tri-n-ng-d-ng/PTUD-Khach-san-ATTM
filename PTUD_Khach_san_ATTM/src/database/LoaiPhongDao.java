@@ -35,7 +35,7 @@ public class LoaiPhongDao {
         }finally {
             ConnectDB.closeConnection(con);
         }
-            return dslp;
+        return dslp;
 //        ConnectDB.closeConnection(con);
     }
 
