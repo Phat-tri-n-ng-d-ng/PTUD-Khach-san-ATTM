@@ -28,6 +28,12 @@ import javax.swing.JCheckBox;
 public class ThueDatPhongPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+    public final JButton btn_LamMoi;
+    public final JButton btn_ThuePhong;
+    public final JButton btn_DatPhong;
+    public final JButton btn_NhanPhong;
+    public final JButton btn_DoiPhong;
+    public final JButton btn_HuyPhong;
     public JCheckBox chckbx_phongTrong;
     public JCheckBox chckbx_phongThue;
     public JCheckBox chckbx_phongDat;
@@ -248,15 +254,15 @@ public class ThueDatPhongPanel extends JPanel {
         txt_ngaySinhKhachHang.setEditable(false);
         pnlThongTin.add(txt_ngaySinhKhachHang);
 
-        JButton btn_ThuePhong = new JButton("Thuê phòng");
+        btn_ThuePhong = new JButton("Thuê phòng");
         btn_ThuePhong.setBounds(30, 527, 200, 30);
         pnl_ThongTin.add(btn_ThuePhong);
 
-        JButton btn_DatPhong = new JButton("Đặt phòng");
+        btn_DatPhong = new JButton("Đặt phòng");
         btn_DatPhong.setBounds(240, 527, 200, 30);
         pnl_ThongTin.add(btn_DatPhong);
 
-        JButton btn_NhanPhong = new JButton("Nhận phòng");
+        btn_NhanPhong = new JButton("Nhận phòng");
         btn_NhanPhong.setBounds(450, 527, 200, 30);
         pnl_ThongTin.add(btn_NhanPhong);
 
@@ -264,11 +270,11 @@ public class ThueDatPhongPanel extends JPanel {
         btn_TraPhong.setBounds(30, 567, 200, 30);
         pnl_ThongTin.add(btn_TraPhong);
 
-        JButton btn_DoiPhong = new JButton("Đổi phòng");
+        btn_DoiPhong = new JButton("Đổi phòng");
         btn_DoiPhong.setBounds(240, 567, 200, 30);
         pnl_ThongTin.add(btn_DoiPhong);
 
-        JButton btn_HuyPhong = new JButton("Hủy phòng");
+        btn_HuyPhong = new JButton("Hủy phòng");
         btn_HuyPhong.setBounds(450, 567, 200, 30);
         pnl_ThongTin.add(btn_HuyPhong);
 
@@ -276,7 +282,7 @@ public class ThueDatPhongPanel extends JPanel {
         btn_BoChon.setBounds(456, 306, 200, 30);
         pnl_ThongTin.add(btn_BoChon);
 
-        JButton btn_LamMoi = new JButton("Làm mới ");
+        btn_LamMoi = new JButton("Làm mới ");
         btn_LamMoi.setBounds(240, 306, 200, 30);
         pnl_ThongTin.add(btn_LamMoi);
 
