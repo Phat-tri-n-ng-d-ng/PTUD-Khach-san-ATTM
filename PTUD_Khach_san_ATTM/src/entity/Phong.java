@@ -70,7 +70,11 @@ public class Phong {
 	public void setTienCoc() {
         tienCoc=loaiPhong.getTyLeCoc()*giaPhong/100;
 	}
-
+	public Phong(String maPhong, double giaPhong) {
+		// TODO Auto-generated constructor stub
+		this.maPhong = maPhong;
+		this.giaPhong = giaPhong;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(maPhong);

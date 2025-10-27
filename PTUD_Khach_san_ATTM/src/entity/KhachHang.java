@@ -59,6 +59,9 @@ public class KhachHang {
     public HangKhachHang getHangKH() {
         return hangKH;
     }
+    public void setHangKH() {
+        this.hangKH = HangKhachHang.Dong;
+    }
     public void setHangKH(int diemTichLuy) {
         if(diemTichLuy>=0 && diemTichLuy<=10) this.hangKH = HangKhachHang.Dong;
         else if(diemTichLuy>10 && diemTichLuy<=20) this.hangKH = HangKhachHang.Bac;
@@ -68,22 +71,23 @@ public class KhachHang {
     public int getDiemTichLuy() {
         return diemTichLuy;
     }
-    public void setDiemTichLuy(int diemTichLuy) {
-        this.diemTichLuy = diemTichLuy;
+    public void setDiemTichLuy() {
+        this.diemTichLuy = 0;
     }
-    //	public KhachHang(String maKH, String tenKH, boolean gioiTinh, LocalDate ngaySinh, String email, String sdt,
-//			String soCCCD) {
-//		super();
-//		this.maKH = maKH;
-//		this.tenKH = tenKH;
-//		this.gioiTinh = gioiTinh;
-//		this.ngaySinh = ngaySinh;
-//		this.email = email;
-//		this.sdt = sdt;
-//		this.soCCCD = soCCCD;
-//		setHangKH();
-//		setDiemTichLuy();
-//	}
+    public KhachHang(String maKH, String tenKH, boolean gioiTinh, LocalDate ngaySinh, String email, String sdt,
+                     String soCCCD) {
+        super();
+        this.maKH = maKH;
+        this.tenKH = tenKH;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.email = email;
+        this.sdt = sdt;
+        this.soCCCD = soCCCD;
+        setHangKH();
+        setDiemTichLuy();
+    }
+
     public KhachHang(String maKH, String tenKH, boolean gioiTinh, LocalDate ngaySinh, String email, String sdt,
                      String soCCCD, int diemTichLuy) {
         super();
@@ -97,20 +101,36 @@ public class KhachHang {
         setHangKH(diemTichLuy);
         this.diemTichLuy = diemTichLuy;
     }
-    @Override
-    public int hashCode() {
-        return Objects.hash(maKH);
-    }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        KhachHang other = (KhachHang) obj;
-        return Objects.equals(maKH, other.maKH);
+
+    public KhachHang(String tenKH, boolean gioiTinh, LocalDate ngaySinh, String sdt, String soCCCD) {
+        this.tenKH = tenKH;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.sdt = sdt;
+        this.soCCCD = soCCCD;
     }
 
+
+    public KhachHang(String tenKH, String sdt) {
+        super();
+        this.tenKH = tenKH;
+        this.sdt = sdt;
+    }
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(maKH);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		KhachHang other = (KhachHang) obj;
+		return Objects.equals(maKH, other.maKH);
+	}
 }
+
