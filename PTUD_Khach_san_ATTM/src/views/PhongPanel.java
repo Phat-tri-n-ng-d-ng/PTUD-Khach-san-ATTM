@@ -199,5 +199,6 @@ public class PhongPanel extends JPanel {
         PhongController pc = new PhongController(this);
         pc.hienThiDanhSachPhong();
         pc.hienThiLoaiPhong();
+        pc.tuDongCapNhatTrangThaiPhong();
     }
 }

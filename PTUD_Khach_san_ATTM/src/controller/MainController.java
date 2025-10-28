@@ -60,7 +60,7 @@ public class MainController {
         doi_Panel(loaiPhongPanel);
     }
     public void showPhong_Panel() {
-        phongPanel = new LoaiPhongPanel();
+        phongPanel = new PhongPanel();
         doi_Panel(phongPanel);
     }
     public void showKhuyen_Mai_Panel() {

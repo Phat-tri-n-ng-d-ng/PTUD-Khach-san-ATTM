@@ -9,11 +9,14 @@ package controller;
 import entity.LoaiPhong;
 import entity.Phong;
 import enums.TrangThaiPhong;
+import services.HoaDonService;
 import services.LoaiPhongService;
 import services.PhongServices;
 import views.PhongPanel;
 
 import javax.swing.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /*
@@ -26,6 +29,7 @@ public class PhongController {
     LoaiPhongService loaiPhongService;
     PhongPanel phongPanel;
     PhongServices phongServices;
+    HoaDonService hoaDonService;
 //    LoaiPhongController loaiPhongController;
 
 
@@ -33,6 +37,7 @@ public class PhongController {
         this.phongPanel = pp;
         phongServices=new PhongServices();
         loaiPhongService= new LoaiPhongService();
+        hoaDonService = new HoaDonService();
 //        loaiPhongController= new LoaiPhongController();
         suKien();
     }
@@ -223,6 +228,11 @@ public class PhongController {
 
     public void baoLoi(String s){
         JOptionPane.showMessageDialog(null,s);
+    }
+
+    public void tuDongCapNhatTrangThaiPhong(){
+        LocalDate ngayHomNay = LocalDate.now();
+        hoaDonService.tuDongCapNhatTrangThaiPhong(ngayHomNay);
     }
 
 }

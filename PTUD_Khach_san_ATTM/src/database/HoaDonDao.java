@@ -1,12 +1,6 @@
 package database;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -272,7 +266,7 @@ public class HoaDonDao {
                 NhanVien nv = new NhanVien();
                 nv.setTenNV(tenNV);
                 PhuongThucThanhToan pttt = PhuongThucThanhToan.fromString(pTTTString);
-                //Lay du lieu tu chi tiet hoa don
+                //Lay du lieu tu chi tiet hoa don 
                 ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
                 hd = new HoaDon(maHD, ngayLap, pttt,trangThaiHoaDon , kh, dsCTDH , nv);
                 hd.setTongTien();
@@ -319,5 +313,63 @@ public class HoaDonDao {
         return dsChiTietHoaDon;
 
 
+    }
+
+    public void tuDongCapNhatTrangThaiPhong(LocalDate ngayHomNay) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+            conn = ConnectDB.getConnection();
+
+            // 1️⃣ Đặt tất cả phòng về trạng thái "Trống"
+            String sqlReset = "UPDATE Phong SET trangThai = N'Trong'";
+            ps = conn.prepareStatement(sqlReset);
+            ps.executeUpdate();
+            ps.close();
+
+            // 2️⃣ Cập nhật trạng thái "Đã đặt" cho phòng có hóa đơn đặt hôm nay
+            String sqlDaDat = """
+            UPDATE Phong
+                SET trangThai = N'DaDat'
+                WHERE maPhong IN (
+                SELECT DISTINCT cthd.maPhong
+                FROM ChiTietHoaDon cthd
+                JOIN HoaDon hd ON cthd.maHD = hd.maHD
+                WHERE hd.trangThai = N'HoaDonDatPhong'
+                AND CAST(hd.ngayNhanPhong AS DATE) = CAST(? AS DATE)
+            );
+        """;
+            ps = conn.prepareStatement(sqlDaDat);
+            ps.setDate(1, java.sql.Date.valueOf(ngayHomNay));
+            ps.executeUpdate();
+            ps.close();
+
+            // 3️⃣ Cập nhật trạng thái "Đang sử dụng" cho phòng có hóa đơn đang thuê hôm nay
+            String sqlDangThue = """
+            UPDATE Phong
+            SET trangThai = N'DangSuDung'
+            WHERE maPhong IN (
+                SELECT DISTINCT cthd.maPhong
+                FROM ChiTietHoaDon cthd
+                JOIN HoaDon hd ON cthd.maHD = hd.maHD
+                WHERE hd.trangThai = N'HoaDonThuePhong'
+                AND CAST(? AS date) BETWEEN CAST(hd.ngayNhanPhong AS date) AND CAST(hd.ngayTraPhong AS date)
+            )
+        """;
+            ps = conn.prepareStatement(sqlDangThue);
+            ps.setDate(1, java.sql.Date.valueOf(ngayHomNay));
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

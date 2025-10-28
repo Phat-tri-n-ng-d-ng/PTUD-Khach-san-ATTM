@@ -1,6 +1,7 @@
 package services;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -41,4 +42,7 @@ public class HoaDonService {
 		return hoaDonDao.getHoaDonTheoTrangThai(trangThai);
 	}
 
+    public void tuDongCapNhatTrangThaiPhong(LocalDate ngayHomNay) {
+        hoaDonDao.tuDongCapNhatTrangThaiPhong(ngayHomNay);
+    }
 }

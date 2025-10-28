@@ -1,11 +1,10 @@
 package controller;
 
 import database.KhuyenMaiDao;
-import entity.KhachHang;
-import entity.KhuyenMai;
-import entity.Phong;
+import entity.*;
 import enums.TrangThaiKhuyenMai;
 import enums.TrangThaiPhong;
+import services.HoaDonService;
 import services.KhachHangService;
 import services.PhongServices;
 import views.ThueDatPhongPanel;
@@ -26,6 +25,7 @@ public class ThueDatPhongController {
     private ArrayList<Phong> danhSachPhongHienThi;
     private ArrayList<Phong> danhSachPhongTheoLoai;
     private ArrayList<KhuyenMai> danhSachKhuyenMai;
+    private HoaDonService hoaDonService;
 //    private String trangThai;
 
     public ThueDatPhongController(ThueDatPhongPanel thueDatPhongPanel){
@@ -35,6 +35,7 @@ public class ThueDatPhongController {
         khuyenMaiDao = new KhuyenMaiDao();
         danhSachKhuyenMai = khuyenMaiDao.getTatCaKhuyenMai();
         danhSachPhong = phongServices.getDSP();
+        hoaDonService = new HoaDonService();
         thueDatPhongPanel.btn_BoChon.addActionListener(e -> BoChonPhong());
         thueDatPhongPanel.txt_SoDienThoai.addActionListener(e -> getKhachHang());
         thueDatPhongPanel.btn_Loc.addActionListener(e-> LocTrangThaiPhong());
@@ -46,6 +47,7 @@ public class ThueDatPhongController {
         thueDatPhongPanel.btn_TatCa.addActionListener(e -> LocPhongTheoLoai(""));
         thueDatPhongPanel.btn_LamMoi.addActionListener(e -> LamMoi());
         thueDatPhongPanel.cbb_KhuyenMai.addActionListener(e -> LocPhongCoKhuyenMai());
+        thueDatPhongPanel.btn_Tim.addActionListener(e -> TimPhongDatTheoSoDienThoai());
     }
 
     public void getTatCaPhong(){
@@ -254,5 +256,24 @@ public class ThueDatPhongController {
             LocTrangThaiPhong();
             HienThiDanhSachPhong(danhSachPhongHienThi);
         }
+    }
+
+    public void TimPhongDatTheoSoDienThoai(){
+        String sdt = thueDatPhongPanel.txt_TimSoDienThoai.getText().strip();
+        HoaDon hoaDon = hoaDonService.timHoaDonTheoSDT(sdt);
+        if (hoaDon == null) {
+            JOptionPane.showMessageDialog(null, "Không tìm thấy hóa đơn cho số điện thoại này");
+            return;
+        }
+        ArrayList<Phong> danhSachTam = new ArrayList<>();
+        for(ChiTietHoaDon cthd : hoaDon.getcTHD()){
+            for(Phong phong : danhSachPhong){
+                if(phong.getMaPhong().equals(cthd.getPhong().getMaPhong())){
+                    danhSachTam.add(phong);
+                }
+            }
+        }
+        danhSachPhongHienThi = danhSachTam;
+        HienThiDanhSachPhong(danhSachPhongHienThi);
     }
 }
