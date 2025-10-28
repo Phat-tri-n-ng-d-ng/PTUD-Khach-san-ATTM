@@ -8,6 +8,7 @@ import services.HoaDonService;
 import services.KhachHangService;
 import services.PhongServices;
 import views.FormThongTinDatPhong;
+import views.FormThongTinNhanPhong;
 import views.FormThongTinThuePhong;
 import views.ThueDatPhongPanel;
 
@@ -38,6 +39,7 @@ public class ThueDatPhongController {
         danhSachKhuyenMai = khuyenMaiDao.getTatCaKhuyenMai();
         danhSachPhong = phongServices.getDSP();
         hoaDonService = new HoaDonService();
+
         thueDatPhongPanel.btn_BoChon.addActionListener(e -> BoChonPhong());
         thueDatPhongPanel.txt_SoDienThoai.addActionListener(e -> getKhachHang());
         thueDatPhongPanel.btn_Loc.addActionListener(e-> LocTrangThaiPhong());
@@ -52,6 +54,10 @@ public class ThueDatPhongController {
         thueDatPhongPanel.btn_Tim.addActionListener(e -> TimPhongDatTheoSoDienThoai());
         thueDatPhongPanel.btn_DatPhong.addActionListener(e -> new FormThongTinDatPhong().setVisible(true));
         thueDatPhongPanel.btn_ThuePhong.addActionListener(e -> new FormThongTinThuePhong().setVisible(true));
+        thueDatPhongPanel.btn_NhanPhong.addActionListener(e ->{
+        	FormThongTinNhanPhong form = new FormThongTinNhanPhong(thueDatPhongPanel);
+        	form.setVisible(true);
+        } );
     }
 
     public void getTatCaPhong(){
@@ -164,6 +170,12 @@ public class ThueDatPhongController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String ngaySinhFormatted = khachHang.getNgaySinh().format(formatter);
             thueDatPhongPanel.txt_ngaySinhKhachHang.setText(ngaySinhFormatted);
+        }else {
+        	thueDatPhongPanel.txt_Email.setText("");
+        	thueDatPhongPanel.rdbtn_Nam.setSelected(false);
+        	thueDatPhongPanel.rdbtn_Nu.setSelected(false);
+        	thueDatPhongPanel.txt_TenKhachHang.setText("");
+        	thueDatPhongPanel.txt_ngaySinhKhachHang.setText("");
         }
     }
 
@@ -264,16 +276,18 @@ public class ThueDatPhongController {
 
     public void TimPhongDatTheoSoDienThoai(){
         String sdt = thueDatPhongPanel.txt_TimSoDienThoai.getText().strip();
-        HoaDon hoaDon = hoaDonService.timHoaDonTheoSDT(sdt);
-        if (hoaDon == null) {
+        ArrayList<HoaDon> danhSachHoaDon = hoaDonService.timHoaDonTheoSDT(sdt);
+        if (danhSachHoaDon == null) {
             JOptionPane.showMessageDialog(null, "Không tìm thấy hóa đơn cho số điện thoại này");
             return;
         }
         ArrayList<Phong> danhSachTam = new ArrayList<>();
-        for(ChiTietHoaDon cthd : hoaDon.getcTHD()){
-            for(Phong phong : danhSachPhong){
-                if(phong.getMaPhong().equals(cthd.getPhong().getMaPhong())){
-                    danhSachTam.add(phong);
+        for(HoaDon hoaDon : danhSachHoaDon){
+            for(ChiTietHoaDon cthd : hoaDon.getcTHD()){
+                for(Phong phong : danhSachPhong){
+                    if(phong.getMaPhong().equals(cthd.getPhong().getMaPhong())){
+                        danhSachTam.add(phong);
+                    }
                 }
             }
         }

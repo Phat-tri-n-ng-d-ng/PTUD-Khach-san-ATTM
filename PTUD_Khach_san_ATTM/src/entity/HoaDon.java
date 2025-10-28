@@ -177,7 +177,7 @@ public class HoaDon {
 		this.nhanVien = nhanVien;
 	}
 	public HoaDon(String maHD, LocalDateTime ngayLap, PhuongThucThanhToan pTTT, TrangThaiHoaDon trangThai,
-			KhachHang khachHang, ArrayList<ChiTietHoaDon> dsCTHD, NhanVien nhanVien , KhuyenMai khuyenMai, double tienNhan, double tienTra ) {
+			KhachHang khachHang, ArrayList<ChiTietHoaDon> dsCTHD, NhanVien nhanVien , double tienNhan, double tienTra ) {
 		this.maHD = maHD;
 		this.ngayLap = ngayLap;
 		this.pTTT = pTTT;
@@ -185,7 +185,6 @@ public class HoaDon {
 		this.khachHang = khachHang;
 		this.dsCTHD = dsCTHD;
 		this.nhanVien = nhanVien;
-		this.khuyenMai = khuyenMai;
 		this.tienNhan = tienNhan;
 		this.tienTra = tienTra;
 	}

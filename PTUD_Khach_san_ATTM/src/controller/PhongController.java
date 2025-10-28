@@ -16,7 +16,6 @@ import views.PhongPanel;
 
 import javax.swing.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /*
@@ -234,5 +233,4 @@ public class PhongController {
         LocalDate ngayHomNay = LocalDate.now();
         hoaDonService.tuDongCapNhatTrangThaiPhong(ngayHomNay);
     }
-
 }

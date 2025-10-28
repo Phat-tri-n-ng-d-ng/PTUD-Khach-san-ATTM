@@ -33,8 +33,8 @@ public class ChiTietHoaDon {
         return thanhTien;
     }
 
-    public double setThanhTien(Phong phong, int soNgayO) {
-        return phong.getGiaPhong() * soNgayO;
+    public void setThanhTien(Phong phong, int soNgayO) {
+        this.thanhTien = phong.getGiaPhong() * soNgayO;
     }
 
     public ChiTietHoaDon(Phong phong, HoaDon hoaDon, int soNgayO) {

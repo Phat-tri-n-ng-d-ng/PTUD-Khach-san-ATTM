@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import java.awt.Component;
@@ -178,8 +179,12 @@ public class HoaDonPanel extends JPanel {
         rdbtn_TrangThai.setBackground(Color.WHITE);
         rdbtn_TrangThai.setBounds(758, 70, 99, 21);
         pnlBoLocHoaDon.add(rdbtn_TrangThai);
-
-
+        ButtonGroup group = new ButtonGroup();
+        group.add(rdbtn_TimMaHoaDon);
+        group.add(rdbtn_ChonNgay);
+        group.add(rdbtn_SoDTKH);
+        group.add(rdbtn_ChonKhoangTG);
+        group.add(rdbtn_TrangThai);
 
         JLabel lbl_Boloc = new JLabel("Bộ lọc");
         lbl_Boloc.setFont(new Font("Times New Roman", Font.PLAIN, 20));

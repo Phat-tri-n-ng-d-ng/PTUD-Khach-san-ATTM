@@ -65,10 +65,10 @@ public class ThueDatPhongPanel extends JPanel {
 		setBorder(new EmptyBorder(5, 5, 5, 5));
         setLayout(null);
 
-        JLabel lbl_TieuDe = new JLabel("Thuê/Đặt Phòng");
+        JLabel lbl_TieuDe = new JLabel("Đặt/ thuê phòng");
         lbl_TieuDe.setForeground(new Color(10, 100, 189));
         lbl_TieuDe.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        lbl_TieuDe.setBounds(725, 10, 133, 29);
+        lbl_TieuDe.setBounds(725, 10, 180, 29);
         add(lbl_TieuDe);
 
         JPanel pnlLoc = new JPanel();
