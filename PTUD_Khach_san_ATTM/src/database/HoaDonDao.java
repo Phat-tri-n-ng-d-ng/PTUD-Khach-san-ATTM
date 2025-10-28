@@ -466,4 +466,31 @@ public class HoaDonDao {
         }
         return hd;
     }
+
+    public boolean capNhatHoaDonVaPhongSauKhiTraPhong(String maHD, int soNgayO, String pttt,
+                                                      double thanhTien, double tongTien, double tienGiam, double phiDoiPhong,
+                                                      double tongTienTT, double tienThue, double tienNhan, double tienTra){
+        Connection con = ConnectDB.getConnection();
+        int n = 0;
+        try {
+            CallableStatement cstmt = con.prepareCall("{call capNhatHoaDonVaPhongSauKhiTraPhong(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+            cstmt.setString(1, maHD);
+            cstmt.setInt(2, soNgayO);
+            cstmt.setString(3, pttt);
+            cstmt.setDouble(4, thanhTien);
+            cstmt.setDouble(5, tongTien);
+            cstmt.setDouble(6, tienGiam);
+            cstmt.setDouble(7, phiDoiPhong);
+            cstmt.setDouble(8, tongTienTT);
+            cstmt.setDouble(9, tienThue);
+            cstmt.setDouble(10, tienNhan);
+            cstmt.setDouble(11, tienTra);
+            n = cstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(con);
+        }
+        return n > 0;
+    }
 }

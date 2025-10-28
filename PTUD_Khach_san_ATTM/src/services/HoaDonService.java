@@ -47,6 +47,13 @@ public class HoaDonService {
     public HoaDon timHoaDonTheoMaPhongVaTrangThaiHoaDon(String maPhongTim,String trangThaiHDTim){
         return hoaDonDao.timHoaDonTheoMaPhongVaTrangThaiHoaDon(maPhongTim, trangThaiHDTim);
     }
+    public boolean capNhatHoaDonVaPhongSauKhiTraPhong(String maHD, int soNgayO,  String pttt,
+                                                      double thanhTien, double tongTien, double tienGiam, double phiDoiPhong,
+                                                      double tongTienTT, double tienThue, double tienNhan, double tienTra){
+        return hoaDonDao.capNhatHoaDonVaPhongSauKhiTraPhong(maHD, soNgayO, pttt,
+                thanhTien, tongTien, tienGiam, phiDoiPhong,
+                tongTienTT, tienThue, tienNhan, tienTra);
+    }
 
     public void tuDongCapNhatTrangThaiPhong(LocalDate ngayHomNay) {
         hoaDonDao.tuDongCapNhatTrangThaiPhong(ngayHomNay);

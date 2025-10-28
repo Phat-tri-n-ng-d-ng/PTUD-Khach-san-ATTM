@@ -74,14 +74,13 @@ public class FormTraPhongController {
 
             formThongTinTraPhong.model.addRow(new Object[]{maPhong,lp,sltd,soNgayO,gia, tienCoc,thanhTien});
 
-            // Lấy ngày nhận phòng
             HoaDon hoaDon=hoaDonService.timHoaDonTheoMaPhongVaTrangThaiHoaDon(maPhong, "HoaDonThuePhong");
 
-
-//            Date date = java.util.Date.from(hd.getNgayNhanPhong().atZone(java.time.ZoneId.systemDefault()).toInstant());
-//            formThongTinTraPhong.ngayBatDau.setDate(date);
-
-
+            // Lấy ngày lên Form
+            Date dateBatDau = java.util.Date.from(hoaDon.getNgayNhanPhong().atZone(java.time.ZoneId.systemDefault()).toInstant());
+            formThongTinTraPhong.ngayBatDau.setDate(dateBatDau);
+            Date dateKetThuc = java.util.Date.from(hoaDon.getNgayTraPhong().atZone(java.time.ZoneId.systemDefault()).toInstant());
+            formThongTinTraPhong.ngayKetThuc.setDate(dateKetThuc);
 
             // Xử lý chọn phương thức thanh toán
             formThongTinTraPhong.rdbtn_ChuyenKhoan.addActionListener(e -> {
@@ -102,7 +101,7 @@ public class FormTraPhongController {
             });
 
             // Hiển thị thông tin các loại tiền
-            Double tongTienPhong=0.0;
+            double tongTienPhong=0;
             int soDongTrongDanhSachPhongForm=formThongTinTraPhong.model.getRowCount();
             for (int i=0;i<soDongTrongDanhSachPhongForm;i++) {
                 tongTienPhong+=Double.parseDouble(formThongTinTraPhong.table.getValueAt(i,6)+"");
@@ -121,7 +120,7 @@ public class FormTraPhongController {
             formThongTinTraPhong.lbl_TienCuaTienTruKhuyenMaiPnlTongTien.setText(tongTienSauGiam+" VND");
             double phiDoiPhong = hoaDon.getPhiDoiPhong();
             formThongTinTraPhong.lbl_TienCuaPhiDoiPhongTrongPnlTongTien.setText(phiDoiPhong+" VND");
-            double tienThue=hoaDon.getTienThue();
+            double tienThue=tongTienPhong*10/100;
             double tongTienThanhToan= tongTienSauGiam+phiDoiPhong+tienThue;
             formThongTinTraPhong.lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1.setText(tongTienThanhToan+" VND");
             formThongTinTraPhong.lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1_1.setText(tienThue+" VND");
@@ -129,21 +128,32 @@ public class FormTraPhongController {
             // Nhập tiền khách đưa xong nhấn enter
             formThongTinTraPhong.txt_TienKhachDua.addActionListener(e->{
                 String tienKhachDua= formThongTinTraPhong.txt_TienKhachDua.getText();
-                Double tienThua= Double.parseDouble(tienKhachDua)-tongTienThanhToan;
+                double tienThua= Double.parseDouble(tienKhachDua)-tongTienThanhToan;
                 formThongTinTraPhong.lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setText(tienKhachDua+" VND");
                 formThongTinTraPhong.lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setText(tienThua+" VND");
             });
-
-            //
-
-
-
-
-
-
+            final double tongTienPhongFinal=tongTienPhong;
+            final double tongTienSauGiamFinal=tongTienSauGiam;
+            // nút xác nhận
+            formThongTinTraPhong.btn_XacNhan.addActionListener(e -> {
+                String ma= hoaDon.getMaHD();
+                String pttt=formThongTinTraPhong.lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.getText();
 
 
+                double tienGiam= tongTienPhongFinal-tongTienSauGiamFinal;
+                double tienNhan= Double.parseDouble(formThongTinTraPhong.txt_TienKhachDua.getText());
+                double tienThua= tienNhan-tongTienThanhToan;
+                hoaDonService.capNhatHoaDonVaPhongSauKhiTraPhong(ma,soNgayO,pttt.equals("Tiền mặt")?"TienMat":"ChuyenKhoan",thanhTien,tongTienPhongFinal,tienGiam,phiDoiPhong,tongTienThanhToan
+                ,tienThue,tienNhan,tienThua);
+                JOptionPane.showMessageDialog(null,"Trả phòng thành công");
+            });
 
+            // nút hủy
+            formThongTinTraPhong.btn_Huy.addActionListener(e->{
+                if (JOptionPane.showConfirmDialog(formThongTinTraPhong, "Bạn có chắc chắn muốn hủy trả phòng không?", "Xác nhận hủy", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    formThongTinTraPhong.dispose();
+                }
+            });
         }
         return true;
     }

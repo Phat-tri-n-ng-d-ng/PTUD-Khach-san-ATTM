@@ -400,12 +400,12 @@ public class FormThongTinTraPhong extends JDialog {
             }
         }
 
-        RoundedButton btn_XacNhan = new RoundedButton("Xác nhận", new Color(76, 175, 80), Color.WHITE, 30);
+         btn_XacNhan = new RoundedButton("Xác nhận", new Color(76, 175, 80), Color.WHITE, 30);
         btn_XacNhan.setFont(new Font("Times New Roman", Font.BOLD, 14));
         btn_XacNhan.setBounds(430, 570, 120, 30);
         getContentPane().add(btn_XacNhan);
 
-        RoundedButton btn_Huy = new RoundedButton("Hủy", new Color(244, 67, 54), Color.WHITE, 30);
+         btn_Huy = new RoundedButton("Hủy", new Color(244, 67, 54), Color.WHITE, 30);
         btn_Huy.setFont(new Font("Times New Roman", Font.BOLD, 14));
         btn_Huy.setBounds(612, 570, 120, 30);
         getContentPane().add(btn_Huy);
