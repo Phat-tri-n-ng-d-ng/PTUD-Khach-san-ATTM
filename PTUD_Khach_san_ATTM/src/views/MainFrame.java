@@ -10,6 +10,7 @@ import org.kordamp.ikonli.swing.FontIcon;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 
 public class MainFrame extends JFrame {
+    private JLayeredPane layeredPane;
     private JPanel pnlChuaNoiDung;
     private JPanel pnlMenu = new JPanel();
     private JLabel lblNutDongMenu = new JLabel("X");
@@ -222,13 +223,6 @@ public class MainFrame extends JFrame {
         pnlChuaNoiDung.setComponentZOrder(pnlChuaNutMoMenu, 1);
         pnlChuaNoiDung.setComponentZOrder(pnlNoiDung, 2);
 
-//        JLabel lblTest = new JLabel("NOI DUNG CHINH - Click ☰ de mo menu");
-//        lblTest.setFont(new Font("Segoe UI", Font.BOLD, 24));
-//        lblTest.setForeground(new Color(0, 51, 102));
-//        lblTest.setHorizontalAlignment(SwingConstants.CENTER);
-//        lblTest.setBounds((screenWidth - 900) / 2, (screenHeight - 50) / 2, 900, 50);
-//        pnlNoiDung.add(lblTest);
-
         // Thêm sự kiện cho các nút menu
         themSuKienChoNut(btnTrangChu, "TrangChu");
         themSuKienChoNut(btnDatThuePhong, "ThueDatPhong");
@@ -265,9 +259,9 @@ public class MainFrame extends JFrame {
 
     private void xuLyChonMenu(String action) {
         switch (action) {
-//            case "trangChu":
-//                mainController.showTrangChu();
-//                break;
+            case "TrangChu":
+                mainController.showMangHinhChinh();
+                break;
             case "ThueDatPhong":
                 mainController.showThue_Dat_Phong_Panel();
                 break;

@@ -150,22 +150,22 @@ public class HoaDonController implements MouseListener,ActionListener {
 	//TIm hoa don theo SDT
 	public void timHoaDonTheoSDT(String SDT) {
 	    try {
-	        HoaDon hd = hoaDonService.timHoaDonTheoSDT(SDT);
+	        ArrayList<HoaDon> dshd = hoaDonService.timHoaDonTheoSDT(SDT);
 	   
 	        hoaDonPanel.model_DSHD.setRowCount(0);
-
-	        if (hd == null) {
+	        if (dshd == null) {
 	            JOptionPane.showMessageDialog(hoaDonPanel, "Khong tim thay hoa don co so dien thoai: " + SDT);
 	            return;
 	        }
-
-	        hoaDonPanel.model_DSHD.addRow(new Object[]{
-	            hd.getMaHD(),
-	            hd.getNgayLap(),
-	            hd.getKhachHang().getTenKH(),
-	            hd.getKhachHang().getSdt(),
-	            doiDonVi(hd.getTongTien())
-	        });
+	        for(HoaDon hd : dshd) {
+	        	hoaDonPanel.model_DSHD.addRow(new Object[]{
+	    	            hd.getMaHD(),
+	    	            hd.getNgayLap(),
+	    	            hd.getKhachHang().getTenKH(),
+	    	            hd.getKhachHang().getSdt(),
+	    	            doiDonVi(hd.getTongTien())
+	    	        });
+	        }
 
 	    } catch (Exception e) {
 	        JOptionPane.showMessageDialog(hoaDonPanel, "Loi khi tim hoa don theo so dien thoai: " + e.getMessage());
@@ -271,7 +271,7 @@ public class HoaDonController implements MouseListener,ActionListener {
 		                    	hoaDonPanel.txt_Thue.setText(String.valueOf(hd.getTienThue()));
 		                    	hoaDonPanel.txt_PhiDoiPhong.setText(String.valueOf(hd.getPhiDoiPhong()));
 		                    	hoaDonPanel.txt_TongTienThanhToan.setText(String.valueOf(hd.getTongTienThanhToan()));
-		                    	hoaDonPanel.txt_KhuyenMai.setText(String.valueOf(hd.getKhuyenMai().getTyLeGiam()));
+		                    	hoaDonPanel.txt_KhuyenMai.setText(String.valueOf(hd.getKhuyenMai() != null ? hd.getKhuyenMai().getTyLeGiam() : 0 ));
 		                    	hoaDonPanel.txt_TienNhan.setText(String.valueOf(hd.getTienNhan()));
 		                    	hoaDonPanel.txt_TienTra.setText(String.valueOf(hd.getTienTra()));
 		                    	hoaDonPanel.txt_NhanVienThucHien.setText(hd.getNhanVien().getTenNV());
@@ -279,8 +279,8 @@ public class HoaDonController implements MouseListener,ActionListener {
 	                    	
 	                    
 	                    }
+	                    hoaDonPanel.model2.setRowCount(0);
 	                    for(ChiTietHoaDon cthd : dsCTHD) {
-	                    	hoaDonPanel.model2.setRowCount(0);
 	                    	hoaDonPanel.model2.addRow(new Object[]{
 	                             cthd.getPhong().getMaPhong(),
 	                             cthd.getSoNgayO(),
@@ -301,24 +301,6 @@ public class HoaDonController implements MouseListener,ActionListener {
 	            }
 	        }
 		 
-//		  try {
-//	        	String ma = hoaDonPanel.txt_MaHoaDon.getText();
-//	        	ArrayList<ChiTietHoaDon> dsChiTietHoaDon = cthdService.getChiTietHoaDonTheoMa(ma);
-//	        	DefaultTableModel model = hoaDonPanel.model2;
-//	        	model.setRowCount(0);
-//	        	 for (ChiTietHoaDon cthd : dsChiTietHoaDon) {
-//	                 model.addRow(new Object[]{
-//	                     cthd.getPhong().getMaPhong(),
-//	                     cthd.getSoNgayO(),
-//	                     cthd.getPhong().getGiaPhong(),
-//	                     cthd.getThanhTien()
-////	                     hd.getTrangThai()
-//	                 });
-//	             }
-//
-//	        }catch (Exception e) {
-//	            e.printStackTrace();
-//	        }	
 		 
 	
 		

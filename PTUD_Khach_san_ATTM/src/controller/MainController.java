@@ -18,11 +18,12 @@ public class MainController {
     private JPanel phongPanel;
     private JPanel khuyenMaiPanel;
     private JPanel thueDatPhongPanel;
+    private JPanel mangHinhChinhPanel;
 
     public MainController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         khoi_Tao_Cac_Panel();
-//        showTrang_Chu();
+        showMangHinhChinh();
     }
 
     private void khoi_Tao_Cac_Panel() {
@@ -33,32 +34,41 @@ public class MainController {
         loaiPhongPanel = new LoaiPhongPanel();
         phongPanel = new PhongPanel();
         khuyenMaiPanel = new KhuyenMaiPanel();
-        thueDatPhongPanel = new ThueDatPhong();
+        thueDatPhongPanel = new ThueDatPhongPanel();
+        mangHinhChinhPanel = new MangHinhChinhPanel();
     }
 
-//    private void showTrang_Chu() {
-//
-//    }
+    public void showMangHinhChinh() {
+        mangHinhChinhPanel = new MangHinhChinhPanel();
+        doi_Panel(mangHinhChinhPanel);
+    }
 
     public void showKhach_Hang_Panel() {
+        khachHangPanel = new KhachHangPanel();
         doi_Panel(khachHangPanel);
     }
     public void showNhan_Vien_Panel() {
+        nhanVienPanel = new NhanVienPanel();
         doi_Panel(nhanVienPanel);
     }
     public void showHoa_Don_Panel() {
+        hoaDonPanel = new HoaDonPanel();
         doi_Panel(hoaDonPanel);
     }
     public void showLoai_Phong_Panel() {
+        loaiPhongPanel = new LoaiPhongPanel();
         doi_Panel(loaiPhongPanel);
     }
     public void showPhong_Panel() {
+        phongPanel = new LoaiPhongPanel();
         doi_Panel(phongPanel);
     }
     public void showKhuyen_Mai_Panel() {
+        khuyenMaiPanel = new KhuyenMaiPanel();
         doi_Panel(khuyenMaiPanel);
     }
     public void showThue_Dat_Phong_Panel() {
+        thueDatPhongPanel = new ThueDatPhongPanel();
         doi_Panel(thueDatPhongPanel);
     }
 

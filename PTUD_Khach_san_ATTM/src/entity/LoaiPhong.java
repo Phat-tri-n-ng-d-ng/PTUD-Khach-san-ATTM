@@ -3,11 +3,21 @@ package entity;
 import java.util.Objects;
 
 public class LoaiPhong {
-	private String maLoaiPhong;
+    private String maLoaiPhong;
     private String tenLoaiPhong;
     private double giaNiemYet;
     private double tyLeCoc;
-	public String getMaLoaiPhong() {
+    private int soNguoiMacDinh;
+
+
+
+    public LoaiPhong(String maLoaiPhong, String tenLoaiPhong) {
+        this(maLoaiPhong,tenLoaiPhong,0,0,0);
+    }
+
+
+
+    public String getMaLoaiPhong() {
 		return maLoaiPhong;
 	}
 	public String getTenLoaiPhong() {
@@ -25,16 +35,33 @@ public class LoaiPhong {
 	public double getTyLeCoc() {
 		return tyLeCoc;
 	}
-	public void setTyLeCoc(double tyLeCoc) {
-		this.tyLeCoc = tyLeCoc;
-	}
-	public LoaiPhong(String maLoaiPhong, String tenLoaiPhong, double giaNiemYet, double tyLeCoc) {
-		this.maLoaiPhong = maLoaiPhong;
-		this.tenLoaiPhong = tenLoaiPhong;
-		this.giaNiemYet = giaNiemYet;
-		this.tyLeCoc = tyLeCoc;
-	}
-	@Override
+
+    public void setMaLoaiPhong(String maLoaiPhong) {
+        this.maLoaiPhong = maLoaiPhong;
+    }
+
+    public int getSoNguoiMacDinh() {
+        return soNguoiMacDinh;
+    }
+
+    public void setSoNguoiMacDinh(int soLuongMacDinh) {
+        this.soNguoiMacDinh = soLuongMacDinh;
+    }
+
+    public void setTyLeCoc(double tyLeCoc) {
+        this.tyLeCoc = tyLeCoc;
+    }
+
+
+    public LoaiPhong(String maLoaiPhong, String tenLoaiPhong, double giaNiemYet, double tyLeCoc, int soNguoiMacDinh) {
+        this.maLoaiPhong = maLoaiPhong;
+        this.tenLoaiPhong = tenLoaiPhong;
+        this.giaNiemYet = giaNiemYet;
+        this.tyLeCoc = tyLeCoc;
+        this.soNguoiMacDinh = soNguoiMacDinh;
+    }
+
+    @Override
 	public int hashCode() {
 		return Objects.hash(maLoaiPhong);
 	}

@@ -7,12 +7,33 @@ import java.util.Objects;
 
 public class Phong {
 	private String maPhong;
-    private TrangThaiPhong trangThai;
-    private double giaPhong;
-    private double tienCoc;
     private LoaiPhong loaiPhong;
     private int soLuongToiDa;
-	public String getMaPhong() {
+    private double giaPhong;
+    private double tienCoc;
+    private TrangThaiPhong trangThai;
+
+
+    public Phong(String maPhong, TrangThaiPhong trangThai, LoaiPhong loaiPhong, int soLuongToiDa) {
+        this.maPhong = maPhong;
+        this.trangThai = trangThai;
+
+        this.loaiPhong = loaiPhong;
+        this.soLuongToiDa = soLuongToiDa;
+        setGiaPhong();
+        setTienCoc();
+    }
+
+    public Phong(String maPhong, TrangThaiPhong trangThai, double giaPhong, double tienCoc, LoaiPhong loaiPhong, int soLuongToiDa) {
+        this.maPhong = maPhong;
+        this.trangThai = trangThai;
+        this.giaPhong = giaPhong;
+        this.tienCoc = tienCoc;
+        this.loaiPhong = loaiPhong;
+        this.soLuongToiDa = soLuongToiDa;
+    }
+
+    public String getMaPhong() {
 		return maPhong;
 	}
 	public void setMaPhong(String maPhong) {
@@ -41,22 +62,21 @@ public class Phong {
 		return giaPhong;
 	}
 	public void setGiaPhong() {
-		
+        int soNguoiMacDinh = loaiPhong.getSoNguoiMacDinh();
+        double giaNiemYet = loaiPhong.getGiaNiemYet();
+
+        if (soLuongToiDa <= soNguoiMacDinh) {
+            giaPhong = giaNiemYet;
+        } else {
+            int soNguoiChenhlech = soLuongToiDa - soNguoiMacDinh;
+            giaPhong = giaNiemYet + (soNguoiChenhlech / 2) * 500000;
+        }
 	}
 	public double getTienCoc() {
 		return tienCoc;
 	}
 	public void setTienCoc() {
-		
-	}
-	public Phong(String maPhong, TrangThaiPhong trangThai, LoaiPhong loaiPhong,
-			int soLuongToiDa) {
-		this.maPhong = maPhong;
-		this.trangThai = trangThai;
-		setGiaPhong();
-		setTienCoc();
-		this.loaiPhong = loaiPhong;
-		this.soLuongToiDa = soLuongToiDa;
+        tienCoc=loaiPhong.getTyLeCoc()*giaPhong/100;
 	}
 	public Phong(String maPhong, double giaPhong) {
 		// TODO Auto-generated constructor stub

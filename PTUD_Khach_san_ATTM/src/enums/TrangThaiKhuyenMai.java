@@ -3,6 +3,6 @@ package enums;
 public enum TrangThaiKhuyenMai {
 	SapDienRa,
 	DangHoatDong,
-	HetHang,
-	TạmNgung
+	HetHan, //sửa lại chính tả
+	TamNgung
 }

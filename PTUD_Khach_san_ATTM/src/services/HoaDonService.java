@@ -25,7 +25,7 @@ public class HoaDonService {
 	public HoaDon timHoaDonTheoMa(String ma) {
 		return hoaDonDao.timHoaDonTheoMa(ma);
 	}
-	public HoaDon timHoaDonTheoSDT(String SDT) {
+	public ArrayList<HoaDon> timHoaDonTheoSDT(String SDT) {
 		return hoaDonDao.timHoaDonTheoSDT(SDT);
 	}
 	public ArrayList<HoaDon> timHoaDonTheoNgay(LocalDateTime ngay) {

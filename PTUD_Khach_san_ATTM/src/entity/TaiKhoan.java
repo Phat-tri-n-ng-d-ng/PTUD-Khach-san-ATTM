@@ -31,12 +31,16 @@ public class TaiKhoan {
 	public void setTrangThai(TrangThaiTaiKhoan trangThai) {
 		this.trangThai = trangThai;
 	}
-	public TaiKhoan(String tenDangNhap, String matKhau, VaiTro vaiTro, TrangThaiTaiKhoan trangThai) {
+	public TaiKhoan(String tenDangNhap, String matKhau, VaiTro vaiTro) {
 		this.tenDangNhap = tenDangNhap;
 		this.matKhau = matKhau;
 		this.vaiTro = vaiTro;
-		this.trangThai = trangThai;
+		this.trangThai = TrangThaiTaiKhoan.DangHoatDong;
 	}
+    public TaiKhoan(String tenDangNhap, TrangThaiTaiKhoan trangThai) {
+        this.tenDangNhap = tenDangNhap;
+        this.trangThai = trangThai;
+    }
 	@Override
 	public int hashCode() {
 		return Objects.hash(tenDangNhap);
