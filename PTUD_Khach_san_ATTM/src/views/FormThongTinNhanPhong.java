@@ -273,7 +273,9 @@ public class FormThongTinNhanPhong extends JDialog {
         btn_Huy.setBounds(612, 570, 120, 30);
         getContentPane().add(btn_Huy);
         FormNhanPhongController = new FormNhanPhongController(this ,thueDatPanel);
-        FormNhanPhongController.getKhachHang();
+//        FormNhanPhongController.getKhachHang();
+        FormNhanPhongController.getPhong();
+        FormNhanPhongController.getThoiGian();
         
     }
 }

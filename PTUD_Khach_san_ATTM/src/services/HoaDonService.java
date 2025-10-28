@@ -40,5 +40,17 @@ public class HoaDonService {
 	public ArrayList<HoaDon> getHoaDonTheoTrangThai(String trangThai){
 		return hoaDonDao.getHoaDonTheoTrangThai(trangThai);
 	}
+	public ChiTietHoaDon timChiTietHoaDonTheoMaPhongVaTrangThaiHoaDon(String ma, String trangThai) {
+		return hoaDonDao.timChiTietHoaDonTheoMaPhongVaTrangThaiHoaDon(ma, trangThai);
+	}
+	public HoaDon getHoaDonTheoMaPhongVaTTHD(String maHD, String trangThai) {
+		return hoaDonDao.getHoaDonTheoMaPhongVaTTHD(maHD, trangThai);
+	}
+	public boolean capNhatTrangThai(String ma) {
+		return hoaDonDao.capNhatTrangThaiHoaDon(ma);
+	}
+	public HoaDon getHoaDon(String ma,String trangThai) {
+		return hoaDonDao.getHoaDon(ma, trangThai);
+	}
 
 }

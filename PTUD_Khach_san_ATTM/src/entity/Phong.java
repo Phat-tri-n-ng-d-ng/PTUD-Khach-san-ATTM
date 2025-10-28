@@ -9,7 +9,10 @@ public class Phong {
 	private String maPhong;
     private LoaiPhong loaiPhong;
     private int soLuongToiDa;
-    private double giaPhong;
+    public Phong() {
+		super();
+	}
+	private double giaPhong;
     private double tienCoc;
     private TrangThaiPhong trangThai;
 

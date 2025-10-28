@@ -191,8 +191,6 @@ public class PhongController {
         if(kiemTraDuLieuNhap()==false) return;
         String tang=String.format("%02d",Integer.parseInt(phongPanel.txt_Tang.getText()));
         String stt= String.format("%03d",Integer.parseInt(phongPanel.txt_SoPhong.getText()));
-
-
         String ma= "P"+tang+stt;
         String tenlp= phongPanel.cbb_LoaiPhong.getSelectedItem()+"";
         LoaiPhong lp =loaiPhongService.getThongTinLoaiPhong(tenlp);

@@ -317,4 +317,95 @@ public class HoaDonDao {
 		
 		
 	}
+	public ChiTietHoaDon timChiTietHoaDonTheoMaPhongVaTrangThaiHoaDon(String maPhongTim,String trangThaiHD){
+        ChiTietHoaDon cthd = null;
+        Connection connection = null;
+        Phong p = null;
+        try {
+            connection = ConnectDB.getConnection();
+            String sql = "{CALL timChiTietHoaDonTheoMaPhongVaTrangThaiHoaDon(?,?)}";
+            CallableStatement stmt = connection.prepareCall(sql);
+            stmt.setString(1, maPhongTim);
+            stmt.setString(2,trangThaiHD);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                String maPhongget = rs.getString("maPhong");
+                double giaPhong = rs.getDouble("giaPhong");
+                p = new Phong(maPhongget, giaPhong);
+                int soNgayO = rs.getInt("soNgayO");
+                cthd =  new ChiTietHoaDon(p, soNgayO);
+            }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
+            ConnectDB.closeConnection(connection);
+        }
+        return cthd;
+    }
+	public HoaDon getHoaDonTheoMaPhongVaTTHD(String maPhongTim, String trangThai){
+        Connection connection = ConnectDB.getConnection();
+        HoaDon hd = null;
+        try {
+            CallableStatement st = connection.prepareCall("{call getHoaDonTheoMaPhongVaTTHD(?,?)}");
+            st.setString(1, maPhongTim);
+            st.setString(2, trangThai);
+            ResultSet rs= st.executeQuery();
+            while(rs.next()) {
+                String maHD = rs.getString("maHD");
+                hd = new HoaDon();
+                hd.setMaHD(maHD); 
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
+            ConnectDB.closeConnection(connection);
+        }
+        return hd;
+    }
+	public boolean capNhatTrangThaiHoaDon(String ma) {
+		Connection con = ConnectDB.getConnection();
+		String sql = "Update HoaDon Set trangThai = 'HoaDonThuePhong' where maHD = ?";
+		try {
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, ma);
+			int n = st.executeUpdate();
+			return n > 0;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			ConnectDB.closeConnection(con);
+		}
+		return false;
+	}
+	public HoaDon getHoaDon(String maPhongTim, String trangThai){
+        Connection connection = ConnectDB.getConnection();
+        HoaDon hd = null;
+        try {
+            PreparedStatement st = connection.prepareStatement("select HoaDon.maHD, ngayNhanPhong, ngayTraPhong from HoaDon join ChiTietHoaDon cthd on HoaDon.maHD = cthd.maHD where cthd.maPhong = ? and HoaDon.trangThai = ?");
+            st.setString(1, maPhongTim);
+            st.setString(2, trangThai);
+            ResultSet rs= st.executeQuery();
+            while(rs.next()) {
+            	 String maHD = rs.getString("maHD");
+                 hd = new HoaDon();
+                 hd.setMaHD(maHD); 
+                 java.sql.Timestamp ngayNhanSQL = rs.getTimestamp("ngayNhanPhong");
+                 java.sql.Timestamp ngayTraSQL = rs.getTimestamp("ngayTraPhong");
+                 hd.setNgayNhanPhong(ngayNhanSQL.toLocalDateTime());
+                 hd.setNgayTraPhong(ngayTraSQL.toLocalDateTime());
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
+            ConnectDB.closeConnection(connection);
+        }
+        return hd;
+    } 
+	
+	
 }

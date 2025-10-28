@@ -1,7 +1,20 @@
 package entity;
 
 public class ChiTietHoaDon {
-    private double thanhTien;
+	public ChiTietHoaDon(Phong phong, entity.HoaDon hoaDon) {
+		super();
+		this.phong = phong;
+		HoaDon = hoaDon;
+	}
+
+	public ChiTietHoaDon(double thanhTien, Phong phong, entity.HoaDon hoaDon, int soNgayO) {
+		super();
+		this.thanhTien = thanhTien;
+		this.phong = phong;
+		HoaDon = hoaDon;
+		this.soNgayO = soNgayO;
+	}
+	private double thanhTien;
     private Phong phong;
     private HoaDon HoaDon;
     private int soNgayO;
@@ -10,7 +23,15 @@ public class ChiTietHoaDon {
         return soNgayO;
     }
 
-    public void setSoNgayO(int soNgayO) {
+    public HoaDon getHoaDon() {
+		return HoaDon;
+	}
+
+	public void setHoaDon(HoaDon hoaDon) {
+		HoaDon = hoaDon;
+	}
+
+	public void setSoNgayO(int soNgayO) {
         this.soNgayO = soNgayO;
     }
 
