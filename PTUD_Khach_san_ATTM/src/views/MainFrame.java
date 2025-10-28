@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import entity.TaiKhoan;
+import enums.VaiTro;
 import org.kordamp.ikonli.swing.FontIcon;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 
@@ -18,6 +21,10 @@ public class MainFrame extends JFrame {
     private NutBoGoc nutDangChon = null; // Lưu nút đang được chọn
     private JPanel pnlNoiDung;
     private MainController mainController;
+    // THÊM thuộc tính vào class MainFrame:
+    private TaiKhoan taiKhoanDangNhap;
+    private JLabel lblTenNguoiDung; // Khai báo lại
+    private JLabel lblChucVu; // Khai báo lại
 
     public MainFrame() {
         khoiTaoGiaoDien();
@@ -25,7 +32,7 @@ public class MainFrame extends JFrame {
     }
 
     private void khoiTaoGiaoDien() {
-        setTitle("Quan ly khach san-ATTM");
+        setTitle("Quản lý khách sạn-ATTM");
 
         // Thiết lập full screen
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -79,7 +86,7 @@ public class MainFrame extends JFrame {
         lblTenKhachSanMenu.setBounds(24, 13, 131, 33);
         pnlMenu.add(lblTenKhachSanMenu);
 
-        // THÊM: Panel hiển thị thông tin tài khoản
+        // THAY THẾ: Panel hiển thị thông tin tài khoản
         JPanel pnlTaiKhoan = new JPanel();
         pnlTaiKhoan.setBackground(new Color(240, 240, 240));
         pnlTaiKhoan.setBounds(10, 50, 190, 80);
@@ -87,7 +94,7 @@ public class MainFrame extends JFrame {
         pnlTaiKhoan.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         pnlMenu.add(pnlTaiKhoan);
 
-        // THÊM: Ảnh đại diện (placeholder)
+        // THAY THẾ: Ảnh đại diện (placeholder)
         JLabel lblAnhDaiDien = new JLabel();
         lblAnhDaiDien.setBounds(10, 10, 40, 40);
         lblAnhDaiDien.setBackground(new Color(200, 200, 200));
@@ -95,14 +102,14 @@ public class MainFrame extends JFrame {
         lblAnhDaiDien.setBorder(BorderFactory.createLineBorder(new Color(150, 150, 150)));
         pnlTaiKhoan.add(lblAnhDaiDien);
 
-        // THÊM: Tên người dùng
-        JLabel lblTenNguoiDung = new JLabel("Admin");
+        // THÊM: Tên người dùng (sẽ được cập nhật sau khi đăng nhập)
+        lblTenNguoiDung = new JLabel(""); // Để trống ban đầu
         lblTenNguoiDung.setBounds(60, 10, 120, 20);
         lblTenNguoiDung.setFont(new Font("Segoe UI", Font.BOLD, 12));
         pnlTaiKhoan.add(lblTenNguoiDung);
 
-        // THÊM: Chức vụ
-        JLabel lblChucVu = new JLabel("Quản lý");
+        // THÊM: Chức vụ (sẽ được cập nhật sau khi đăng nhập)
+        lblChucVu = new JLabel(""); // Để trống ban đầu
         lblChucVu.setBounds(60, 30, 120, 20);
         lblChucVu.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         lblChucVu.setForeground(new Color(100, 100, 100));
@@ -249,6 +256,24 @@ public class MainFrame extends JFrame {
                 mainController.onWindowResized();
             }
         });
+    }
+
+    public void setTaiKhoanDangNhap(TaiKhoan taiKhoan) {
+        this.taiKhoanDangNhap = taiKhoan;
+        // Cập nhật thông tin người dùng lên giao diện
+        capNhatThongTinNguoiDung();
+    }
+
+    private void capNhatThongTinNguoiDung() {
+        if(taiKhoanDangNhap != null){
+            // Cập nhật tên người dùng và chức vụ lên giao diện
+            lblTenNguoiDung.setText(taiKhoanDangNhap.getTenNV());
+            lblChucVu.setText(taiKhoanDangNhap.getChucVu());
+        }
+
+        if(taiKhoanDangNhap.getVaiTro() == VaiTro.QuanLy){
+            // xử lý sau
+        }
     }
 
     private void themSuKienChoNut(NutBoGoc nut, String action) {

@@ -45,8 +45,8 @@ public class FormThongTinThuePhong extends JDialog {
     public JLabel lbl_TienCuaTienTraLaiKhachTrongPnlTongTien;
     public JLabel lbl_TienNhanTuKhachTrongPnlTongTien;
     public JLabel lbl_TienCuaTienCocTrongPnlTongTien;
-    JButton btn_XacNhan;
-    JButton btn_Huy;
+    public JButton btn_XacNhan;
+    public JButton btn_Huy;
     public JTable table_DanhSachPhong;
     public DefaultTableModel model_DanhSachPhong;
     public JTable table_DanhSachNguoiO;
