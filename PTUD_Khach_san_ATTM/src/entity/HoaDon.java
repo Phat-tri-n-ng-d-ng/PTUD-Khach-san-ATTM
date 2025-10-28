@@ -9,6 +9,9 @@ import java.util.Objects;
 
 
 public class HoaDon {
+	public HoaDon() {
+		super();
+	}
 	private String maHD;
     private LocalDateTime ngayLap;
     private LocalDateTime ngayNhanPhong;

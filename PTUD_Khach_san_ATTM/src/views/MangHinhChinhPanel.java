@@ -1,6 +1,5 @@
 package views;
 
-import controller.MangHinhChinhController;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -11,7 +10,6 @@ import java.awt.*;
 public class MangHinhChinhPanel extends JPanel{
     public DefaultTableModel model;
     public JTable table;
-    private MangHinhChinhController mangHinhChinhController;
 
     public  MangHinhChinhPanel(){
         setBounds(100, 100, 1336, 768);
@@ -44,7 +42,7 @@ public class MangHinhChinhPanel extends JPanel{
         pnlDanhSachNhanVien.setBounds(20, 219, 1496, 572);
         add(pnlDanhSachNhanVien);
 
-        model = new DefaultTableModel(new String[] {"Mã phòng","Loại phòng","SLTD","Tên khách hàng","SĐT khách hành"}, 0);
+        model = new DefaultTableModel(new String[] {"Mã phòng","Loại phòng","SLTD","Giá","Tên khách hàng","SĐT khách hành"}, 0);
         pnlDanhSachNhanVien.setLayout(null);
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -148,8 +146,5 @@ public class MangHinhChinhPanel extends JPanel{
         lbl_DanhThuTrongNgay.setFont(new Font("Times New Roman", Font.PLAIN, 30));
         lbl_DanhThuTrongNgay.setBounds(156, 40, 30, 35);
         pnl_DanhThu.add(lbl_DanhThuTrongNgay);
-
-        mangHinhChinhController = new MangHinhChinhController(this);
-        mangHinhChinhController.getDanhSachPhongDatHomNay();
     }
 }

@@ -1,6 +1,12 @@
 package database;
 
-import java.sql.*;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -57,100 +63,101 @@ public class HoaDonDao {
             ConnectDB.closeConnection(connection);
         }
         return dsHoaDon;
-	}
-	public HoaDon timHoaDonTheoMa(String ma) {
-		Connection connection = ConnectDB.getConnection();
-		HoaDon hd = null;
-		String sql = "{CALL timMaHoaDon(?)}";
-		
-		try {
-			CallableStatement st = connection.prepareCall(sql);
-			st.setString(1, ma);
-			ResultSet rs= st.executeQuery();
-			while(rs.next()) {
-				 String maHD = rs.getString("maHD");
-	             LocalDateTime ngayLap = rs.getTimestamp("ngayLap").toLocalDateTime();
-	             String tenKH = rs.getString("tenKH");
-	             String sdt = rs.getString("sdt");
-	             KhachHang kh = new KhachHang(tenKH,sdt);
-	             String pTTTString = rs.getString("pTTT");
-	             String tenNV = rs.getString("tenNV");
-	             String trangThai = rs.getString("trangThai");
-	             TrangThaiHoaDon trangThaiHD = TrangThaiHoaDon.valueOf(trangThai);
-	             double tienNhan =  rs.getDouble("tienNhan");
-	             double tienTra =  rs.getDouble("tienTra");
-	             NhanVien nv = new NhanVien();
-	             nv.setTenNV(tenNV);
-	             PhuongThucThanhToan pttt = PhuongThucThanhToan.fromString(pTTTString);
-	             //Lay du lieu tu chi tiet hoa don
-	             ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
-	             hd = new HoaDon(maHD, ngayLap, pttt, trangThaiHD, kh, dsCTDH , nv, tienNhan,tienTra);
-	             hd.setTongTien();
-	             hd.setTienThue();
-	             hd.setPhiDoiPhong();
-	             hd.setTongTienThanhToan();			
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}finally {
+
+    }
+    public HoaDon timHoaDonTheoMa(String ma) {
+        Connection connection = ConnectDB.getConnection();
+        HoaDon hd = null;
+        String sql = "{CALL timMaHoaDon(?)}";
+
+        try {
+            CallableStatement st = connection.prepareCall(sql);
+            st.setString(1, ma);
+            ResultSet rs= st.executeQuery();
+            while(rs.next()) {
+                String maHD = rs.getString("maHD");
+                LocalDateTime ngayLap = rs.getTimestamp("ngayLap").toLocalDateTime();
+                String tenKH = rs.getString("tenKH");
+                String sdt = rs.getString("sdt");
+                KhachHang kh = new KhachHang(tenKH,sdt);
+                String pTTTString = rs.getString("pTTT");
+                String tenNV = rs.getString("tenNV");
+                String trangThai = rs.getString("trangThai");
+                TrangThaiHoaDon trangThaiHD = TrangThaiHoaDon.valueOf(trangThai);
+                double tienNhan =  rs.getDouble("tienNhan");
+                double tienTra =  rs.getDouble("tienTra");
+                NhanVien nv = new NhanVien();
+                nv.setTenNV(tenNV);
+                PhuongThucThanhToan pttt = PhuongThucThanhToan.fromString(pTTTString);
+                //Lay du lieu tu chi tiet hoa don
+                ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
+                hd = new HoaDon(maHD, ngayLap, pttt, trangThaiHD, kh, dsCTDH , nv, tienNhan,tienTra);
+                hd.setTongTien();
+                hd.setTienThue();
+                hd.setPhiDoiPhong();
+                hd.setTongTienThanhToan();
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
             ConnectDB.closeConnection(connection);
         }
-		return hd;
-	}
-	public ArrayList<HoaDon> timHoaDonTheoSDT(String SDT) {
-		Connection connection = ConnectDB.getConnection();
-		HoaDon hd = null;
-		String sql = "{CALL timSDT(?)}";
-		ArrayList<HoaDon> dsHD = new ArrayList<>();
-		try {
-			CallableStatement st = connection.prepareCall(sql);
-			st.setString(1, SDT);
-			ResultSet rs= st.executeQuery();
-			while(rs.next()) {
-				 String maHD = rs.getString("maHD");
-	             LocalDateTime ngayLap = rs.getTimestamp("ngayLap").toLocalDateTime();
-	             String tenKH = rs.getString("tenKH");
-	             String sdt = rs.getString("sdt");
-	             KhachHang kh = new KhachHang(tenKH,sdt);
-	             String pTTTString = rs.getString("pTTT");
-	             String tenNV = rs.getString("tenNV");
-	             String trangThai = rs.getString("trangThai");
-	             TrangThaiHoaDon trangThaiHD = TrangThaiHoaDon.valueOf(trangThai);
-	             double tienNhan =  rs.getDouble("tienNhan");
-	             double tienTra =  rs.getDouble("tienTra");
-	             NhanVien nv = new NhanVien();
-	             nv.setTenNV(tenNV);
-	             PhuongThucThanhToan pttt = PhuongThucThanhToan.fromString(pTTTString);
-	             //Lay du lieu tu chi tiet hoa don
-	             ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
-	             
-	             hd = new HoaDon(maHD, ngayLap, pttt, trangThaiHD, kh, dsCTDH , nv, tienNhan,tienTra);
-	             hd.setTongTien();
-	             hd.setTienThue();
-	             hd.setPhiDoiPhong();
-	             hd.setTongTienThanhToan();		
-	             dsHD.add(hd);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}finally {
+        return hd;
+    }
+    public ArrayList<HoaDon> timHoaDonTheoSDT(String SDT) {
+        Connection connection = ConnectDB.getConnection();
+        HoaDon hd = null;
+        String sql = "{CALL timSDT(?)}";
+        ArrayList<HoaDon> dsHD = new ArrayList<>();
+        try {
+            CallableStatement st = connection.prepareCall(sql);
+            st.setString(1, SDT);
+            ResultSet rs= st.executeQuery();
+            while(rs.next()) {
+                String maHD = rs.getString("maHD");
+                LocalDateTime ngayLap = rs.getTimestamp("ngayLap").toLocalDateTime();
+                String tenKH = rs.getString("tenKH");
+                String sdt = rs.getString("sdt");
+                KhachHang kh = new KhachHang(tenKH,sdt);
+                String pTTTString = rs.getString("pTTT");
+                String tenNV = rs.getString("tenNV");
+                String trangThai = rs.getString("trangThai");
+                TrangThaiHoaDon trangThaiHD = TrangThaiHoaDon.valueOf(trangThai);
+                double tienNhan =  rs.getDouble("tienNhan");
+                double tienTra =  rs.getDouble("tienTra");
+                NhanVien nv = new NhanVien();
+                nv.setTenNV(tenNV);
+                PhuongThucThanhToan pttt = PhuongThucThanhToan.fromString(pTTTString);
+                //Lay du lieu tu chi tiet hoa don
+                ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
+
+                hd = new HoaDon(maHD, ngayLap, pttt, trangThaiHD, kh, dsCTDH , nv, tienNhan,tienTra);
+                hd.setTongTien();
+                hd.setTienThue();
+                hd.setPhiDoiPhong();
+                hd.setTongTienThanhToan();
+                dsHD.add(hd);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
             ConnectDB.closeConnection(connection);
         }
-		return dsHD;
-	};
-	public ArrayList<HoaDon> timHoaDonTheoNgay(LocalDateTime ngay) {
-		Connection connection = ConnectDB.getConnection();
-		HoaDon hd = null;
-		ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
-		String sql = "{CALL timNgayLap(?)}";
-		try {
-			PreparedStatement st = connection.prepareStatement(sql);
-			st.setTimestamp(1, Timestamp.valueOf(ngay));
-			ResultSet rs= st.executeQuery();
-			while(rs.next()) {
-				String maHD = rs.getString("maHD");
+        return dsHD;
+    };
+    public ArrayList<HoaDon> timHoaDonTheoNgay(LocalDateTime ngay) {
+        Connection connection = ConnectDB.getConnection();
+        HoaDon hd = null;
+        ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
+        String sql = "{CALL timNgayLap(?)}";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setTimestamp(1, Timestamp.valueOf(ngay));
+            ResultSet rs= st.executeQuery();
+            while(rs.next()) {
+                String maHD = rs.getString("maHD");
                 LocalDateTime ngayLap = rs.getTimestamp("ngayLap").toLocalDateTime();
                 String tenKH = rs.getString("tenKH");
                 String sdt = rs.getString("sdt");
@@ -262,7 +269,7 @@ public class HoaDonDao {
                 NhanVien nv = new NhanVien();
                 nv.setTenNV(tenNV);
                 PhuongThucThanhToan pttt = PhuongThucThanhToan.fromString(pTTTString);
-                //Lay du lieu tu chi tiet hoa don 
+                //Lay du lieu tu chi tiet hoa don
                 ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
                 hd = new HoaDon(maHD, ngayLap, pttt,trangThaiHoaDon , kh, dsCTDH , nv);
                 hd.setTongTien();
@@ -310,62 +317,97 @@ public class HoaDonDao {
 
 
     }
+    public ChiTietHoaDon timChiTietHoaDonTheoMaPhongVaTrangThaiHoaDon(String maPhongTim,String trangThaiHD){
+        ChiTietHoaDon cthd = null;
+        Connection connection = null;
+        Phong p = null;
+        try {
+            connection = ConnectDB.getConnection();
+            String sql = "{CALL timChiTietHoaDonTheoMaPhongVaTrangThaiHoaDon(?,?)}";
+            CallableStatement stmt = connection.prepareCall(sql);
+            stmt.setString(1, maPhongTim);
+            stmt.setString(2,trangThaiHD);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                String maPhongget = rs.getString("maPhong");
+                double giaPhong = rs.getDouble("giaPhong");
+                p = new Phong(maPhongget, giaPhong);
+                int soNgayO = rs.getInt("soNgayO");
+                cthd =  new ChiTietHoaDon(p, soNgayO);
+            }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
+            ConnectDB.closeConnection(connection);
+        }
+        return cthd;
+    }
+    public HoaDon getHoaDonTheoMaPhongVaTTHD(String maPhongTim, String trangThai){
+        Connection connection = ConnectDB.getConnection();
+        HoaDon hd = null;
+        try {
+            CallableStatement st = connection.prepareCall("{call getHoaDonTheoMaPhongVaTTHD(?,?)}");
+            st.setString(1, maPhongTim);
+            st.setString(2, trangThai);
+            ResultSet rs= st.executeQuery();
+            while(rs.next()) {
+                String maHD = rs.getString("maHD");
+                hd = new HoaDon();
+                hd.setMaHD(maHD);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
+            ConnectDB.closeConnection(connection);
+        }
+        return hd;
+    }
+    public boolean capNhatTrangThaiHoaDon(String ma) {
+        Connection con = ConnectDB.getConnection();
+        String sql = "Update HoaDon Set trangThai = 'HoaDonThuePhong' where maHD = ?";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, ma);
+            int n = st.executeUpdate();
+            return n > 0;
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
+            ConnectDB.closeConnection(con);
+        }
+        return false;
+    }
+    public HoaDon getHoaDon(String maPhongTim, String trangThai){
+        Connection connection = ConnectDB.getConnection();
+        HoaDon hd = null;
+        try {
+            PreparedStatement st = connection.prepareStatement("select HoaDon.maHD, ngayNhanPhong, ngayTraPhong from HoaDon join ChiTietHoaDon cthd on HoaDon.maHD = cthd.maHD where cthd.maPhong = ? and HoaDon.trangThai = ?");
+            st.setString(1, maPhongTim);
+            st.setString(2, trangThai);
+            ResultSet rs= st.executeQuery();
+            while(rs.next()) {
+                String maHD = rs.getString("maHD");
+                hd = new HoaDon();
+                hd.setMaHD(maHD);
+                java.sql.Timestamp ngayNhanSQL = rs.getTimestamp("ngayNhanPhong");
+                java.sql.Timestamp ngayTraSQL = rs.getTimestamp("ngayTraPhong");
+                hd.setNgayNhanPhong(ngayNhanSQL.toLocalDateTime());
+                hd.setNgayTraPhong(ngayTraSQL.toLocalDateTime());
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
+            ConnectDB.closeConnection(connection);
+        }
+        return hd;
+    }
+
 
     public void tuDongCapNhatTrangThaiPhong(LocalDate ngayHomNay) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-
-        try {
-            conn = ConnectDB.getConnection();
-
-            // 1️⃣ Đặt tất cả phòng về trạng thái "Trống"
-            String sqlReset = "UPDATE Phong SET trangThai = N'Trong'";
-            ps = conn.prepareStatement(sqlReset);
-            ps.executeUpdate();
-            ps.close();
-
-            // 2️⃣ Cập nhật trạng thái "Đã đặt" cho phòng có hóa đơn đặt hôm nay
-            String sqlDaDat = """
-            UPDATE Phong
-                SET trangThai = N'DaDat'
-                WHERE maPhong IN (
-                SELECT DISTINCT cthd.maPhong
-                FROM ChiTietHoaDon cthd
-                JOIN HoaDon hd ON cthd.maHD = hd.maHD
-                WHERE hd.trangThai = N'HoaDonDatPhong'
-                AND CAST(hd.ngayNhanPhong AS DATE) = CAST(? AS DATE)
-            );
-        """;
-            ps = conn.prepareStatement(sqlDaDat);
-            ps.setDate(1, java.sql.Date.valueOf(ngayHomNay));
-            ps.executeUpdate();
-            ps.close();
-
-            // 3️⃣ Cập nhật trạng thái "Đang sử dụng" cho phòng có hóa đơn đang thuê hôm nay
-            String sqlDangThue = """
-            UPDATE Phong
-            SET trangThai = N'DangSuDung'
-            WHERE maPhong IN (
-                SELECT DISTINCT cthd.maPhong
-                FROM ChiTietHoaDon cthd
-                JOIN HoaDon hd ON cthd.maHD = hd.maHD
-                WHERE hd.trangThai = N'HoaDonThuePhong'
-                AND CAST(? AS date) BETWEEN CAST(hd.ngayNhanPhong AS date) AND CAST(hd.ngayTraPhong AS date)
-            )
-        """;
-            ps = conn.prepareStatement(sqlDangThue);
-            ps.setDate(1, java.sql.Date.valueOf(ngayHomNay));
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (ps != null) ps.close();
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
     }
 }

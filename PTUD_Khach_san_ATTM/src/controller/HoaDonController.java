@@ -360,11 +360,7 @@ public class HoaDonController implements MouseListener,ActionListener {
 			}else {
 				JOptionPane.showMessageDialog(hoaDonPanel, "Vui long chon dieu kien tim kiem!");
 				return;
-			}
-			
-
-		    
-		    
+			}		    
 		}
 		
 	

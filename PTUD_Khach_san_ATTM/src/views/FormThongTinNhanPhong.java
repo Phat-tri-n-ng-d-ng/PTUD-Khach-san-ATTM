@@ -38,9 +38,9 @@ public class FormThongTinNhanPhong extends JDialog {
     public DefaultTableModel model;
     public JTable table_NguoiO;
     public DefaultTableModel model_NguoiO;
-	private FormNhanPhongController FormNhanPhongController;
-	private ThueDatPhongPanel thueDatPanel;
-	public JButton btn_Them;
+    private FormNhanPhongController FormNhanPhongController;
+    private ThueDatPhongPanel thueDatPanel;
+    public JButton btn_Them;
 
     /**
      * Launch the application.
@@ -62,12 +62,12 @@ public class FormThongTinNhanPhong extends JDialog {
 //        jbInit();
 //    }
     public FormThongTinNhanPhong(ThueDatPhongPanel thuedatPanel) {
-    	this.thueDatPanel = thuedatPanel;
+        this.thueDatPanel = thuedatPanel;
         getContentPane().setBackground(new Color(236, 247, 255));
         setBounds(100, 100, 1100, 650);
         getContentPane().setLayout(null);
         setLocationRelativeTo(null);
-        
+
 
         JLabel lblTenKhachSanMenu = new JLabel("ATTM");
         lblTenKhachSanMenu.setFont(new Font("Lucida Calligraphy", Font.BOLD, 24));
@@ -149,12 +149,12 @@ public class FormThongTinNhanPhong extends JDialog {
         txt_GioiTinh.setBounds(393, 169, 112, 25);
         pnl_ThongTinKhachHang.add(txt_GioiTinh);
         txt_GioiTinh.setColumns(10);
-        
+
         btn_Them = new JButton("Thêm ");
         btn_Them.setBounds(406, 218, 99, 33);
         pnl_ThongTinKhachHang.add(btn_Them);
         btn_Them.setFont(new Font("Tahoma", Font.PLAIN, 11));
-  
+
 
         // Tạo nhóm và thêm radio button vào nhóm
         ButtonGroup paymentGroup = new ButtonGroup();
@@ -228,12 +228,12 @@ public class FormThongTinNhanPhong extends JDialog {
         pnl_DanhSachNguoiO.setBounds(550, 324, 525, 178);
         getContentPane().add(pnl_DanhSachNguoiO);
         pnl_DanhSachNguoiO.setLayout(null);
-        
+
         JScrollPane scrollPane_1 = new JScrollPane((Component) null);
         scrollPane_1.setBackground(Color.WHITE);
         scrollPane_1.setBounds(10, 10, 505, 158);
         pnl_DanhSachNguoiO.add(scrollPane_1);
-        
+
         model_NguoiO = new DefaultTableModel(new String[] {"Tên người ở","Ngày sinh","Giới tính","SĐT","CCCD"}, 0);
         table_NguoiO = new JTable(model_NguoiO);
         table_NguoiO.setFont(new Font("Times New Roman", Font.PLAIN, 16));
@@ -273,7 +273,8 @@ public class FormThongTinNhanPhong extends JDialog {
         btn_Huy.setBounds(612, 570, 120, 30);
         getContentPane().add(btn_Huy);
         FormNhanPhongController = new FormNhanPhongController(this ,thueDatPanel);
-        FormNhanPhongController.getKhachHang();
-        
+//        FormNhanPhongController.getKhachHang();
+        FormNhanPhongController.getPhong();
+        FormNhanPhongController.getThoiGian();
     }
 }

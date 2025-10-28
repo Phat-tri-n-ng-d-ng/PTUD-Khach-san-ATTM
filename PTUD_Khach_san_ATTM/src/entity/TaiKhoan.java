@@ -72,11 +72,10 @@ public class TaiKhoan {
 		this.vaiTro = vaiTro;
 		this.trangThai = TrangThaiTaiKhoan.DangHoatDong;
 	}
-
-	public TaiKhoan(String tenDangNhap, TrangThaiTaiKhoan trangThai) {
-		this.tenDangNhap = tenDangNhap;
-		this.trangThai = trangThai;
-	}
+    public TaiKhoan(String tenDangNhap, TrangThaiTaiKhoan trangThai) {
+        this.tenDangNhap = tenDangNhap;
+        this.trangThai = trangThai;
+    }
 
 	@Override
 	public int hashCode() {
