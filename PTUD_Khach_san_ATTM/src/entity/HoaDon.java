@@ -26,7 +26,15 @@ public class HoaDon {
     private KhachHang khachHang;
     private ArrayList<ChiTietHoaDon> dsCTHD;
     private NhanVien nhanVien;
-	public String getMaHD() {
+
+    public HoaDon(String maHD, LocalDateTime ngayLap, TrangThaiHoaDon trangThai, KhachHang kh, ArrayList<ChiTietHoaDon> dsCTHD) {
+        this.maHD = maHD;
+        this.ngayLap = ngayLap;
+        this.khachHang = kh;
+        this.dsCTHD =  dsCTHD;
+    }
+
+    public String getMaHD() {
 		return maHD;
 	}
 	public void setMaHD(String maHD) {

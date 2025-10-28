@@ -33,6 +33,10 @@ public class Phong {
         this.soLuongToiDa = soLuongToiDa;
     }
 
+    public Phong() {
+
+    }
+
     public String getMaPhong() {
 		return maPhong;
 	}

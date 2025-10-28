@@ -1,9 +1,9 @@
 package services;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 import database.HoaDonDao;
 import entity.ChiTietHoaDon;
@@ -44,5 +44,13 @@ public class HoaDonService {
 
     public void tuDongCapNhatTrangThaiPhong(LocalDate ngayHomNay) {
         hoaDonDao.tuDongCapNhatTrangThaiPhong(ngayHomNay);
+    }
+
+    public ArrayList<HoaDon> getHoaDonDatPhong() {
+        return  hoaDonDao.getHoaDonDatPhong();
+    }
+
+    public void TuDongCapNhatTrangThaiPhong_TheoKhoangNgay(Date ngayBatDau, Date ngayKetThuc) {
+        hoaDonDao.TuDongCapNhatTrangThaiPhong_TheoKhoangNgay(ngayBatDau,ngayKetThuc);
     }
 }

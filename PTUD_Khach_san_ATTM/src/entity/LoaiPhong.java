@@ -61,6 +61,9 @@ public class LoaiPhong {
         this.soNguoiMacDinh = soNguoiMacDinh;
     }
 
+    public LoaiPhong() {
+    }
+
     @Override
 	public int hashCode() {
 		return Objects.hash(maLoaiPhong);

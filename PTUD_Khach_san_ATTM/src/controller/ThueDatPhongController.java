@@ -37,7 +37,6 @@ public class ThueDatPhongController {
         khachHangServies = new KhachHangService();
         khuyenMaiDao = new KhuyenMaiDao();
         danhSachKhuyenMai = khuyenMaiDao.getTatCaKhuyenMai();
-        danhSachPhong = phongServices.getDSP();
         hoaDonService = new HoaDonService();
 
         thueDatPhongPanel.btn_BoChon.addActionListener(e -> BoChonPhong());
@@ -54,6 +53,7 @@ public class ThueDatPhongController {
         thueDatPhongPanel.btn_Tim.addActionListener(e -> TimPhongDatTheoSoDienThoai());
         thueDatPhongPanel.btn_DatPhong.addActionListener(e -> new FormThongTinDatPhong().setVisible(true));
         thueDatPhongPanel.btn_ThuePhong.addActionListener(e -> new FormThongTinThuePhong().setVisible(true));
+        thueDatPhongPanel.btn_ApDung.addActionListener(e -> TuDongCapNhatTrangThaiPhong_TheoKhoangNgay());
         thueDatPhongPanel.btn_NhanPhong.addActionListener(e ->{
         	FormThongTinNhanPhong form = new FormThongTinNhanPhong(thueDatPhongPanel);
         	form.setVisible(true);
@@ -61,6 +61,7 @@ public class ThueDatPhongController {
     }
 
     public void getTatCaPhong(){
+        danhSachPhong = phongServices.getDSP();
         danhSachPhongHienThi = danhSachPhong;
 //        danhSachPhongTheoLoai = danhSachPhongHienThi;
         // Thêm các ô giả lập
@@ -291,7 +292,23 @@ public class ThueDatPhongController {
                 }
             }
         }
+
         danhSachPhongHienThi = danhSachTam;
         HienThiDanhSachPhong(danhSachPhongHienThi);
     }
+    public void TuDongCapNhatTrangThaiPhong_TheoKhoangNgay() {
+        Date ngayBatDau = thueDatPhongPanel.ngayBatDau.getDate();
+        Date ngayKetThuc = thueDatPhongPanel.ngayKetThuc.getDate();
+
+        if (ngayBatDau == null || ngayKetThuc == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày bắt đầu và ngày kết thúc!");
+            return;
+        }
+
+        hoaDonService.TuDongCapNhatTrangThaiPhong_TheoKhoangNgay(ngayBatDau, ngayKetThuc);
+        
+        getTatCaPhong();
+        LocTrangThaiPhong();
+    }
+
 }

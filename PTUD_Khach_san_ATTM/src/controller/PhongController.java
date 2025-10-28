@@ -228,9 +228,4 @@ public class PhongController {
     public void baoLoi(String s){
         JOptionPane.showMessageDialog(null,s);
     }
-
-    public void tuDongCapNhatTrangThaiPhong(){
-        LocalDate ngayHomNay = LocalDate.now();
-        hoaDonService.tuDongCapNhatTrangThaiPhong(ngayHomNay);
-    }
 }

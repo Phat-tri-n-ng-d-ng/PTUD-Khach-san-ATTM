@@ -9,6 +9,10 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class MangHinhChinhPanel extends JPanel{
+    public JLabel lbl_DanhThuTrongNgay;
+    public JLabel lbl_SoPhongTrong;
+    public JLabel lbl_SoPhongThue;
+    public JLabel lbl_SoPhongDat;
     public DefaultTableModel model;
     public JTable table;
     private MangHinhChinhController mangHinhChinhController;
@@ -75,12 +79,12 @@ public class MangHinhChinhPanel extends JPanel{
 
         JLabel lbl_PhongTrong = new JLabel("Số phòng trống");
         lbl_PhongTrong.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbl_PhongTrong.setBounds(20, 10, 186, 20);
+        lbl_PhongTrong.setBounds(20, 10, 186, 21);
         pnl_PhongTrong.add(lbl_PhongTrong);
 
-        JLabel lbl_SoPhongTrong = new JLabel("");
+        lbl_SoPhongTrong = new JLabel("");
         lbl_SoPhongTrong.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-        lbl_SoPhongTrong.setBounds(156, 40, 30, 35);
+        lbl_SoPhongTrong.setBounds(156, 40, 50, 35);
         pnl_PhongTrong.add(lbl_SoPhongTrong);
 
         JPanel pnl_PhongThue = new JPanel();
@@ -100,9 +104,9 @@ public class MangHinhChinhPanel extends JPanel{
         lbl_PhongThue.setBounds(20, 10, 186, 20);
         pnl_PhongThue.add(lbl_PhongThue);
 
-        JLabel lbl_SoPhongThue = new JLabel("");
+        lbl_SoPhongThue = new JLabel("");
         lbl_SoPhongThue.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-        lbl_SoPhongThue.setBounds(156, 40, 30, 35);
+        lbl_SoPhongThue.setBounds(156, 40, 50, 35);
         pnl_PhongThue.add(lbl_SoPhongThue);
 
         JPanel pnl_PhongDat = new JPanel();
@@ -122,9 +126,9 @@ public class MangHinhChinhPanel extends JPanel{
         lbl_PhongDat.setBounds(23, 10, 186, 20);
         pnl_PhongDat.add(lbl_PhongDat);
 
-        JLabel lbl_SoPhongDat = new JLabel("");
+        lbl_SoPhongDat = new JLabel("");
         lbl_SoPhongDat.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-        lbl_SoPhongDat.setBounds(159, 40, 30, 35);
+        lbl_SoPhongDat.setBounds(159, 40, 50, 35);
         pnl_PhongDat.add(lbl_SoPhongDat);
 
         JPanel pnl_DanhThu = new JPanel();
@@ -139,17 +143,19 @@ public class MangHinhChinhPanel extends JPanel{
         pnl_DanhThu.add(panel3);
         panel3.setBackground(new Color(0, 0, 255));
 
-        JLabel lbl_PhongThue_2 = new JLabel("Danh thu trong ngày");
-        lbl_PhongThue_2.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbl_PhongThue_2.setBounds(20, 10, 186, 20);
-        pnl_DanhThu.add(lbl_PhongThue_2);
+        JLabel lbl_DanhThu = new JLabel("Danh thu trong ngày");
+        lbl_DanhThu.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        lbl_DanhThu.setBounds(20, 10, 186, 20);
+        pnl_DanhThu.add(lbl_DanhThu);
 
-        JLabel lbl_DanhThuTrongNgay = new JLabel("");
+        lbl_DanhThuTrongNgay = new JLabel("");
         lbl_DanhThuTrongNgay.setFont(new Font("Times New Roman", Font.PLAIN, 30));
         lbl_DanhThuTrongNgay.setBounds(156, 40, 30, 35);
         pnl_DanhThu.add(lbl_DanhThuTrongNgay);
 
         mangHinhChinhController = new MangHinhChinhController(this);
+        mangHinhChinhController.tuDongCapNhatTrangThaiPhong();
         mangHinhChinhController.getDanhSachPhongDatHomNay();
+        mangHinhChinhController.getTinhTrangPhong();
     }
 }

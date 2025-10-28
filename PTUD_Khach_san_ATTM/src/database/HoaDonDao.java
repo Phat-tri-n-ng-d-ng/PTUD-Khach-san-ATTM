@@ -4,12 +4,13 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.Callable;
 
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.KhachHang;
-import entity.KhuyenMai;
+import entity.LoaiPhong;
 import entity.NhanVien;
 import entity.Phong;
 import enums.ChucVuNhanVien;
@@ -312,60 +313,87 @@ public class HoaDonDao {
     }
 
     public void tuDongCapNhatTrangThaiPhong(LocalDate ngayHomNay) {
-        Connection conn = null;
-        PreparedStatement ps = null;
+        try (Connection conn = ConnectDB.getConnection();
+             CallableStatement st = conn.prepareCall("{CALL TuDongCapNhatTrangThaiPhong(?)}")) {
+            st.setDate(1, java.sql.Date.valueOf(ngayHomNay));
+            st.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public ArrayList<HoaDon> getHoaDonDatPhong() {
+        ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
+        Connection connection = ConnectDB.getConnection();
+        String sql = "{CALL TimHoaDonDatPhong()}";
 
         try {
-            conn = ConnectDB.getConnection();
+            CallableStatement st = connection.prepareCall(sql);
+            ResultSet rs = st.executeQuery();
 
-            // 1️⃣ Đặt tất cả phòng về trạng thái "Trống"
-            String sqlReset = "UPDATE Phong SET trangThai = N'Trong'";
-            ps = conn.prepareStatement(sqlReset);
-            ps.executeUpdate();
-            ps.close();
+            while (rs.next()) {
+                String maHD = rs.getString("maHD");
+                LocalDateTime ngayLap = rs.getTimestamp("ngayLap").toLocalDateTime();
+                TrangThaiHoaDon trangThai = TrangThaiHoaDon.valueOf(rs.getString("trangThai"));
 
-            // 2️⃣ Cập nhật trạng thái "Đã đặt" cho phòng có hóa đơn đặt hôm nay
-            String sqlDaDat = """
-            UPDATE Phong
-                SET trangThai = N'DaDat'
-                WHERE maPhong IN (
-                SELECT DISTINCT cthd.maPhong
-                FROM ChiTietHoaDon cthd
-                JOIN HoaDon hd ON cthd.maHD = hd.maHD
-                WHERE hd.trangThai = N'HoaDonDatPhong'
-                AND CAST(hd.ngayNhanPhong AS DATE) = CAST(? AS DATE)
-            );
-        """;
-            ps = conn.prepareStatement(sqlDaDat);
-            ps.setDate(1, java.sql.Date.valueOf(ngayHomNay));
-            ps.executeUpdate();
-            ps.close();
+                // Thông tin khách hàng
+                String tenKH = rs.getString("tenKH");
+                String sdt = rs.getString("sdt");
+                KhachHang kh = new KhachHang(tenKH, sdt);
 
-            // 3️⃣ Cập nhật trạng thái "Đang sử dụng" cho phòng có hóa đơn đang thuê hôm nay
-            String sqlDangThue = """
-            UPDATE Phong
-            SET trangThai = N'DangSuDung'
-            WHERE maPhong IN (
-                SELECT DISTINCT cthd.maPhong
-                FROM ChiTietHoaDon cthd
-                JOIN HoaDon hd ON cthd.maHD = hd.maHD
-                WHERE hd.trangThai = N'HoaDonThuePhong'
-                AND CAST(? AS date) BETWEEN CAST(hd.ngayNhanPhong AS date) AND CAST(hd.ngayTraPhong AS date)
-            )
-        """;
-            ps = conn.prepareStatement(sqlDangThue);
-            ps.setDate(1, java.sql.Date.valueOf(ngayHomNay));
-            ps.executeUpdate();
+                // Thông tin phòng
+                String maPhong = rs.getString("maPhong");
+                String tenLoaiPhong = rs.getString("tenLoaiPhong");
+                int soLuongToiDa = rs.getInt("soLuongToiDa");
+
+                LoaiPhong loaiPhong = new LoaiPhong();
+                loaiPhong.setTenLoaiPhong(tenLoaiPhong);
+
+                Phong phong = new Phong();
+                phong.setMaPhong(maPhong);
+                phong.setLoaiPhong(loaiPhong);
+                phong.setSoLuongToiDa(soLuongToiDa);
+
+                // Chi tiết hóa đơn
+                ChiTietHoaDon cthd = new ChiTietHoaDon();
+                cthd.setPhong(phong);
+
+                ArrayList<ChiTietHoaDon> dsCTHD = new ArrayList<>();
+                dsCTHD.add(cthd);
+
+                HoaDon hoaDon = new HoaDon(
+                        maHD,
+                        ngayLap,
+                        trangThai,
+                        kh,
+                        dsCTHD
+                );
+
+                dsHoaDon.add(hoaDon);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (ps != null) ps.close();
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+            ConnectDB.closeConnection(connection);
+        }
+
+        return dsHoaDon;
+    }
+
+    public void TuDongCapNhatTrangThaiPhong_TheoKhoangNgay(Date ngayBatDau, Date ngayKetThuc) {
+        try (Connection conn = ConnectDB.getConnection();
+             CallableStatement st = conn.prepareCall("{CALL TuDongCapNhatTrangThaiPhong_TheoKhoangNgay(?, ?)}")) {
+
+            java.sql.Date sqlNgayBatDau = new java.sql.Date(ngayBatDau.getTime());
+            java.sql.Date sqlNgayKetThuc = new java.sql.Date(ngayKetThuc.getTime());
+
+            st.setDate(1, sqlNgayBatDau);
+            st.setDate(2, sqlNgayKetThuc);
+            st.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

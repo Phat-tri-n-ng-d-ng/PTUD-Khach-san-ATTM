@@ -6,6 +6,10 @@ public class ChiTietHoaDon {
     private HoaDon HoaDon;
     private int soNgayO;
 
+    public ChiTietHoaDon() {
+
+    }
+
     public int getSoNgayO() {
         return soNgayO;
     }

@@ -26,6 +26,7 @@ import javax.swing.JCheckBox;
 public class ThueDatPhongPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+    public JButton btn_ApDung;
     public  JComboBox cbb_KhuyenMai;
     public JButton btn_FamilyRoom;
     public  JButton btn_Standard;
@@ -108,9 +109,9 @@ public class ThueDatPhongPanel extends JPanel {
         lbl_NgayKetThuc.setBounds(566, 10, 104, 20);
         pnlLoc.add(lbl_NgayKetThuc);
 
-        JButton btn_Loc_1 = new JButton("Áp dụng");
-        btn_Loc_1.setBounds(680, 33, 100, 30);
-        pnlLoc.add(btn_Loc_1);
+        btn_ApDung = new JButton("Áp dụng");
+        btn_ApDung.setBounds(680, 33, 100, 30);
+        pnlLoc.add(btn_ApDung);
 
         ngayBatDau = new JDateChooser();
         ngayBatDau.setDateFormatString("dd/MM/yyyy");
