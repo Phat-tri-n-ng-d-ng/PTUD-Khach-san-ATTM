@@ -86,7 +86,10 @@ public class Phong {
 		// TODO Auto-generated constructor stub
 		this.maPhong = maPhong;
 		this.giaPhong = giaPhong;
+
+
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(maPhong);

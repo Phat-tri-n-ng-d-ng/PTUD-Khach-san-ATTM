@@ -12,7 +12,7 @@ public class LoaiPhong {
 
 
     public LoaiPhong(String maLoaiPhong, String tenLoaiPhong) {
-        this(maLoaiPhong,tenLoaiPhong,0,0,0);
+        this(maLoaiPhong,tenLoaiPhong,0,30,0);
     }
 
 

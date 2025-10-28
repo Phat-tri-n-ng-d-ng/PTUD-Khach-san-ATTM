@@ -13,7 +13,11 @@ public class KhuyenMai {
 	private LocalDateTime ngayketThuc;
 	private TrangThaiKhuyenMai trangThai;
 
-	public String getMaKM() {
+    public KhuyenMai(String maKM) {
+        this.maKM=maKM;
+    }
+
+    public String getMaKM() {
 		return maKM;
 	}
 	public String getTenKM() {

@@ -35,4 +35,7 @@ public class KhachHangService {
     public KhachHang TimKhachHang(String keyword, String type){
         return khachHangDao.TimKhachHang(keyword,type);
     }
+    public KhachHang TimKhachHangTheoMaPhongvaTrangThaiHoaDon(String maPhong,String trangThaiHD){
+        return khachHangDao.timKhachHangTheoMaPhongvaTrangThaiHoaDon(maPhong,trangThaiHD);
+    }
 }

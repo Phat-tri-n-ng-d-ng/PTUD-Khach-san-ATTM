@@ -189,6 +189,25 @@ public class KhuyenMaiDao {
         }
         return danhSachKhuyenMai;
     }
+    public KhuyenMai get1KhuyenMaiTheoMa(String maKM){
+        KhuyenMai khuyenMai=null;
+        Connection connection = null;
+        CallableStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            connection = ConnectDB.getConnection();
+            String sql = "select * from KhuyenMai where maKM = ?";
+            stmt = connection.prepareCall(sql);
+            stmt.setString(1, maKM);
+            rs = stmt.executeQuery();
+            while (rs.next()){
+                khuyenMai=taoKhuyenMaiTuResultSet(rs);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return khuyenMai;
+    }
 
     // Lấy khuyến mãi theo mã
     public KhuyenMai layKhuyenMaiTheoMa(String maKM) {

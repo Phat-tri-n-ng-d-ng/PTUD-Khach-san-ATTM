@@ -7,12 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.Callable;
 
-import entity.ChiTietHoaDon;
-import entity.HoaDon;
-import entity.KhachHang;
-import entity.LoaiPhong;
-import entity.NhanVien;
-import entity.Phong;
+import entity.*;
 import enums.ChucVuNhanVien;
 import enums.PhuongThucThanhToan;
 import enums.TrangThaiHoaDon;
@@ -395,5 +390,80 @@ public class HoaDonDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public ChiTietHoaDon timChiTietHoaDonTheoMaPhongVaTrangThaiHoaDon(String maPhongTim,String trangThaiHD){
+        ChiTietHoaDon cthd = null;
+        Connection connection = null;
+        Phong p = null;
+        try {
+            connection = ConnectDB.getConnection();
+            String sql = "{CALL timChiTietHoaDonTheoMaPhongVaTrangThaiHoaDon(?,?)}";
+            CallableStatement stmt = connection.prepareCall(sql);
+            stmt.setString(1, maPhongTim);
+            stmt.setString(2,trangThaiHD);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                String maPhongget = rs.getString("maPhong");
+                double giaPhong = rs.getDouble("giaPhong");
+                p = new Phong(maPhongget, giaPhong);
+                int soNgayO = rs.getInt("soNgayO");
+                cthd =  new ChiTietHoaDon(p, soNgayO);
+
+            }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
+            ConnectDB.closeConnection(connection);
+        }
+        return cthd;
+    }
+    public HoaDon timHoaDonTheoMaPhongVaTrangThaiHoaDon(String maPhongTim,String trangThaiHDTim){
+        Connection connection = ConnectDB.getConnection();
+        HoaDon hd = null;
+
+        try {
+            CallableStatement st = connection.prepareCall("{call timHoaDonTheoMaPhongVaTrangThaiHoaDon(?,?)}");
+            st.setString(1, maPhongTim);
+            st.setString(2, trangThaiHDTim);
+            ResultSet rs= st.executeQuery();
+            while(rs.next()) {
+                String maHD = rs.getString("maHD");
+                LocalDateTime ngayLap = rs.getTimestamp("ngayLap").toLocalDateTime();
+                LocalDateTime ngayNhanPhong = rs.getTimestamp("ngayNhanPhong").toLocalDateTime();
+                LocalDateTime ngayTraPhong = rs.getTimestamp("ngayTraPhong").toLocalDateTime();
+                String pTTTString = rs.getString("pTTT");
+                PhuongThucThanhToan pttt = PhuongThucThanhToan.fromString(pTTTString);
+                String trangThai = rs.getString("trangThai");
+                TrangThaiHoaDon trangThaiHD = TrangThaiHoaDon.valueOf(trangThai);
+                Double tongTienThanhToan = rs.getDouble("tongTienThanhToan");
+                Double tongTien = rs.getDouble("tongTien");
+                Double tienGiam= rs.getDouble("tienGiam");
+                Double tienThue=rs.getDouble("tienThue");
+                Double phiDoiPhong=rs.getDouble("phiDoiPhong");
+                String maKM= rs.getString("maKM");
+                String maKH=rs.getString("maKH");
+                String tenKH = rs.getString("tenKH");
+                String sdt = rs.getString("sdt");
+                KhachHang kh = new KhachHang(maKH,tenKH,sdt);
+                ArrayList<ChiTietHoaDon> dsCTDH = this.getChiTietHoaDon(maHD);
+                String maNV=rs.getString("maNV");
+                NhanVien nv = new NhanVien();
+                nv.setTenNV(maNV);
+
+
+                hd= new HoaDon(maHD,ngayLap,ngayNhanPhong,ngayTraPhong,pttt,trangThaiHD,tongTienThanhToan,tongTien,tienGiam,tienThue,phiDoiPhong,
+                        new KhuyenMai(maKM),kh,dsCTDH,nv);
+
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
+            ConnectDB.closeConnection(connection);
+        }
+        return hd;
     }
 }

@@ -154,11 +154,40 @@ public class KhachHangDao {
                 sql = "{call TimKhachHangTheoSoCCCD(?)}";
             } else if (type.equalsIgnoreCase("SDT")) {
                 sql = "{call TimKhachHangTheoSoDT(?)}";
-            } else {
+            }
+            else {
                 throw new IllegalArgumentException("Loại tìm kiếm không hợp lệ: " + type);
             }
             CallableStatement stmt = connection.prepareCall(sql);
             stmt.setString(1,keyword);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                String maKH = rs.getString("maKH");
+                String tenKH = rs.getString("tenKH");
+                LocalDate ngaySinh = rs.getDate("ngaySinh").toLocalDate();
+                Boolean gioiTinh = rs.getBoolean("gioiTinh");
+                String sdt = rs.getString("sdt");
+                String email = rs.getString("email");
+                String soCCCD = rs.getString("soCCCD");
+                int diemTichLuy = rs.getInt("diemTichLuy");
+                kh = new KhachHang(maKH, tenKH, gioiTinh, ngaySinh, email, sdt,
+                        soCCCD, diemTichLuy);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(connection);
+        }
+        return kh;
+    }
+    public KhachHang timKhachHangTheoMaPhongvaTrangThaiHoaDon(String maPhong,String trangThaiHD){
+        KhachHang kh = null;
+        Connection connection = null;
+        try {
+            connection = ConnectDB.getConnection();
+            CallableStatement stmt = connection.prepareCall("{call timKhachHangTheoMaPhongvaTrangThaiHoaDon (?,?)}");
+            stmt.setString(1,maPhong);
+            stmt.setString(2,trangThaiHD);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()){
                 String maKH = rs.getString("maKH");

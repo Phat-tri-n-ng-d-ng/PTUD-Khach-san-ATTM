@@ -17,29 +17,38 @@ import java.awt.Font;
 public class FormThongTinTraPhong extends JDialog {
 
     private static final long serialVersionUID = 1L;
-    private JTextField txt_SDT;
-    private JTextField txt_HoTen;
-    private JTextField txt_CCCD;
-    private JTextField txt_NgaySinh;
-    private JTextField txt_GioiTinh;
-    private JTextField txt_Email;
-    private JTextField txt_HangKhachHang;
-    private JTextField txt_DiemTichLuy;
-    private JTextField txt_TienKhachDua;
+    public JLabel lbl_TienThueTrongPnlTongTien_1_1;
+    public  JLabel lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1;
+    public  JLabel lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1_1;
+    public  JLabel lbl_PhuongThucThanhToanDuocChonGopHoaDon;
+    public  JLabel lbl_TienCuaTienTruKhuyenMaiPnlTongTien;
+    public JRadioButton rdbtn_ChuyenKhoan;
+    public JRadioButton rdbtn_TienMat;
+    public JRadioButton rdbtn_TachHoaDon;
+    public JRadioButton rdbtn_GopHoaDon;
+    public JTextField txt_SDT;
+    public JTextField txt_HoTen;
+    public JTextField txt_CCCD;
+    public JTextField txt_NgaySinh;
+    public JTextField txt_GioiTinh;
+    public JTextField txt_Email;
+    public JTextField txt_HangKhachHang;
+    public JTextField txt_DiemTichLuy;
+    public JTextField txt_TienKhachDua;
     public JDateChooser ngayBatDau;
     public JDateChooser ngayKetThuc;
-    JLabel lbl_PhuongThucThanhToanTrongPnlTongTien;
-    JLabel lbl_TongTienPhongTrongPnlTongTien;
-    JLabel lbl_PhiDoiPhongTrongPnlTongTien;
-    JLabel lbl_TienNhanTuKhachTrongPnlTongTien;
-    JLabel lbl_TienTraLaiKhachTrongPnlTongTien;
-    JLabel lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien;
-    JLabel lbl_TienCuaTongTienTrongPnlTongTien;
-    JLabel lbl_TienCuaPhiDoiPhongTrongPnlTongTien;
-    JLabel lbl_TienCuaTienNhanTuKhachTrongPnlTongTien;
-    JLabel lbl_TienCuaTienTraLaiKhachTrongPnlTongTien;
-    JButton btn_XacNhan;
-    JButton btn_Huy;
+    public JLabel lbl_PhuongThucThanhToanTrongPnlTongTien;
+    public JLabel lbl_TongTienPhongTrongPnlTongTien;
+    public JLabel lbl_PhiDoiPhongTrongPnlTongTien;
+    public JLabel lbl_TienNhanTuKhachTrongPnlTongTien;
+    public JLabel lbl_TienTraLaiKhachTrongPnlTongTien;
+    public JLabel lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien;
+    public JLabel lbl_TienCuaTongTienTrongPnlTongTien;
+    public JLabel lbl_TienCuaPhiDoiPhongTrongPnlTongTien;
+    public JLabel lbl_TienCuaTienNhanTuKhachTrongPnlTongTien;
+    public JLabel lbl_TienCuaTienTraLaiKhachTrongPnlTongTien;
+    public JButton btn_XacNhan;
+    public JButton btn_Huy;
     public JTable table;
     public DefaultTableModel model;
 
@@ -166,13 +175,13 @@ public class FormThongTinTraPhong extends JDialog {
         lbl_PhuongThucThangToan.setBounds(10, 440, 155, 20);
         getContentPane().add(lbl_PhuongThucThangToan);
 
-        JRadioButton rdbtn_TienMat = new JRadioButton("Tiền mặt");
+        rdbtn_TienMat = new JRadioButton("Tiền mặt");
         rdbtn_TienMat.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         rdbtn_TienMat.setBackground(new Color(236, 247, 255));
         rdbtn_TienMat.setBounds(200, 440, 102, 20);
         getContentPane().add(rdbtn_TienMat);
 
-        JRadioButton rdbtn_ChuyenKhoan = new JRadioButton("Chuyển khoản");
+        rdbtn_ChuyenKhoan = new JRadioButton("Chuyển khoản");
         rdbtn_ChuyenKhoan.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         rdbtn_ChuyenKhoan.setBackground(new Color(236, 247, 255));
         rdbtn_ChuyenKhoan.setBounds(340, 440, 113, 20);
@@ -209,7 +218,7 @@ public class FormThongTinTraPhong extends JDialog {
         getContentPane().add(pnl_DanhSachPhong);
 
 
-        model = new DefaultTableModel(new String[] {"Mã phòng","Loại phòng","SLTĐ","Giá","Tiền cọc","Thành tiền"}, 0);
+        model = new DefaultTableModel(new String[] {"Mã phòng","Loại phòng","SLTĐ","Số ngày ở","Giá","Tiền cọc","Thành tiền"}, 0);
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBackground(new Color(255, 255, 255));
@@ -242,7 +251,7 @@ public class FormThongTinTraPhong extends JDialog {
         ngayBatDau = new JDateChooser();
         ngayBatDau.setDateFormatString("dd/MM/yyyy");
         ngayBatDau.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-        ngayBatDau.setBounds(140, 9, 250, 25);  
+        ngayBatDau.setBounds(140, 9, 250, 25);
         pnl_ThoiGianThue.add(ngayBatDau);
 
         JLabel lbl_TienKhachDuaTrongPnlTongTien = new JLabel("Ngày kết thúc: ");
@@ -295,73 +304,74 @@ public class FormThongTinTraPhong extends JDialog {
         lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien = new JLabel("Tiền mặt");
         lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.setBounds(455, 10, 60, 18);
+        lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.setBounds(431, 10, 84, 18);
         panel.add(lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien);
+
 
         lbl_TienCuaTongTienTrongPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaTongTienTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTongTienTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTongTienTrongPnlTongTien.setBounds(455, 50, 60, 18);
+        lbl_TienCuaTongTienTrongPnlTongTien.setBounds(364, 50, 151, 18);
         panel.add(lbl_TienCuaTongTienTrongPnlTongTien);
 
         lbl_TienCuaPhiDoiPhongTrongPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaPhiDoiPhongTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaPhiDoiPhongTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaPhiDoiPhongTrongPnlTongTien.setBounds(455, 90, 60, 18);
+        lbl_TienCuaPhiDoiPhongTrongPnlTongTien.setBounds(364, 90, 151, 18);
         panel.add(lbl_TienCuaPhiDoiPhongTrongPnlTongTien);
 
         lbl_TienCuaTienNhanTuKhachTrongPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setBounds(455, 150, 60, 18);
+        lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setBounds(352, 150, 163, 18);
         panel.add(lbl_TienCuaTienNhanTuKhachTrongPnlTongTien);
 
         lbl_TienCuaTienTraLaiKhachTrongPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setBounds(455, 170, 60, 18);
+        lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setBounds(374, 170, 141, 18);
         panel.add(lbl_TienCuaTienTraLaiKhachTrongPnlTongTien);
-        
+
         JLabel lbl_PhuongThucXuatHoaDonIn = new JLabel("Phương thức xuất hóa đơn:");
         lbl_PhuongThucXuatHoaDonIn.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         lbl_PhuongThucXuatHoaDonIn.setBounds(10, 30, 163, 18);
         panel.add(lbl_PhuongThucXuatHoaDonIn);
-        
-        JLabel lbl_PhuongThucThanhToanDuocChonGopHoaDon = new JLabel("Gộp hóa đơn");
+
+        lbl_PhuongThucThanhToanDuocChonGopHoaDon = new JLabel("Gộp hóa đơn");
         lbl_PhuongThucThanhToanDuocChonGopHoaDon.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_PhuongThucThanhToanDuocChonGopHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         lbl_PhuongThucThanhToanDuocChonGopHoaDon.setBounds(431, 30, 84, 18);
         panel.add(lbl_PhuongThucThanhToanDuocChonGopHoaDon);
-        
-        JLabel lbl_TienTruKhuyenMaiTrongPnlTongTien = new JLabel("Tiền trừ khuyến mãi:");
+
+        JLabel lbl_TienTruKhuyenMaiTrongPnlTongTien = new JLabel("Tiền sau trừ khuyến mãi:");
         lbl_TienTruKhuyenMaiTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         lbl_TienTruKhuyenMaiTrongPnlTongTien.setBounds(10, 70, 163, 18);
         panel.add(lbl_TienTruKhuyenMaiTrongPnlTongTien);
-        
-        JLabel lbl_TienCuaTienTruKhuyenMaiPnlTongTien = new JLabel("0 VND");
+
+        lbl_TienCuaTienTruKhuyenMaiPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaTienTruKhuyenMaiPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTienTruKhuyenMaiPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTienTruKhuyenMaiPnlTongTien.setBounds(455, 70, 60, 18);
+        lbl_TienCuaTienTruKhuyenMaiPnlTongTien.setBounds(374, 70, 141, 18);
         panel.add(lbl_TienCuaTienTruKhuyenMaiPnlTongTien);
-        
+
         JLabel lbl_TongTienThanhToanTrongPnlTongTien_1 = new JLabel("Tổng tiền thanh toán:");
         lbl_TongTienThanhToanTrongPnlTongTien_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         lbl_TongTienThanhToanTrongPnlTongTien_1.setBounds(10, 110, 163, 18);
         panel.add(lbl_TongTienThanhToanTrongPnlTongTien_1);
-        
-        JLabel lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1 = new JLabel("0 VND");
+
+        lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1 = new JLabel("0 VND");
         lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1.setBounds(455, 110, 60, 18);
+        lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1.setBounds(374, 110, 141, 18);
         panel.add(lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1);
-        
-        JLabel lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1_1 = new JLabel("0 VND");
+
+        lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1_1 = new JLabel("0 VND");
         lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1_1.setBounds(455, 130, 60, 18);
+        lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1_1.setBounds(364, 130, 151, 18);
         panel.add(lbl_TienCuaTongTienThanhToanTrongPnlTongTien_1_1);
-        
-        JLabel lbl_TienThueTrongPnlTongTien_1_1 = new JLabel("Thuế (10% tổng tiền):");
+
+        lbl_TienThueTrongPnlTongTien_1_1 = new JLabel("Thuế (10% tổng tiền):");
         lbl_TienThueTrongPnlTongTien_1_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         lbl_TienThueTrongPnlTongTien_1_1.setBounds(10, 130, 163, 18);
         panel.add(lbl_TienThueTrongPnlTongTien_1_1);
@@ -399,23 +409,28 @@ public class FormThongTinTraPhong extends JDialog {
         btn_Huy.setFont(new Font("Times New Roman", Font.BOLD, 14));
         btn_Huy.setBounds(612, 570, 120, 30);
         getContentPane().add(btn_Huy);
-        
+
         JLabel lbl_PhuongThucXuatHoaDon = new JLabel("Phương thức xuất hóa đơn: ");
         lbl_PhuongThucXuatHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         lbl_PhuongThucXuatHoaDon.setBounds(10, 466, 172, 20);
         getContentPane().add(lbl_PhuongThucXuatHoaDon);
-        
-        JRadioButton rdbtn_GopHoaDon = new JRadioButton("Gộp hóa đơn");
+
+        rdbtn_GopHoaDon = new JRadioButton("Gộp hóa đơn");
         rdbtn_GopHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         rdbtn_GopHoaDon.setBackground(new Color(236, 247, 255));
         rdbtn_GopHoaDon.setBounds(340, 466, 128, 20);
         getContentPane().add(rdbtn_GopHoaDon);
-        
-        JRadioButton rdbtn_TachHoaDon = new JRadioButton("Tách hóa đơn");
+
+        rdbtn_TachHoaDon = new JRadioButton("Tách hóa đơn");
         rdbtn_TachHoaDon.setSelected(true);
         rdbtn_TachHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         rdbtn_TachHoaDon.setBackground(new Color(236, 247, 255));
         rdbtn_TachHoaDon.setBounds(200, 466, 113, 20);
         getContentPane().add(rdbtn_TachHoaDon);
+
+        // Tạo nhóm và thêm radio button vào nhóm
+        ButtonGroup phuongThucXuatHoaDon = new ButtonGroup();
+        phuongThucXuatHoaDon.add(rdbtn_TachHoaDon);
+        phuongThucXuatHoaDon.add(rdbtn_GopHoaDon);
     }
 }

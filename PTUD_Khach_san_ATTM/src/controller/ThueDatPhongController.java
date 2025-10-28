@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ThueDatPhongController {
+
     private ThueDatPhongPanel thueDatPhongPanel;
     private PhongServices phongServices;
     private KhachHangService khachHangServies;

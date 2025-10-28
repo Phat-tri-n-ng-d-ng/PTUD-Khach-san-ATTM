@@ -1,6 +1,7 @@
 package views;
 
 import com.toedter.calendar.JDateChooser;
+import controller.FormTraPhongController;
 import controller.NhanVienController;
 import controller.ThueDatPhongController;
 
@@ -60,6 +61,7 @@ public class ThueDatPhongPanel extends JPanel {
     public JButton btn_LamMoi;
     public JDateChooser ngayBatDau;
     public JDateChooser ngayKetThuc;
+    private FormTraPhongController formTraPhongController;
 
 	public ThueDatPhongPanel() {
         setBounds(100, 100, 1336, 768);
@@ -296,7 +298,7 @@ public class ThueDatPhongPanel extends JPanel {
         btn_NhanPhong = new JButton("Nhận phòng");
         btn_NhanPhong.setBounds(450, 516, 200, 30);
         pnl_ThongTin.add(btn_NhanPhong);
-        
+
         btn_TraPhong = new JButton("Trả phòng");
         btn_TraPhong.setBounds(30, 556, 200, 30);
 
@@ -373,5 +375,6 @@ public class ThueDatPhongPanel extends JPanel {
         thueDatPhongController = new ThueDatPhongController(this);
         thueDatPhongController.getTatCaPhong();
         thueDatPhongController.getKhuyenMai();
+        formTraPhongController= new FormTraPhongController(this);
 	}
 }
