@@ -7,6 +7,8 @@ import enums.TrangThaiPhong;
 import services.HoaDonService;
 import services.KhachHangService;
 import services.PhongServices;
+import views.FormThongTinDatPhong;
+import views.FormThongTinThuePhong;
 import views.ThueDatPhongPanel;
 
 import javax.swing.*;
@@ -48,6 +50,8 @@ public class ThueDatPhongController {
         thueDatPhongPanel.btn_LamMoi.addActionListener(e -> LamMoi());
         thueDatPhongPanel.cbb_KhuyenMai.addActionListener(e -> LocPhongCoKhuyenMai());
         thueDatPhongPanel.btn_Tim.addActionListener(e -> TimPhongDatTheoSoDienThoai());
+        thueDatPhongPanel.btn_DatPhong.addActionListener(e -> new FormThongTinDatPhong().setVisible(true));
+        thueDatPhongPanel.btn_ThuePhong.addActionListener(e -> new FormThongTinThuePhong().setVisible(true));
     }
 
     public void getTatCaPhong(){

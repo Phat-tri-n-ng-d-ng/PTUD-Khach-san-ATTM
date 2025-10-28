@@ -33,6 +33,11 @@ public class ThueDatPhongPanel extends JPanel {
     public  JButton btn_Superior;
     public  JButton btn_Deluxe;
     public  JButton btn_Suite;
+    public JButton btn_ThuePhong;
+    public JButton btn_DatPhong;
+    public JButton btn_NhanPhong;
+    public JButton btn_DoiPhong;
+    public JButton btn_HuyPhong;
     public JCheckBox chckbx_phongTrong;
     public JCheckBox chckbx_phongThue;
     public JCheckBox chckbx_phongDat;
@@ -278,15 +283,15 @@ public class ThueDatPhongPanel extends JPanel {
         txt_ngaySinhKhachHang.setEditable(false);
         pnlThongTin.add(txt_ngaySinhKhachHang);
 
-        JButton btn_ThuePhong = new JButton("Thuê phòng");
+        btn_ThuePhong = new JButton("Thuê phòng");
         btn_ThuePhong.setBounds(30, 516, 200, 30);
         pnl_ThongTin.add(btn_ThuePhong);
 
-        JButton btn_DatPhong = new JButton("Đặt phòng");
+        btn_DatPhong = new JButton("Đặt phòng");
         btn_DatPhong.setBounds(240, 516, 200, 30);
         pnl_ThongTin.add(btn_DatPhong);
 
-        JButton btn_NhanPhong = new JButton("Nhận phòng");
+        btn_NhanPhong = new JButton("Nhận phòng");
         btn_NhanPhong.setBounds(450, 516, 200, 30);
         pnl_ThongTin.add(btn_NhanPhong);
 
