@@ -40,7 +40,7 @@ public class LoaiPhongPanel extends JPanel {
         setLayout(null);
 
         // Tiêu đề
-        JLabel lbl_TieuDe = new JLabel("Loại phòng");
+        JLabel lbl_TieuDe = new JLabel("Loại Phòng");
         lbl_TieuDe.setForeground(new Color(10, 100, 189));
         lbl_TieuDe.setFont(new Font("Times New Roman", Font.BOLD, 24));
         lbl_TieuDe.setBounds(725, 10, 166, 25);

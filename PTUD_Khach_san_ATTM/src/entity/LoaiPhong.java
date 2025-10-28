@@ -52,7 +52,6 @@ public class LoaiPhong {
         this.tyLeCoc = tyLeCoc;
     }
 
-
     public LoaiPhong(String maLoaiPhong, String tenLoaiPhong, double giaNiemYet, double tyLeCoc, int soNguoiMacDinh) {
         this.maLoaiPhong = maLoaiPhong;
         this.tenLoaiPhong = tenLoaiPhong;

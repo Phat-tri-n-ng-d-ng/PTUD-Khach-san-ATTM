@@ -10,6 +10,7 @@ import services.PhongServices;
 import views.FormThongTinDatPhong;
 import views.FormThongTinNhanPhong;
 import views.FormThongTinThuePhong;
+import views.FormThongTinTraPhong;
 import views.ThueDatPhongPanel;
 
 import javax.swing.*;
@@ -58,6 +59,10 @@ public class ThueDatPhongController {
         	FormThongTinNhanPhong form = new FormThongTinNhanPhong(thueDatPhongPanel);
         	form.setVisible(true);
         } );
+        thueDatPhongPanel.btn_TraPhong.addActionListener(e -> {
+            FormThongTinTraPhong formThongTinTraPhong = new FormThongTinTraPhong();
+            formThongTinTraPhong.setVisible(true);
+        });
     }
 
     public void getTatCaPhong(){
