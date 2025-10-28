@@ -89,7 +89,7 @@ public class PhongController {
         if(phongPanel.chckbx_Standard.isSelected()) ds+=phongPanel.chckbx_Standard.getText()+",";
         if(phongPanel.chckbx_FamilyRoom.isSelected()) ds+=phongPanel.chckbx_FamilyRoom.getText()+",";
         if(phongPanel.chckbx_Superior.isSelected()) ds+=phongPanel.chckbx_Superior.getText()+",";
-            // xóa dấu , cuối cùng
+        // xóa dấu , cuối cùng
         if(!ds.isEmpty()){
             ds=ds.substring(0,ds.length()-1);
         }

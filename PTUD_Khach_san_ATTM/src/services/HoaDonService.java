@@ -41,9 +41,6 @@ public class HoaDonService {
 	public ArrayList<HoaDon> getHoaDonTheoTrangThai(String trangThai){
 		return hoaDonDao.getHoaDonTheoTrangThai(trangThai);
 	}
-    public ChiTietHoaDon timChiTietHoaDonTheoMaPhongVaTrangThaiHoaDon(String maPhongTim,String trangThaiHD){
-        return hoaDonDao.timChiTietHoaDonTheoMaPhongVaTrangThaiHoaDon(maPhongTim, trangThaiHD);
-    }
     public HoaDon timHoaDonTheoMaPhongVaTrangThaiHoaDon(String maPhongTim,String trangThaiHDTim){
         return hoaDonDao.timHoaDonTheoMaPhongVaTrangThaiHoaDon(maPhongTim, trangThaiHDTim);
     }
@@ -54,6 +51,18 @@ public class HoaDonService {
                 thanhTien, tongTien, tienGiam, phiDoiPhong,
                 tongTienTT, tienThue, tienNhan, tienTra);
     }
+	public ChiTietHoaDon timChiTietHoaDonTheoMaPhongVaTrangThaiHoaDon(String ma, String trangThai) {
+		return hoaDonDao.timChiTietHoaDonTheoMaPhongVaTrangThaiHoaDon(ma, trangThai);
+	}
+	public HoaDon getHoaDonTheoMaPhongVaTTHD(String maHD, String trangThai) {
+		return hoaDonDao.getHoaDonTheoMaPhongVaTTHD(maHD, trangThai);
+	}
+	public boolean capNhatTrangThai(String ma) {
+		return hoaDonDao.capNhatTrangThaiHoaDon(ma);
+	}
+	public HoaDon getHoaDon(String ma,String trangThai) {
+		return hoaDonDao.getHoaDon(ma, trangThai);
+	}
 
     public void tuDongCapNhatTrangThaiPhong(LocalDate ngayHomNay) {
         hoaDonDao.tuDongCapNhatTrangThaiPhong(ngayHomNay);

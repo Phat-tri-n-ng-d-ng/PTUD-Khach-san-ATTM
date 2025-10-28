@@ -200,6 +200,5 @@ public class PhongPanel extends JPanel {
         pc.hienThiDanhSachPhong();
         pc.hienThiLoaiPhong();
 //        pc.tuDongCapNhatTrangThaiPhong();
-
     }
 }

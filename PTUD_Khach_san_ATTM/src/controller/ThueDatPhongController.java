@@ -40,7 +40,6 @@ public class ThueDatPhongController {
         khuyenMaiDao = new KhuyenMaiDao();
         danhSachKhuyenMai = khuyenMaiDao.getTatCaKhuyenMai();
         hoaDonService = new HoaDonService();
-
         thueDatPhongPanel.btn_BoChon.addActionListener(e -> BoChonPhong());
         thueDatPhongPanel.txt_SoDienThoai.addActionListener(e -> getKhachHang());
         thueDatPhongPanel.btn_Loc.addActionListener(e-> LocTrangThaiPhong());
@@ -249,7 +248,6 @@ public class ThueDatPhongController {
             }
         }
     }
-
     private void LocPhongCoKhuyenMai() {
         if(thueDatPhongPanel.cbb_KhuyenMai.getSelectedIndex() == 0){
             getTatCaPhong();

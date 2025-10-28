@@ -215,7 +215,6 @@ public class HoaDonPanel extends JPanel {
         table_DanhSachHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         pnlDanhSachHoaDon.add(scrollPane);
 
-
         JLabel lbl_ThongTinHoaDon = new JLabel("Thông tin hóa đơn");
         lbl_ThongTinHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbl_ThongTinHoaDon.setBounds(838, 199, 180, 20);

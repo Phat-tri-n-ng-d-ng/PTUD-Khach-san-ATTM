@@ -9,10 +9,9 @@ public class Phong {
 	private String maPhong;
     private LoaiPhong loaiPhong;
     private int soLuongToiDa;
-    private double giaPhong;
+	private double giaPhong;
     private double tienCoc;
     private TrangThaiPhong trangThai;
-
 
     public Phong(String maPhong, TrangThaiPhong trangThai, LoaiPhong loaiPhong, int soLuongToiDa) {
         this.maPhong = maPhong;
