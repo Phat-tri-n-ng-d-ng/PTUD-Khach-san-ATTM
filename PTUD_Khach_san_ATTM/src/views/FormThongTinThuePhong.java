@@ -1,6 +1,10 @@
 package views;
 
 import com.toedter.calendar.JDateChooser;
+import controller.FormThongTinThuePhongController;
+import entity.KhachHang;
+import entity.Phong;
+import entity.TaiKhoan;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -11,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -23,15 +28,15 @@ import javax.swing.JTable;
 public class FormThongTinThuePhong extends JDialog {
 
     private static final long serialVersionUID = 1L;
-    private JTextField txt_SDT;
-    private JTextField txt_HoTen;
-    private JTextField txt_CCCD;
-    private JTextField txt_NgaySinh;
-    private JTextField txt_GioiTinh;
-    private JTextField txt_Email;
-    private JTextField txt_HangKhachHang;
-    private JTextField txt_DiemTichLuy;
-    private JTextField txt_TienKhachDua;
+    public JTextField txt_SDT;
+    public JTextField txt_HoTen;
+    public JTextField txt_CCCD;
+    public JTextField txt_NgaySinh;
+    public JTextField txt_GioiTinh;
+    public JTextField txt_Email;
+    public JTextField txt_HangKhachHang;
+    public JTextField txt_DiemTichLuy;
+    public JTextField txt_TienKhachDua;
     public JDateChooser ngayBatDau;
     public JDateChooser ngayKetThuc;
     public JDateChooser ngaySinhNguoiO;
@@ -51,14 +56,20 @@ public class FormThongTinThuePhong extends JDialog {
     public DefaultTableModel model_DanhSachPhong;
     public JTable table_DanhSachNguoiO;
     public DefaultTableModel model_DanhSachNguoiO;
-    private JTextField txt_HoTenNguoiO;
-    private JTextField txt_SDTNguoiO;
-    private JTextField txt_CCCDNguoiO;
-    private JTextField textField_1;
-
+    public JTextField txt_HoTenNguoiO;
+    public JTextField txt_SDTNguoiO;
+    public JTextField txt_CCCDNguoiO;
+    public JRadioButton rdbtn_TienMat;
+    public JRadioButton rdbtn_ChuyenKhoan;
+    public JButton btn_ThemNguoiOVaoDanhSach;
+    public JRadioButton rdbtn_NamNguoiO;
+    public JRadioButton rdbtn_NuNguoiO;
+    public FormThongTinThuePhongController controller;
+    private TaiKhoan taiKhoanDangNhap;
 
     public FormThongTinThuePhong() {
         jbInit();
+        controller = new FormThongTinThuePhongController(this);
     }
     private void jbInit() {
         getContentPane().setBackground(new Color(236, 247, 255));
@@ -205,13 +216,13 @@ public class FormThongTinThuePhong extends JDialog {
         lbl_PhuongThucThangToan.setBounds(10, 490, 155, 20);
         getContentPane().add(lbl_PhuongThucThangToan);
 
-        JRadioButton rdbtn_TienMat = new JRadioButton("Tiền mặt");
+        rdbtn_TienMat = new JRadioButton("Tiền mặt");
         rdbtn_TienMat.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         rdbtn_TienMat.setBackground(new Color(236, 247, 255));
         rdbtn_TienMat.setBounds(200, 490, 102, 20);
         getContentPane().add(rdbtn_TienMat);
 
-        JRadioButton rdbtn_ChuyenKhoan = new JRadioButton("Chuyển khoản");
+        rdbtn_ChuyenKhoan = new JRadioButton("Chuyển khoản");
         rdbtn_ChuyenKhoan.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         rdbtn_ChuyenKhoan.setBackground(new Color(236, 247, 255));
         rdbtn_ChuyenKhoan.setBounds(340, 490, 113, 20);
@@ -334,31 +345,31 @@ public class FormThongTinThuePhong extends JDialog {
         lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien = new JLabel("Tiền mặt");
         lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.setBounds(455, 10, 60, 18);
+        lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.setBounds(395, 10, 120, 18);
         pnl_TongTien.add(lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien);
 
         lbl_TienCuaTongTienTrongPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaTongTienTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTongTienTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTongTienTrongPnlTongTien.setBounds(455, 38, 60, 18);
+        lbl_TienCuaTongTienTrongPnlTongTien.setBounds(395, 38, 120, 18);
         pnl_TongTien.add(lbl_TienCuaTongTienTrongPnlTongTien);
 
         lbl_TienCuaTienCocTrongPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaTienCocTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTienCocTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTienCocTrongPnlTongTien.setBounds(455, 66, 60, 18);
+        lbl_TienCuaTienCocTrongPnlTongTien.setBounds(395, 66, 120, 18);
         pnl_TongTien.add(lbl_TienCuaTienCocTrongPnlTongTien);
 
         lbl_TienCuaTienNhanTuKhachTrongPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setBounds(455, 94, 60, 18);
+        lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setBounds(395, 94, 120, 18);
         pnl_TongTien.add(lbl_TienCuaTienNhanTuKhachTrongPnlTongTien);
 
         lbl_TienCuaTienTraLaiKhachTrongPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setBounds(455, 122, 60, 18);
+        lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setBounds(395, 122, 120, 18);
         pnl_TongTien.add(lbl_TienCuaTienTraLaiKhachTrongPnlTongTien);
 
         class RoundedButton extends JButton {
@@ -425,14 +436,15 @@ public class FormThongTinThuePhong extends JDialog {
             }
         }
 
-        RoundedButton btn_XacNhan = new RoundedButton("Xác nhận", new Color(76, 175, 80), Color.WHITE, 30);
+        //Khởi tạo các nút với tên biến chính xác
+        btn_XacNhan = new RoundedButton("Xác nhận", new Color(76, 175, 80), Color.WHITE, 30);
         btn_XacNhan.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        btn_XacNhan.setBounds(430, 700, 120, 30); // Thay đổi tọa độ y từ 570 thành 720
+        btn_XacNhan.setBounds(430, 700, 120, 30);
         getContentPane().add(btn_XacNhan);
 
-        RoundedButton btn_Huy = new RoundedButton("Hủy", new Color(244, 67, 54), Color.WHITE, 30);
+        btn_Huy = new RoundedButton("Hủy", new Color(244, 67, 54), Color.WHITE, 30);
         btn_Huy.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        btn_Huy.setBounds(612, 700, 120, 30); // Thay đổi tọa độ y từ 570 thành 720
+        btn_Huy.setBounds(612, 700, 120, 30);
         getContentPane().add(btn_Huy);
 
         JLabel lblFromThongTinNguoiO = new JLabel("Thông tin người ở ");
@@ -498,27 +510,27 @@ public class FormThongTinThuePhong extends JDialog {
         lbl_GioiTinhNguoiO.setBounds(286, 90, 80, 20);
         pnl_ThongTinNguoiO.add(lbl_GioiTinhNguoiO);
 
-        JRadioButton rdbtn_Nam = new JRadioButton("Nam");
-        rdbtn_Nam.setBackground(new Color(255, 255, 255));
-        rdbtn_Nam.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-        rdbtn_Nam.setBounds(376, 90, 55, 20);
-        pnl_ThongTinNguoiO.add(rdbtn_Nam);
+        rdbtn_NamNguoiO = new JRadioButton("Nam");
+        rdbtn_NamNguoiO.setBackground(new Color(255, 255, 255));
+        rdbtn_NamNguoiO.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        rdbtn_NamNguoiO.setBounds(376, 90, 55, 20);
+        pnl_ThongTinNguoiO.add(rdbtn_NamNguoiO);
 
-        JRadioButton rdbtn_Nu = new JRadioButton("Nữ");
-        rdbtn_Nu.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-        rdbtn_Nu.setBackground(Color.WHITE);
-        rdbtn_Nu.setBounds(461, 90, 55, 20);
-        pnl_ThongTinNguoiO.add(rdbtn_Nu);
+        rdbtn_NuNguoiO = new JRadioButton("Nữ");
+        rdbtn_NuNguoiO.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        rdbtn_NuNguoiO.setBackground(Color.WHITE);
+        rdbtn_NuNguoiO.setBounds(461, 90, 55, 20);
+        pnl_ThongTinNguoiO.add(rdbtn_NuNguoiO);
 
         // Tạo nhóm và thêm radio button vào nhóm
         ButtonGroup gioiTinhGroup = new ButtonGroup();
-        gioiTinhGroup.add(rdbtn_Nam);
-        gioiTinhGroup.add(rdbtn_Nu);
+        gioiTinhGroup.add(rdbtn_NamNguoiO);
+        gioiTinhGroup.add(rdbtn_NuNguoiO);
 
         // Nếu muốn một radio mặc định được chọn
-        rdbtn_Nam.setSelected(true);
+        rdbtn_NamNguoiO.setSelected(true);
 
-        JButton btn_ThemNguoiOVaoDanhSach = new JButton("Thêm");
+        btn_ThemNguoiOVaoDanhSach = new JButton("Thêm");
         btn_ThemNguoiOVaoDanhSach.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         btn_ThemNguoiOVaoDanhSach.setBounds(416, 130, 100, 26);
         pnl_ThongTinNguoiO.add(btn_ThemNguoiOVaoDanhSach);
@@ -546,5 +558,37 @@ public class FormThongTinThuePhong extends JDialog {
         pnl_DanhSachNguoiO.setLayout(null);
         table_DanhSachNguoiO.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         pnl_DanhSachNguoiO.add(scrollPane_DanhSachNguoiO);
+    }
+
+    // Thêm phương thức setThongTin
+    public void setThongTin(KhachHang khachHang, ArrayList<Phong> danhSachPhong, String loaiThue) {
+        controller.hienThiThongTin(khachHang, danhSachPhong);
+    }
+
+    private void hienThiThongTinKhachHang(KhachHang khachHang) {
+        txt_SDT.setText(khachHang.getSdt());
+        txt_HoTen.setText(khachHang.getTenKH());
+        txt_CCCD.setText(khachHang.getSoCCCD());
+        txt_Email.setText(khachHang.getEmail());
+
+        // Hiển thị ngày sinh
+        if (khachHang.getNgaySinh() != null) {
+            txt_NgaySinh.setText(khachHang.getNgaySinh().toString());
+        }
+
+        // Hiển thị giới tính
+        txt_GioiTinh.setText(khachHang.isGioiTinh() ? "Nam" : "Nữ");
+
+        // Hiển thị hạng khách hàng và điểm tích lũy
+        txt_HangKhachHang.setText(khachHang.getHangKH().toString());
+        txt_DiemTichLuy.setText(String.valueOf(khachHang.getDiemTichLuy()));
+    }
+
+    public void setTaiKhoanDangNhap(TaiKhoan taiKhoan) {
+        this.taiKhoanDangNhap = taiKhoan;
+    }
+
+    public TaiKhoan getTaiKhoanDangNhap() {
+        return taiKhoanDangNhap;
     }
 }
