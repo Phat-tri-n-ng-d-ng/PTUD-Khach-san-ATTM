@@ -6,6 +6,8 @@ import controller.NhanVienController;
 import controller.ThueDatPhongController;
 
 import java.awt.*;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -125,6 +127,30 @@ public class ThueDatPhongPanel extends JPanel {
         ngayKetThuc.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         ngayKetThuc.setBounds(566, 33, 104, 30);
         pnlLoc.add(ngayKetThuc);
+
+        ngayKetThuc = new JDateChooser();
+        ngayKetThuc.setDateFormatString("dd/MM/yyyy");
+        ngayKetThuc.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        ngayKetThuc.setBounds(566, 33, 104, 30);
+        ngayKetThuc.setMinSelectableDate(new java.util.Date());
+        pnlLoc.add(ngayKetThuc);
+
+        // Khi người dùng chọn ngày bắt đầu -> set ngày kết thúc = ngày bắt đầu + 1
+        ngayBatDau.getDateEditor().addPropertyChangeListener(evt -> {
+            if ("date".equals(evt.getPropertyName())) {
+                Date startDate = ngayBatDau.getDate();
+                if (startDate != null) {
+                    // Chặn chọn ngày kết thúc trước ngày bắt đầu
+                    ngayKetThuc.setMinSelectableDate(startDate);
+
+                    // Tự động set ngày kết thúc = ngày bắt đầu + 1
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(startDate);
+                    cal.add(Calendar.DAY_OF_MONTH, 1);
+                    ngayKetThuc.setDate(cal.getTime());
+                }
+            }
+        });
 
         cbb_KhuyenMai = new JComboBox();
         cbb_KhuyenMai.setBounds(788, 33, 192, 30);

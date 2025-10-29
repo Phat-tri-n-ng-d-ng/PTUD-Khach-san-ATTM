@@ -3,6 +3,7 @@ package database;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.Callable;
@@ -303,8 +304,127 @@ public class HoaDonDao {
             ConnectDB.closeConnection(connection);
         }
         return dsChiTietHoaDon;
+    }
 
+    public static String sinhMaHoaDonMoi() {
+        Connection con = null;
+        try {
+            con = ConnectDB.getConnection();
 
+            // Lấy ngày hiện tại
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyy");
+            String datePart = now.format(formatter);
+            String prefix = "HD" + datePart;
+
+            // Query để lấy mã hóa đơn lớn nhất có cùng prefix trong ngày
+            String sql = "SELECT MAX(maHD) as maxMaHD FROM HoaDon WHERE maHD LIKE ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, prefix + "%");
+
+            ResultSet rs = st.executeQuery();
+
+            int nextNumber = 1; // Mặc định bắt đầu từ 001
+
+            if (rs.next()) {
+                String maxMaHD = rs.getString("maxMaHD");
+                if (maxMaHD != null && maxMaHD.startsWith(prefix)) {
+                    // Lấy 3 số cuối và tăng lên 1
+                    String lastThreeDigits = maxMaHD.substring(maxMaHD.length() - 3);
+                    try {
+                        nextNumber = Integer.parseInt(lastThreeDigits) + 1;
+                    } catch (NumberFormatException e) {
+                        nextNumber = 1;
+                    }
+                }
+            }
+
+            // Format số thứ tự thành 3 chữ số
+            String sequencePart = String.format("%03d", nextNumber);
+
+            return prefix + sequencePart;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Fallback
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyy");
+            String datePart = now.format(formatter);
+            String randomPart = String.format("%03d", (int)(Math.random() * 1000));
+            return "HD" + datePart + randomPart;
+        } finally {
+            ConnectDB.closeConnection(con);
+        }
+    }
+
+    public boolean themHoaDon(HoaDon hoaDon) {
+        Connection con = ConnectDB.getConnection();
+        int n = 0;
+        try {
+            con.setAutoCommit(false); // Bắt đầu transaction
+
+            // 1. Thêm hóa đơn chính
+            String sqlHoaDon = "INSERT INTO HoaDon (maHD, ngayLap, ngayNhanPhong, ngayTraPhong, pTTT, trangThai, tienNhan, maKH, maNV, tongTien, tienThue, tienGiam, phiDoiPhong, tongTienThanhToan, tienTra) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stHoaDon = con.prepareStatement(sqlHoaDon);
+
+            stHoaDon.setString(1, hoaDon.getMaHD());
+            stHoaDon.setTimestamp(2, Timestamp.valueOf(hoaDon.getNgayLap()));
+            stHoaDon.setTimestamp(3, Timestamp.valueOf(hoaDon.getNgayNhanPhong()));
+            stHoaDon.setTimestamp(4, Timestamp.valueOf(hoaDon.getNgayTraPhong()));
+            stHoaDon.setString(5, hoaDon.getpTTT().name());
+            stHoaDon.setString(6, hoaDon.getTrangThai().name());
+            stHoaDon.setDouble(7, hoaDon.getTienNhan());
+            stHoaDon.setString(8, hoaDon.getKhachHang().getMaKH());
+            stHoaDon.setString(9, hoaDon.getNhanVien().getMaNV());
+            stHoaDon.setDouble(10, hoaDon.getTongTien());
+            stHoaDon.setDouble(11, hoaDon.getTienThue());
+            stHoaDon.setDouble(12, hoaDon.getTienGiam());
+            stHoaDon.setDouble(13, hoaDon.getPhiDoiPhong());
+            stHoaDon.setDouble(14, hoaDon.getTongTienThanhToan());
+            stHoaDon.setDouble(15, hoaDon.getTienTra());
+
+            n = stHoaDon.executeUpdate();
+
+            // 2. Thêm chi tiết hóa đơn
+            if (n > 0) {
+                themChiTietHoaDon(hoaDon, con);
+            }
+
+            con.commit(); // Commit transaction
+            return n > 0;
+
+        } catch (SQLException e) {
+            try {
+                if (con != null) con.rollback(); // Rollback nếu có lỗi
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (con != null) con.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            ConnectDB.closeConnection(con);
+        }
+    }
+
+    private void themChiTietHoaDon(HoaDon hoaDon, Connection con) throws SQLException {
+        String sql = "INSERT INTO ChiTietHoaDon (maHD, maPhong, thanhTien, soNgayO) VALUES (?, ?, ?, ?)";
+        PreparedStatement st = con.prepareStatement(sql);
+
+        for (ChiTietHoaDon cthd : hoaDon.getcTHD()) {
+            st.setString(1, hoaDon.getMaHD());
+            st.setString(2, cthd.getPhong().getMaPhong());
+            st.setDouble(3, cthd.getThanhTien());
+            st.setInt(4, cthd.getSoNgayO());
+            st.addBatch();
+        }
+
+        st.executeBatch();
     }
 
     public void tuDongCapNhatTrangThaiPhong(LocalDate ngayHomNay) {

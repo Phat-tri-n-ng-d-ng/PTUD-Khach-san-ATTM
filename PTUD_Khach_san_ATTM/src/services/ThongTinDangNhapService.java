@@ -1,8 +1,3 @@
-/**
- * @ (#) ThongTinDangNhapDTO.java       1.0     28/10/2025
- * <p>
- * Copuright (c) 2025 IUH, All rights reserved
- */
 package services;
 
 import entity.TaiKhoan;

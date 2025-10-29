@@ -17,12 +17,13 @@ public class NguoiO {
     private boolean gioiTinh;
     private HoaDon hoaDon;
     private Phong phong;
-    
-    public NguoiO(String hoTen, LocalDate ngaySinh, String SDT, String CCCD) {
+
+    public NguoiO(String hoTen, LocalDate ngaySinh, String sdt, String cccd, boolean gioiTinh) {
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
-        this.SDT = SDT;
-        this.CCCD = CCCD;
+        this.SDT = sdt;
+        this.CCCD = cccd;
+        this.gioiTinh = gioiTinh;
     }
 
     public NguoiO(String hoTen, LocalDate ngaySinh, String sDT, String cCCD, boolean gioiTinh, HoaDon hoaDon,
@@ -92,6 +93,7 @@ public class NguoiO {
     public void setCCCD(String CCCD) {
         this.CCCD = CCCD;
     }
+
 
     @Override
     public boolean equals(Object o) {

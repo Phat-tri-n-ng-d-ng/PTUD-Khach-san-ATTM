@@ -11,6 +11,7 @@ import entity.TaiKhoan;
 import enums.VaiTro;
 import org.kordamp.ikonli.swing.FontIcon;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
+import services.DangNhapServices;
 
 public class MainFrame extends JFrame {
     private JLayeredPane layeredPane;
@@ -25,6 +26,7 @@ public class MainFrame extends JFrame {
     private TaiKhoan taiKhoanDangNhap;
     private JLabel lblTenNguoiDung; // Khai báo lại
     private JLabel lblChucVu; // Khai báo lại
+    private DangNhapServices dangNhapServices;
 
     public MainFrame() {
         khoiTaoGiaoDien();
@@ -464,5 +466,17 @@ public class MainFrame extends JFrame {
         public void setContentAreaFilled(boolean b) {
             // Không làm gì cả
         }
+    }
+    // Thêm setter cho dangNhapServices
+    public void setDangNhapServices(DangNhapServices dangNhapServices) {
+        this.dangNhapServices = dangNhapServices;
+    }
+
+    public DangNhapServices getDangNhapServices() {
+        return dangNhapServices;
+    }
+
+    public TaiKhoan getTaiKhoanDangNhap() {
+        return taiKhoanDangNhap;
     }
 }

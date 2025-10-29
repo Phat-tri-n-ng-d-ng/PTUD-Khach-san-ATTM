@@ -37,21 +37,24 @@ public class DangNhapDao {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // Lấy thông tin tài khoản từ ResultSet
+                // SỬA: Lấy giá trị thực từ ResultSet
+                String tenDangNhapFromDB = rs.getString("tenDangNhap");
+                String matKhauFromDB = rs.getString("matKhau");
                 VaiTro vaiTro = VaiTro.valueOf(rs.getString("vaiTro"));
                 TrangThaiTaiKhoan trangThai = TrangThaiTaiKhoan.valueOf(rs.getString("trangThai"));
                 String maNV = rs.getString("maNV");
                 String tenNV = rs.getString("tenNV");
                 String chucVu = rs.getString("chucVu");
 
-                taiKhoan = new TaiKhoan("tenDangNhap", "matKhau", vaiTro);
+                // SỬA: Dùng giá trị từ database
+                taiKhoan = new TaiKhoan(tenDangNhapFromDB, matKhauFromDB, vaiTro);
                 taiKhoan.setTrangThai(trangThai);
                 taiKhoan.setMaNV(maNV);
                 taiKhoan.setTenNV(tenNV);
                 taiKhoan.setChucVu(chucVu);
             }
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             // Đóng kết nối
