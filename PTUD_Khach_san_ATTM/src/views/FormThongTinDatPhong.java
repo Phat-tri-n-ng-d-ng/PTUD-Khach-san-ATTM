@@ -1,6 +1,11 @@
 package views;
 
 import com.toedter.calendar.JDateChooser;
+import controller.FormThongTinDatPhongController;
+import controller.FormThongTinThuePhongController;
+import entity.KhachHang;
+import entity.Phong;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,39 +17,44 @@ import javax.swing.table.JTableHeader;
 import java.awt.Dimension;
 
 import java.awt.Font;
+import java.util.ArrayList;
 
 public class FormThongTinDatPhong extends JDialog {
 
     private static final long serialVersionUID = 1L;
-    private JTextField txt_SDT;
-    private JTextField txt_HoTen;
-    private JTextField txt_CCCD;
-    private JTextField txt_NgaySinh;
-    private JTextField txt_GioiTinh;
-    private JTextField txt_Email;
-    private JTextField txt_HangKhachHang;
-    private JTextField txt_DiemTichLuy;
-    private JTextField txt_TienKhachDua;
+    public JTextField txt_SDT;
+    public JTextField txt_HoTen;
+    public JTextField txt_CCCD;
+    public JTextField txt_NgaySinh;
+    public JTextField txt_GioiTinh;
+    public JTextField txt_Email;
+    public JTextField txt_HangKhachHang;
+    public JTextField txt_DiemTichLuy;
+    public JTextField txt_TienKhachDua;
     public JDateChooser ngayBatDau;
     public JDateChooser ngayKetThuc;
-    JLabel lbl_PhuongThucThanhToanTrongPnlTongTien;
-    JLabel lbl_TongTienTrongPnlTongTien;
-    JLabel lbl_TienCocTrongPnlTongTien;
-    JLabel lbl_TienNhanTuKhachTrongPnlTongTien;
-    JLabel lbl_TienTraLaiKhachTrongPnlTongTien;
-    JLabel lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien;
-    JLabel lbl_TienCuaTongTienTrongPnlTongTien;
-    JLabel lbl_TienCuaTienCocTrongPnlTongTien;
-    JLabel lbl_TienCuaTienNhanTuKhachTrongPnlTongTien;
-    JLabel lbl_TienCuaTienTraLaiKhachTrongPnlTongTien;
-    JButton btn_XacNhan;
-    JButton btn_Huy;
+    public JLabel lbl_PhuongThucThanhToanTrongPnlTongTien;
+    public JLabel lbl_TongTienTrongPnlTongTien;
+    public JLabel lbl_TienCocTrongPnlTongTien;
+    public JLabel lbl_TienNhanTuKhachTrongPnlTongTien;
+    public JLabel lbl_TienTraLaiKhachTrongPnlTongTien;
+    public JLabel lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien;
+    public JLabel lbl_TienCuaTongTienTrongPnlTongTien;
+    public JLabel lbl_TienCuaTienCocTrongPnlTongTien;
+    public JLabel lbl_TienCuaTienNhanTuKhachTrongPnlTongTien;
+    public JLabel lbl_TienCuaTienTraLaiKhachTrongPnlTongTien;
+    public JButton btn_XacNhan;
+    public JButton btn_Huy;
+    public JRadioButton rdbtn_TienMat;
+    public JRadioButton rdbtn_ChuyenKhoan;
+    public FormThongTinDatPhongController controller;
     public JTable table;
     public DefaultTableModel model;
 
 
     public FormThongTinDatPhong() {
         jbInit();
+        this.controller = new FormThongTinDatPhongController(this);
     }
     private void jbInit() {
         getContentPane().setBackground(new Color(236, 247, 255));
@@ -191,13 +201,13 @@ public class FormThongTinDatPhong extends JDialog {
         lbl_PhuongThucThangToan.setBounds(10, 440, 155, 20);
         getContentPane().add(lbl_PhuongThucThangToan);
 
-        JRadioButton rdbtn_TienMat = new JRadioButton("Tiền mặt");
+        rdbtn_TienMat = new JRadioButton("Tiền mặt");
         rdbtn_TienMat.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         rdbtn_TienMat.setBackground(new Color(236, 247, 255));
         rdbtn_TienMat.setBounds(200, 440, 102, 20);
         getContentPane().add(rdbtn_TienMat);
 
-        JRadioButton rdbtn_ChuyenKhoan = new JRadioButton("Chuyển khoản");
+        rdbtn_ChuyenKhoan = new JRadioButton("Chuyển khoản");
         rdbtn_ChuyenKhoan.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         rdbtn_ChuyenKhoan.setBackground(new Color(236, 247, 255));
         rdbtn_ChuyenKhoan.setBounds(340, 440, 113, 20);
@@ -319,105 +329,110 @@ public class FormThongTinDatPhong extends JDialog {
         lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien = new JLabel("Tiền mặt");
         lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.setBounds(455, 10, 60, 18);
+        lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien.setBounds(455, 10, 120, 18);
         panel.add(lbl_PhuongThucThanhToanDuocChonTrongPnlTongTien);
 
         lbl_TienCuaTongTienTrongPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaTongTienTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTongTienTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTongTienTrongPnlTongTien.setBounds(455, 38, 60, 18);
+        lbl_TienCuaTongTienTrongPnlTongTien.setBounds(455, 38, 120, 18);
         panel.add(lbl_TienCuaTongTienTrongPnlTongTien);
 
         lbl_TienCuaTienCocTrongPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaTienCocTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTienCocTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTienCocTrongPnlTongTien.setBounds(455, 66, 60, 18);
+        lbl_TienCuaTienCocTrongPnlTongTien.setBounds(455, 66, 120, 18);
         panel.add(lbl_TienCuaTienCocTrongPnlTongTien);
 
         lbl_TienCuaTienNhanTuKhachTrongPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setBounds(455, 94, 60, 18);
+        lbl_TienCuaTienNhanTuKhachTrongPnlTongTien.setBounds(455, 94, 120, 18);
         panel.add(lbl_TienCuaTienNhanTuKhachTrongPnlTongTien);
 
         lbl_TienCuaTienTraLaiKhachTrongPnlTongTien = new JLabel("0 VND");
         lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setBounds(455, 122, 60, 18);
+        lbl_TienCuaTienTraLaiKhachTrongPnlTongTien.setBounds(455, 122, 120, 18);
         panel.add(lbl_TienCuaTienTraLaiKhachTrongPnlTongTien);
 
-        class RoundedButton extends JButton {
-            private int radius;
-            private Color originalBg;
-            private boolean isHovered = false;
-            private boolean isPressed = false;
-
-            public RoundedButton(String label, Color bg, Color fg, int radius) {
-                super(label);
-                this.radius = radius;
-                this.originalBg = bg;
-                setBackground(bg);
-                setForeground(fg);
-                setContentAreaFilled(false);
-                setFocusPainted(false);
-                setBorder(null);
-
-                // Add mouse listener for hover and press effects
-                addMouseListener(new java.awt.event.MouseAdapter() {
-                    @Override
-                    public void mouseEntered(java.awt.event.MouseEvent e) {
-                        isHovered = true;
-                        repaint();
-                    }
-
-                    @Override
-                    public void mouseExited(java.awt.event.MouseEvent e) {
-                        isHovered = false;
-                        repaint();
-                    }
-
-                    @Override
-                    public void mousePressed(java.awt.event.MouseEvent e) {
-                        isPressed = true;
-                        repaint();
-                    }
-
-                    @Override
-                    public void mouseReleased(java.awt.event.MouseEvent e) {
-                        isPressed = false;
-                        repaint();
-                    }
-                });
-            }
-
-            @Override
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-                // Determine color based on state
-                Color bgColor = originalBg;
-                if (isPressed) {
-                    bgColor = originalBg.darker();  // Darker on press
-                } else if (isHovered) {
-                    bgColor = originalBg.brighter();  // Brighter on hover
-                }
-
-                g2.setColor(bgColor);
-                g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
-                super.paintComponent(g2);
-                g2.dispose();
-            }
-        }
-
-        RoundedButton btn_XacNhan = new RoundedButton("Xác nhận", new Color(76, 175, 80), Color.WHITE, 30);
+        btn_XacNhan = new RoundedButton("Xác nhận", new Color(76, 175, 80), Color.WHITE, 30);
         btn_XacNhan.setFont(new Font("Times New Roman", Font.BOLD, 14));
         btn_XacNhan.setBounds(430, 570, 120, 30);
         getContentPane().add(btn_XacNhan);
 
-        RoundedButton btn_Huy = new RoundedButton("Hủy", new Color(244, 67, 54), Color.WHITE, 30);
+        btn_Huy = new RoundedButton("Hủy", new Color(244, 67, 54), Color.WHITE, 30);
         btn_Huy.setFont(new Font("Times New Roman", Font.BOLD, 14));
         btn_Huy.setBounds(612, 570, 120, 30);
         getContentPane().add(btn_Huy);
+    }
+
+    // Thêm phương thức setThongTin
+    public void setThongTin(KhachHang khachHang, ArrayList<Phong> danhSachPhong, String loaiThue) {
+        controller.hienThiThongTin(khachHang, danhSachPhong);
+    }
+
+    class RoundedButton extends JButton {
+        private int radius;
+        private Color originalBg;
+        private boolean isHovered = false;
+        private boolean isPressed = false;
+
+        public RoundedButton(String label, Color bg, Color fg, int radius) {
+            super(label);
+            this.radius = radius;
+            this.originalBg = bg;
+            setBackground(bg);
+            setForeground(fg);
+            setContentAreaFilled(false);
+            setFocusPainted(false);
+            setBorder(null);
+
+            // Add mouse listener for hover and press effects
+            addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseEntered(java.awt.event.MouseEvent e) {
+                    isHovered = true;
+                    repaint();
+                }
+
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent e) {
+                    isHovered = false;
+                    repaint();
+                }
+
+                @Override
+                public void mousePressed(java.awt.event.MouseEvent e) {
+                    isPressed = true;
+                    repaint();
+                }
+
+                @Override
+                public void mouseReleased(java.awt.event.MouseEvent e) {
+                    isPressed = false;
+                    repaint();
+                }
+            });
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // Determine color based on state
+            Color bgColor = originalBg;
+            if (isPressed) {
+                bgColor = originalBg.darker();  // Darker on press
+            } else if (isHovered) {
+                bgColor = originalBg.brighter();  // Brighter on hover
+            }
+
+            g2.setColor(bgColor);
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
+            super.paintComponent(g2);
+            g2.dispose();
+        }
     }
 }

@@ -85,6 +85,35 @@ public class PhongDao {
         return p;
 
     }
+
+    public boolean capNhatTrangThaiPhong(String maPhong, String trangThai) {
+        Connection connection = ConnectDB.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            String sql = "UPDATE Phong SET trangThai = ? WHERE maPhong = ?";
+            stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, trangThai);
+            stmt.setString(2, maPhong);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            // Đóng kết nối
+            try {
+                if (stmt != null) stmt.close();
+                if (connection != null) ConnectDB.closeConnection(connection);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public ArrayList<Phong> timPhongTheoCheck(String [] luaChon){
         return null;
     }

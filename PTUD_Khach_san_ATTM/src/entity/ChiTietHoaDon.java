@@ -29,6 +29,10 @@ public class ChiTietHoaDon {
 //		HoaDon = hoaDon;
 //	}
     // dẫn xuất
+    private double tinhThanhTien() {
+        return soNgayO * phong.getGiaPhong();
+    }
+
     public double getThanhTien() {
         return thanhTien;
     }
@@ -40,10 +44,10 @@ public class ChiTietHoaDon {
     public ChiTietHoaDon(Phong phong, HoaDon hoaDon, int soNgayO) {
         setThanhTien(phong, soNgayO);
     }
+
     public ChiTietHoaDon(Phong phong,  int soNgayO) {
         this.phong = phong;
         this.soNgayO = soNgayO;
-        setThanhTien(phong, soNgayO);
-//	    System.out.println("=maPhong=" + phong.getMaPhong() + ", soNgayO=" + soNgayO + ", thanhTien=" + thanhTien);
+        this.thanhTien = tinhThanhTien();
     }
 }

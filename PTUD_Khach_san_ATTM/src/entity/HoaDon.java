@@ -102,12 +102,18 @@ public class HoaDon {
 	public double getTongTien() {
 		return tongTien;
 	}
-	//doi lai tong tien
+
 	public void setTongTien() {
 		double tong = 0;
-		for(ChiTietHoaDon cthd : dsCTHD) {
-			tong += cthd.getThanhTien();
+		// Kiểm tra null trước khi sử dụng
+		if (this.dsCTHD != null) {
+			for (ChiTietHoaDon cthd : this.dsCTHD) {
+				if (cthd != null) {
+					tong += cthd.getThanhTien();
+				}
+			}
 		}
+
 		this.tongTien = tong;
 		
 	}
@@ -116,7 +122,15 @@ public class HoaDon {
 		return tienGiam;
 	}
 	public void setTienGiam() {
-		this.tienGiam = tongTien * khuyenMai.getTyLeGiam();
+		try {
+			if (this.khuyenMai != null && this.tongTien > 0) {
+				this.tienGiam = this.tongTien * this.khuyenMai.getTyLeGiam();
+			} else {
+				this.tienGiam = 0;
+			}
+		} catch (Exception e) {
+			this.tienGiam = 0; // Nếu có lỗi, set tiền giảm = 0
+		}
 	}
 	public double getTienTra() {
 		return tienTra;
@@ -129,41 +143,42 @@ public class HoaDon {
 		return tienThue;
 	}
 	public void setTienThue() {
-		this.tienThue = tongTien * 0.1;
+		this.tienThue = (this.dsCTHD != null) ? this.tongTien * 0.1 : 0;
 		
 	}
 	public double getPhiDoiPhong() {
 		return phiDoiPhong;
 	}
 	public void setPhiDoiPhong() {
-		
-		
+		this.phiDoiPhong = 0;
 	}
 	public HoaDon(String maHD, LocalDateTime ngayLap, LocalDateTime ngayNhanPhong, LocalDateTime ngayTraPhong,
 			PhuongThucThanhToan pTTT, TrangThaiHoaDon trangThai, double tienNhan,  KhuyenMai khuyenMai,
 			KhachHang khachHang, ArrayList<ChiTietHoaDon> dsCTHD, NhanVien nhanVien) {
+
 		this.maHD = maHD;
 		this.ngayLap = ngayLap;
 		this.ngayNhanPhong = ngayNhanPhong;
 		this.ngayTraPhong = ngayTraPhong;
 		this.pTTT = pTTT;
 		this.trangThai = trangThai;
-		setTongTien();
-		setTienThue();
-		setTienGiam();
-		setPhiDoiPhong();
-		setTongTienThanhToan();
-		setTienTra();
+		// QUAN TRỌNG: Khởi tạo dsCTHD nếu null
+		this.dsCTHD = (dsCTHD != null) ? dsCTHD : new ArrayList<>();
 		this.tienNhan = tienNhan;
 		this.khuyenMai = khuyenMai;
 		this.khachHang = khachHang;
-		this.dsCTHD = dsCTHD;
 		this.nhanVien = nhanVien;
+
+		// Chỉ gọi setTongTien() nếu dsCTHD không rỗng
+		if (this.dsCTHD != null && !this.dsCTHD.isEmpty()) {
+			setTongTien();
+			setTienThue();
+			setTienGiam();
+			setPhiDoiPhong();
+			setTongTienThanhToan();
+			setTienTra();
+		}
 	}
-	
-	
-	
-	
 	
 	public HoaDon(String maHD, LocalDateTime ngayLap, PhuongThucThanhToan pTTT, TrangThaiHoaDon trangThai,
 			KhachHang khachHang, ArrayList<ChiTietHoaDon> dsCTHD, NhanVien nhanVien) {

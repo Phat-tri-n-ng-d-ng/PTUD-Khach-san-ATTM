@@ -8,12 +8,14 @@ public class NguoiO {
     private LocalDate ngaySinh;
     private String SDT;
     private String CCCD;
+    private boolean gioiTinh;
 
-    public NguoiO(String hoTen, LocalDate ngaySinh, String SDT, String CCCD) {
+    public NguoiO(String hoTen, LocalDate ngaySinh, String sdt, String cccd, boolean gioiTinh) {
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
-        this.SDT = SDT;
-        this.CCCD = CCCD;
+        this.SDT = sdt;
+        this.CCCD = cccd;
+        this.gioiTinh = gioiTinh;
     }
 
     public String getHoTen() {
@@ -46,6 +48,14 @@ public class NguoiO {
 
     public void setCCCD(String CCCD) {
         this.CCCD = CCCD;
+    }
+
+    public boolean isGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setGioiTinh(boolean gioiTinh) {
+        this.gioiTinh = gioiTinh;
     }
 
     @Override
